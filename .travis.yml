@@ -1,17 +1,19 @@
 language: java
 
+dist: trusty
+
 cache:
   directories:
   - ~/.m2
 
 matrix:
   include:
-    - jdk: oraclejdk11
+    - jdk: oraclejdk8
       env:
         - DESC="verifications"
       script: mvn verify
 
-    - jdk: oraclejdk11
+    - jdk: oraclejdk8
       env:
         - DESC="static analysis"
       # skip integration tests
