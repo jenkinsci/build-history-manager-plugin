@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+  This plugin allows to decide which builds should be deleted and which preserved.
+</div>
