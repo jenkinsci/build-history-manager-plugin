@@ -1,0 +1,21 @@
+language: java
+
+cache:
+  directories:
+  - ~/.m2
+
+matrix:
+  include:
+    - jdk: oraclejdk11
+      env:
+        - DESC="verifications"
+      script: mvn verify
+
+    - jdk: oraclejdk11
+      env:
+        - DESC="static analysis"
+      # skip integration tests
+      script: mvn test cobertura:cobertura
+      after_success:
+        # push report to codecov server
+        bash <(curl -s https://codecov.io/bash)
