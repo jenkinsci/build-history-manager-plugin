@@ -8,10 +8,18 @@
 [![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/damianszczepanik/project/115e1c04-215d-48f9-bb9f-606711f95147)
 
 # Build History Manager Plugin
-
 [Jenkins](https://jenkins.io/) plugin that allows to define which builds should be removed from the history and which preserved.
 
 ## Concept
 The motivation of creating this plugin is to deliver powerful plugin that allows to define rules:
 - which build should be processed (eg by status, branch)
 - how the build should be processed (eg. delete)
+This is based on [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class.
+
+## Code quality
+Once you developed your new feature or improvement you should test it by providing several unit or integration tests.
+
+![codecov.io](https://codecov.io/gh/damianszczepanik/build-history-manager-plugin/branch/master/graphs/tree.svg)
+
+## Contribution
+Interested in contributing to the cucumber-reporting?  Great!  Start [here](https://github.com/damianszczepanik/build-history-manager-plugin).
