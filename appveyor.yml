@@ -5,14 +5,6 @@ version: '{build}'
 init:
   - git config --global core.autocrlf true
 
-environment:
-  # to satisfy problem: There is an incompatible JNA native library installed on this system
-  jna.nosys: true
-
-cache:
-  - C:\maven\
-  - C:\Users\appveyor\.m2
-
 build_script:
   - mvn package --batch-mode -DskipTest
 
