@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>3.43</version>
+        <version>3.40</version>
     </parent>
 
     <groupId>pl.damianszczepanik</groupId>
@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Build History Manager</name>
+    <description>Jenkins plugin that allows to define which builds should be removed from the history and which preserved</description>
     <url>https://github.com/damianszczepanik/build-history-manager-plugin</url>
 
     <properties>
@@ -56,15 +57,8 @@
             <url>http://repo.jenkins-ci.org/public/</url>
         </pluginRepository>
     </pluginRepositories>
-
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.eclipse.hudson.tools</groupId>
-                <artifactId>maven-hpi-plugin</artifactId>
-                <version>3.0.3</version>
-            </plugin>
-            <!-- support for Codecov.io -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
@@ -75,6 +69,15 @@
                         <format>xml</format>
                     </formats>
                     <check/>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jenkins-ci.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <!-- Jenkins test InjectedTest renamed to InjectedIT so it is executed only during integration tests -->
+                    <injectedTestName>InjectionIT</injectedTestName>
                 </configuration>
             </plugin>
         </plugins>
@@ -88,12 +91,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 
     <dependencies>
