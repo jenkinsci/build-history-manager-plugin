@@ -8,12 +8,12 @@ import jenkins.model.BuildDiscarder;
 import jenkins.model.BuildDiscarderDescriptor;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-public class BuildHistoryManager extends BuildDiscarder {
+public class BuildHistoryDiscarder extends BuildDiscarder {
 
     public String limit;
 
     @DataBoundConstructor
-    public BuildHistoryManager(String limit) {
+    public BuildHistoryDiscarder(String limit) {
         this.limit = limit;
     }
 
