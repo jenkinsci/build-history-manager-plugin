@@ -1,6 +1,7 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import hudson.Extension;
 import hudson.model.Job;
@@ -10,7 +11,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 public class BuildHistoryDiscarder extends BuildDiscarder {
 
-    public String limit;
+    private static final Logger LOG = Logger.getLogger(BuildHistoryDiscarder.class.getName());
+
+    private String limit;
 
     @DataBoundConstructor
     public BuildHistoryDiscarder(String limit) {
@@ -19,6 +22,7 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
 
     @Override
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+        LOG.info("Running perform() method");
     }
 
     public String getLimit() {
@@ -26,7 +30,7 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
     }
 
     @Extension
-    public static final class EnhancedOldBuildDiscarderDescriptor extends BuildDiscarderDescriptor {
+    public static final class BuildHistoryDiscarderDescriptor extends BuildDiscarderDescriptor {
         public String getDisplayName() {
             return "Build History Manager";
         }

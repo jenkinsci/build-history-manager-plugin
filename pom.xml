@@ -13,7 +13,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Build History Manager</name>
-    <description>Jenkins plugin that allows to define which builds should be removed from the history and which preserved</description>
+    <description>
+        Jenkins plugin that allows to define which builds should be removed from the history and which preserved
+    </description>
     <url>https://github.com/damianszczepanik/build-history-manager-plugin</url>
 
     <properties>
