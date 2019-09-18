@@ -5,5 +5,9 @@ jdk:
   - oraclejdk8
 
 build:
+  cache: true
+  cache_dir_list:
+    - /root/.m2
+
   ci:
-    - mvn verify
+    - mvn clean verify
