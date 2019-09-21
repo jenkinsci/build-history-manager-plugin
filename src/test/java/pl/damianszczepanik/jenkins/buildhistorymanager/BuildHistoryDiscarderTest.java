@@ -3,7 +3,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
-import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryDiscarder.BuildHistoryDiscarderDescriptor;
+import pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.BuildHistoryDiscarderDescriptor;
 
 public class BuildHistoryDiscarderTest {
 
