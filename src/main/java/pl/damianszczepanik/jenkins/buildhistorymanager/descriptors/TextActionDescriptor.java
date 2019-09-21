@@ -6,6 +6,8 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.TextAction;
 
 /**
+ * Descriptor implementation needed for rendering UI for {@link TextAction}.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension

@@ -4,7 +4,11 @@ import hudson.Extension;
 import jenkins.model.BuildDiscarderDescriptor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryDiscarder;
 
-
+/**
+ * Descriptor implementation needed for rendering UI for {@link BuildHistoryDiscarder}.
+ *
+ * @author Damian Szczepanik (damianszczepanik@github)
+ */
 @Extension
 public final class BuildHistoryDiscarderDescriptor extends BuildDiscarderDescriptor {
 

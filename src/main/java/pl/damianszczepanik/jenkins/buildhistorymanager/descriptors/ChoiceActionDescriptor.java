@@ -7,6 +7,8 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.ChoiceAction;
 
 /**
+ * Descriptor implementation needed for rendering UI for {@link ChoiceAction}.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension

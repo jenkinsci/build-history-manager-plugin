@@ -5,6 +5,8 @@ import hudson.model.Descriptor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 
 /**
+ * Descriptor implementation needed for rendering UI for {@link Rule}.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension

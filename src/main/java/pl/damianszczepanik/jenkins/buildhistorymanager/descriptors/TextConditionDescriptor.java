@@ -6,6 +6,8 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Condition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.TextCondition;
 
 /**
+ * Descriptor implementation needed for rendering UI for {@link TextCondition}.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension

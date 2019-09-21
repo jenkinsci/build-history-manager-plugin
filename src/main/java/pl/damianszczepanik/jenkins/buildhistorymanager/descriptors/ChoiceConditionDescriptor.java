@@ -7,6 +7,8 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.ChoiceCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Condition;
 
 /**
+ * Descriptor implementation needed for rendering UI for {@link ChoiceCondition}.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension
