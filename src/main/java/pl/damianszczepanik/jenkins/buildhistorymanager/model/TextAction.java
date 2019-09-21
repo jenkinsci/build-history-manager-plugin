@@ -1,7 +1,5 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
-import hudson.Extension;
-import hudson.model.Descriptor;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -18,14 +16,5 @@ public final class TextAction extends Action {
 
     public String getText() {
         return text;
-    }
-
-    @Extension
-    public static class TextActionDescriptor extends Descriptor<Action> {
-
-        @Override
-        public String getDisplayName() {
-            return "Text Action";
-        }
     }
 }

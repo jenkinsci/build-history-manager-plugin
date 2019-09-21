@@ -1,9 +1,8 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager;
+package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
-import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryDiscarder.BuildHistoryDiscarderDescriptor;
 
 public class BuildHistoryDiscarderTest {
 
