@@ -7,12 +7,12 @@ import org.kohsuke.stapler.DataBoundConstructor;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public final class TextRule extends Rule {
+public final class TextAction extends Action {
 
     private final String text;
 
     @DataBoundConstructor
-    public TextRule(String text) {
+    public TextAction(String text) {
         this.text = text;
     }
 
@@ -21,11 +21,11 @@ public final class TextRule extends Rule {
     }
 
     @Extension
-    public static class TextRuleDescriptor extends Descriptor<Rule> {
+    public static class TextActionDescriptor extends Descriptor<Action> {
 
         @Override
         public String getDisplayName() {
-            return "Text Rule";
+            return "Text Action";
         }
     }
 }
