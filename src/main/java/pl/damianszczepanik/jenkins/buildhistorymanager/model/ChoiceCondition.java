@@ -8,12 +8,12 @@ import org.kohsuke.stapler.DataBoundConstructor;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public final class ChoiceRule extends Rule {
+public final class ChoiceCondition extends Condition {
 
     private final String choice;
 
     @DataBoundConstructor
-    public ChoiceRule(String choice) {
+    public ChoiceCondition(String choice) {
         this.choice = choice;
     }
 
@@ -22,15 +22,16 @@ public final class ChoiceRule extends Rule {
     }
 
     @Extension
-    public static class ChoiceRuleDescriptor extends Descriptor<Rule> {
+    public static class ChoiceConditionDescriptor extends Descriptor<Condition> {
 
         @Override
         public String getDisplayName() {
-            return "Choice Rule";
+            return "Choice Condition";
         }
 
         public ListBoxModel doFillChoiceItems() {
-            return new ListBoxModel().add("good").add("bad").add("ugly");
+
+            return new ListBoxModel().add("red").add("blue").add("white");
         }
     }
 }

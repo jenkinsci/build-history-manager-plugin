@@ -2,7 +2,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
     <f:advanced>
         <f:block>
-            <f:repeatableHeteroProperty field="rules" hasHeader="true"/>
+            <f:repeatableProperty minimum="0" field="rules" add="Add Role"/>
         </f:block>
     </f:advanced>
 </j:jelly>
