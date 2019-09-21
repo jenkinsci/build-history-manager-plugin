@@ -8,13 +8,31 @@
 [![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/damianszczepanik/project/115e1c04-215d-48f9-bb9f-606711f95147)
 
 # Build History Manager Plugin
-[Jenkins](https://jenkins.io/) plugin that allows to define which builds should be removed from the history and which preserved.
+[Jenkins](https://jenkins.io/) plugin that allows to build complex rules to define which builds should be removed from the history and which preserved.
 
-## Concept
-The motivation of creating this plugin is to deliver powerful plugin that allows to define rules:
-- which build should be processed (eg by status, branch)
-- how the build should be processed (eg. delete)
-This is based on [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class.
+## Usage
+The motivation of creating this plugin is to deliver powerful tool that allows to define rules that are built from two types of objects:
+
+### Conditions
+[Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Condition.java) filters out builds which should be performed by [actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Action.java). So plugin can filter builds by:
+- build [result](https://javadoc.jenkins-ci.org/hudson/model/Result.html)
+- variables for which you can use [Token Macro](https://wiki.jenkins.io/display/JENKINS/Token+Macro+Plugin) plugin
+
+### Actions
+[Actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Action.java) defines how the build filtered by above condition) should be modified. Plugin can:
+- mark the build to be [kept forever]([https://javadoc.jenkins.io/hudson/model/Run.html#keepLog--)
+- [delete](https://javadoc.jenkins.io/hudson/model/Run.html#delete--) the build
+- [delete](https://javadoc.jenkins.io/hudson/model/Run.html#deleteArtifacts--) artifacts
+
+There is possibility to build complex rules. Each [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) can define more than single condition and action.
+Plugin is based on [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class.
+
+### Use cases
+Using conditions and actions there is easy to realize following scenarios:
+- Delete builds which are [unstable](https://javadoc.jenkins.io/hudson/model/Result.html#UNSTABLE) or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED) if they are not valuable.
+- Keep only last build per [result](https://javadoc.jenkins.io/hudson/model/Result.html). So the history contain at most four builds, for aborted, unstable, failure and success.
+- Keep builds only from `master` branch if the project builds all branches including feature branches
+
 
 ## Code quality
 Once you developed your new feature or improvement you should test it by providing several unit or integration tests.
@@ -22,4 +40,4 @@ Once you developed your new feature or improvement you should test it by providi
 ![codecov.io](https://codecov.io/gh/damianszczepanik/build-history-manager-plugin/branch/master/graphs/tree.svg)
 
 ## Contribution
-Interested in contributing to the cucumber-reporting?  Great!  Start [here](https://github.com/damianszczepanik/build-history-manager-plugin).
+Interested in contributing to deliver new condition or action?  Great! Start [here](https://github.com/damianszczepanik/build-history-manager-plugin).
