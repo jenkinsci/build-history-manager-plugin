@@ -6,7 +6,9 @@ init:
   - git config --global core.autocrlf true
 
 build_script:
-  - mvn package --batch-mode -DskipTest
+  # JNA fix according to https://github.com/sbt/io/issues/110
+  - mvn -Djna.nosys=true package --batch-mode -DskipTest
 
 test_script:
-  - mvn verify --batch-mode
+  # JNA fix according to https://github.com/sbt/io/issues/110
+  - mvn -Djna.nosys=true verify --batch-mode
