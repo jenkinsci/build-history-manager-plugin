@@ -25,8 +25,16 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
         return rules;
     }
 
+    /**
+     * Entry point for the discarding process.
+     *
+     * @see BuildDiscarder#perform(Job)
+     * @see Job#logRotate()
+     */
     @Override
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+        for (Rule rule : rules) {
+            rule.perform(job);
+        }
     }
-
 }

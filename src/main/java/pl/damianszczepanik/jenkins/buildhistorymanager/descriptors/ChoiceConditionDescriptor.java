@@ -3,11 +3,11 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.ListBoxModel;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.ChoiceCondition;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.Condition;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.ChoiceCondition;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
 /**
- * Descriptor implementation needed for rendering UI for {@link ChoiceCondition}.
+ * Descriptor implementation needed to render UI for {@link ChoiceCondition}.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */

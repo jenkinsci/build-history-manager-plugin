@@ -1,21 +1,19 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ActionBuilder.sampleActions;
+import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.sampleConditions;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class RuleTest {
-
-    private List<Condition> sampleConditions = Arrays.asList(new Condition() {
-    });
-    private List<Action> sampleActions = Arrays.asList(new Action() {
-    });
 
     @Test
     public void getConditions_ReturnsConditions() {

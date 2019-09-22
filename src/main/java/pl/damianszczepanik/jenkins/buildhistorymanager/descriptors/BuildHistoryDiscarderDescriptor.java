@@ -5,7 +5,7 @@ import jenkins.model.BuildDiscarderDescriptor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryDiscarder;
 
 /**
- * Descriptor implementation needed for rendering UI for {@link BuildHistoryDiscarder}.
+ * Descriptor implementation needed to render UI for {@link BuildHistoryDiscarder}.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
@@ -16,6 +16,7 @@ public final class BuildHistoryDiscarderDescriptor extends BuildDiscarderDescrip
         super(BuildHistoryDiscarder.class);
     }
 
+    @Override
     public String getDisplayName() {
         return "Build History Manager";
     }

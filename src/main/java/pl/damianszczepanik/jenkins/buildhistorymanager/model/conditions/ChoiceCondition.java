@@ -1,5 +1,6 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.model;
+package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
+import hudson.model.Job;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -16,5 +17,10 @@ public final class ChoiceCondition extends Condition {
 
     public String getChoice() {
         return choice;
+    }
+
+    @Override
+    public boolean matches(Job<?, ?> job) {
+        return false;
     }
 }
