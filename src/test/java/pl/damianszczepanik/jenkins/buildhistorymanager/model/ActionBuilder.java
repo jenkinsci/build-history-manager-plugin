@@ -13,6 +13,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class ActionBuilder {
 
+    public static final List<Action> sampleActions = Collections.unmodifiableList(Arrays.asList(
+            new SampleAction(), new SampleAction()));
+
     private static class SampleAction extends Action {
 
         @Override
@@ -20,7 +23,4 @@ public class ActionBuilder {
             throw new NotImplementedException();
         }
     }
-
-    public static final List<Action> sampleActions = Collections.unmodifiableList(Arrays.asList(
-            new SampleAction(), new SampleAction()));
 }

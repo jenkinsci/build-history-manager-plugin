@@ -9,6 +9,15 @@
             <f:repeatableHeteroProperty field="actions" hasHeader="true" addCaption="Add Action"/>
         </f:block>
 
+        <f:block>
+            <f:entry title="Match at most" field="matchAtMost">
+                <f:number default="-1"/>
+            </f:entry>
+            <f:entry title="Continue after match" field="continueAfterMatch">
+                <f:checkbox default="true"/>
+            </f:entry>
+        </f:block>
+
         <f:entry>
             <div align="right">
                 <f:repeatableDeleteButton/>

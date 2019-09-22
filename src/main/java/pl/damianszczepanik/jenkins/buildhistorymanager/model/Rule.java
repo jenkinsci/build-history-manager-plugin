@@ -6,6 +6,7 @@ import java.util.List;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Job;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
@@ -18,10 +19,14 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     private final List<Action> actions;
 
+    private int matchAtMost;
+    private boolean continueAfterMatch;
+
     @DataBoundConstructor
     public Rule(List<Condition> conditions, List<Action> actions) {
         this.conditions = conditions;
         this.actions = actions;
+        this.continueAfterMatch = true;
     }
 
     public List<Condition> getConditions() {
@@ -32,7 +37,24 @@ public class Rule extends AbstractDescribableImpl<Rule> {
         return actions;
     }
 
-    public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+    @DataBoundSetter
+    public void setMatchAtMost(int matchAtMost) {
+        this.matchAtMost = matchAtMost;
+    }
 
+    public int getMatchAtMost() {
+        return matchAtMost;
+    }
+
+    @DataBoundSetter
+    public void setContinueAfterMatch(boolean continueAfterMatch) {
+        this.continueAfterMatch = continueAfterMatch;
+    }
+
+    public boolean getContinueAfterMatch() {
+        return continueAfterMatch;
+    }
+
+    public void perform(Job<?, ?> job) throws IOException, InterruptedException {
     }
 }

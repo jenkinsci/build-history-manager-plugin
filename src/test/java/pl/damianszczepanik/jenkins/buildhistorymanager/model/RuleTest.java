@@ -40,4 +40,47 @@ public class RuleTest {
         // then
         assertThat(actions).containsAll(sampleActions);
     }
+
+    @Test
+    public void getMatchAtMost_ReturnsMatchAtMost() {
+
+        // given
+        Rule rule = new Rule(sampleConditions, sampleActions);
+        int matchAtMost = 123;
+        rule.setMatchAtMost(matchAtMost);
+
+        // when
+        int returnedValue = rule.getMatchAtMost();
+
+        // then
+        assertThat(returnedValue).isEqualTo(matchAtMost);
+    }
+
+    @Test
+    public void newRule_SetsContinueAfterMatch() {
+
+        // given
+        Rule rule = new Rule(sampleConditions, sampleActions);
+
+        // when
+        boolean returnedValue = rule.getContinueAfterMatch();
+
+        // then
+        assertThat(returnedValue).isTrue();
+    }
+
+    @Test
+    public void getContinueAfterMatch_ReturnsContinueAfterMatch() {
+
+        // given
+        Rule rule = new Rule(sampleConditions, sampleActions);
+        boolean continueAfterMatch = false;
+        rule.setContinueAfterMatch(continueAfterMatch);
+
+        // when
+        boolean returnedValue = rule.getContinueAfterMatch();
+
+        // then
+        assertThat(returnedValue).isEqualTo(continueAfterMatch);
+    }
 }

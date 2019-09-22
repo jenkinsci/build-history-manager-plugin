@@ -37,7 +37,6 @@ Using conditions and actions there is easy to realize following scenarios:
 - Keep only last build per [result](https://javadoc.jenkins.io/hudson/model/Result.html). So the history contain at most four builds, for aborted, unstable, failure and success.
 - Keep builds only from `master` branch if the project builds all branches including feature branches
 
-
 ## Code quality
 Once you developed your new feature or improvement you should test it by providing several unit or integration tests.
 

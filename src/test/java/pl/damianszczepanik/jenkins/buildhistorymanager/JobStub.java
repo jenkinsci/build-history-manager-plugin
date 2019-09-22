@@ -28,6 +28,5 @@ public abstract class JobStub extends Job {
 
     @Override
     protected void removeRun(Run run) {
-
     }
 }
