@@ -4,8 +4,12 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3c7da31c6c194731aee1aafa28dca98e)](https://app.codacy.com/manual/damianszczepanik/build-history-manager-plugin/dashboard)
 [![Coverage Status](https://codecov.io/gh/damianszczepanik/build-history-manager-plugin/branch/master/graph/badge.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/build-history-manager-plugin)
-[![Coverage Status](https://codebeat.co/badges/321eff32-cbd0-4719-9ddd-c90cf1433e14)](https://codebeat.co/projects/github-com-damianszczepanik-build-history-manager-plugin-master)
+[![Codebean Status](https://codebeat.co/badges/321eff32-cbd0-4719-9ddd-c90cf1433e14)](https://codebeat.co/projects/github-com-damianszczepanik-build-history-manager-plugin-master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_build-history-manager-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=damianszczepanik_build-history-manager-plugin)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_build-history-manager-plugin&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=damianszczepanik_build-history-manager-plugin)
+
 [![Vulnerabilities](https://snyk.io/test/github/damianszczepanik/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/damianszczepanik/project/115e1c04-215d-48f9-bb9f-606711f95147)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_build-history-manager-plugin&metric=security_rating)](https://sonarcloud.io/dashboard?id=damianszczepanik_build-history-manager-plugin)
 
 # Build History Manager Plugin
 [Jenkins](https://jenkins.io/) plugin that allows to build complex rules to define which builds should be removed from the history and which preserved.
