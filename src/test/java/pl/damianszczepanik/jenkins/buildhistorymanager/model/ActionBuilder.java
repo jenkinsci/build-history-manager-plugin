@@ -13,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class ActionBuilder {
 
-    private static final class SampleAction extends Action {
+    private static class SampleAction extends Action {
 
         @Override
         public void perform(Job<?, ?> job) {
