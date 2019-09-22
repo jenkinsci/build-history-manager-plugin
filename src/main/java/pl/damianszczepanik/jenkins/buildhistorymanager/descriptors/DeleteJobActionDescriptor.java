@@ -19,6 +19,6 @@ public class DeleteJobActionDescriptor extends Descriptor<Action> {
 
     @Override
     public String getDisplayName() {
-        return "Delete Job Action";
+        return "Delete job";
     }
 }

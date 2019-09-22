@@ -4,23 +4,19 @@ import hudson.model.Job;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
+ * Matches every job without any condition.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public final class ChoiceCondition extends Condition {
-
-    private final String choice;
+public class MatchEveryJobCondition extends Condition {
 
     @DataBoundConstructor
-    public ChoiceCondition(String choice) {
-        this.choice = choice;
-    }
-
-    public String getChoice() {
-        return choice;
+    public MatchEveryJobCondition() {
+        // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
     @Override
     public boolean matches(Job<?, ?> job) {
-        return false;
+        return true;
     }
 }
