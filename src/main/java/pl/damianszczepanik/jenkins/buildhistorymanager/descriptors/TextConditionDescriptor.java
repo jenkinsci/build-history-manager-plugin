@@ -2,11 +2,11 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
 import hudson.Extension;
 import hudson.model.Descriptor;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.Condition;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.TextCondition;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.TextCondition;
 
 /**
- * Descriptor implementation needed for rendering UI for {@link TextCondition}.
+ * Descriptor implementation needed to render UI for {@link TextCondition}.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */

@@ -1,5 +1,8 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.model;
+package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
+import java.io.IOException;
+
+import hudson.model.Job;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -16,5 +19,10 @@ public final class TextAction extends Action {
 
     public String getText() {
         return text;
+    }
+
+    @Override
+    public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+
     }
 }

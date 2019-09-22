@@ -1,6 +1,6 @@
-[![Travis Status](https://img.shields.io/travis/damianszczepanik/build-history-manager-plugin/master.svg?label=Travis%20bulid)](https://travis-ci.org/damianszczepanik/build-history-manager-plugin)
-[![Appveyor Status](https://ci.appveyor.com/api/projects/status/hdaaavqcrk9gpnuh?branch=master&svg=true&label=Appveyor%20build)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin)
-[![Shippable Status](https://api.shippable.com/projects/5d7ce249bf5b4f00078e2eb4/badge?branch=master&label=Shippable%20build)](https://app.shippable.com/github/damianszczepanik/build-history-manager-plugin/dashboard)
+[![Travis Status](https://img.shields.io/travis/damianszczepanik/build-history-manager-plugin/master.svg?label=Travis)](https://travis-ci.org/damianszczepanik/build-history-manager-plugin)
+[![Appveyor Status](https://img.shields.io/appveyor/ci/damianszczepanik/build-history-manager-plugin/master?label=AppVeyor)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin)
+[![Shippable Status](https://img.shields.io/shippable/5d7ce249bf5b4f00078e2eb4/master?label=Shippable)](https://app.shippable.com/github/damianszczepanik/build-history-manager-plugin/dashboard)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3c7da31c6c194731aee1aafa28dca98e)](https://app.codacy.com/manual/damianszczepanik/build-history-manager-plugin/dashboard)
 [![Coverage Status](https://codecov.io/gh/damianszczepanik/build-history-manager-plugin/branch/master/graph/badge.svg?label=Unit%20tests%20coverage)](https://codecov.io/github/damianszczepanik/build-history-manager-plugin)
@@ -18,12 +18,12 @@
 The motivation of creating this plugin is to deliver powerful tool that allows to define rules that are built from two types of objects:
 
 ### Conditions
-[Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Condition.java) filters out builds which should be performed by [actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Action.java). So plugin can filter builds by:
+[Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java) filters out builds which should be performed by [actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java). So plugin can filter builds by:
 - build [result](https://javadoc.jenkins-ci.org/hudson/model/Result.html)
 - variables for which you can use [Token Macro](https://wiki.jenkins.io/display/JENKINS/Token+Macro+Plugin) plugin
 
 ### Actions
-[Actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Action.java) defines how the build filtered by above condition) should be modified. Plugin can:
+[Actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java) defines how the build filtered by above condition) should be modified. Plugin can:
 - mark the build to be [kept forever]([https://javadoc.jenkins.io/hudson/model/Run.html#keepLog--)
 - [delete](https://javadoc.jenkins.io/hudson/model/Run.html#delete--) the build
 - [delete](https://javadoc.jenkins.io/hudson/model/Run.html#deleteArtifacts--) artifacts
