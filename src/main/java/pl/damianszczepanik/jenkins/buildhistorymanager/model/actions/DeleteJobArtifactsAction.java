@@ -6,23 +6,19 @@ import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
+ * Deletes the artifacts.
+ *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public final class TextAction extends Action {
-
-    private final String text;
+public class DeleteJobArtifactsAction extends Action {
 
     @DataBoundConstructor
-    public TextAction(String text) {
-        this.text = text;
-    }
-
-    public String getText() {
-        return text;
+    public DeleteJobArtifactsAction() {
+        // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
-
+        run.deleteArtifacts();
     }
 }
