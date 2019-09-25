@@ -2,7 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.IOException;
 
-import hudson.model.Job;
+import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -22,7 +22,7 @@ public final class TextAction extends Action {
     }
 
     @Override
-    public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+    public void perform(Run<?, ?> run) throws IOException, InterruptedException {
 
     }
 }

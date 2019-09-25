@@ -5,6 +5,7 @@ import java.util.List;
 
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Job;
+import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
@@ -14,6 +15,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class Rule extends AbstractDescribableImpl<Rule> {
+
+    /**
+     * Indicates that there is no limitation about {@link #matchAtMost}.
+     */
+    public static final int MATCH_UNLIMITED = -1;
 
     private final List<Condition> conditions;
 
@@ -26,6 +32,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     public Rule(List<Condition> conditions, List<Action> actions) {
         this.conditions = conditions;
         this.actions = actions;
+        this.matchAtMost = MATCH_UNLIMITED;
         this.continueAfterMatch = true;
     }
 
@@ -56,5 +63,28 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     }
 
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+        int matchedTimes = 0;
+
+        Run<?, ?> run = job.getLastBuild();
+        // for each build from the project history...
+        while (run != null && matchedTimes == matchAtMost) {
+            // validate condition one by one...
+            boolean overallMatch = true;
+            for (Condition condition : conditions) {
+                boolean conditionMatched = condition.matches(run);
+                overallMatch &= conditionMatched;
+                if (!overallMatch) {
+                    break;
+                }
+            }
+
+            if (overallMatch) {
+                matchedTimes++;
+                for (Action action : actions) {
+                    action.perform(run);
+                }
+            }
+            run = run.getPreviousBuild();
+        }
     }
 }

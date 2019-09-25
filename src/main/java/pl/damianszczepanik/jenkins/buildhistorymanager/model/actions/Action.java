@@ -3,7 +3,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 import java.io.IOException;
 
 import hudson.model.AbstractDescribableImpl;
-import hudson.model.Job;
+import hudson.model.Run;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -15,7 +15,7 @@ public abstract class Action extends AbstractDescribableImpl<Action> {
     /**
      * Performs operation defined by given action.
      *
-     * @param job job which should be updated
+     * @param run job which should be updated
      */
-    public abstract void perform(Job<?, ?> job) throws IOException, InterruptedException;
+    public abstract void perform(Run<?, ?> run) throws IOException, InterruptedException;
 }

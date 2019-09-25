@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import hudson.model.Job;
+import hudson.model.Run;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -19,7 +19,7 @@ public class ActionBuilder {
     private static class SampleAction extends Action {
 
         @Override
-        public void perform(Job<?, ?> job) {
+        public void perform(Run<?, ?> run) {
             throw new NotImplementedException();
         }
     }

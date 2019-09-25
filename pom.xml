@@ -10,7 +10,7 @@
 
     <groupId>pl.damianszczepanik</groupId>
     <artifactId>build-history-manager</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Build History Manager</name>
     <description>
@@ -158,6 +158,20 @@
             <artifactId>assertj-core</artifactId>
             <version>3.13.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+            <!-- powermock wants objenesis 2.4 and mockito wants objenesis 2.1 -->
+            <!-- exclude from mockito so that powermock version is used -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.objenesis</groupId>
+                    <artifactId>objenesis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>

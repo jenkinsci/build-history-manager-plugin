@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import hudson.model.Job;
+import hudson.model.Run;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -19,7 +19,7 @@ public class ConditionBuilder {
     private static class SampleCondition extends Condition {
 
         @Override
-        public boolean matches(Job<?, ?> job) {
+        public boolean matches(Run<?, ?> run) {
             throw new NotImplementedException();
         }
     }

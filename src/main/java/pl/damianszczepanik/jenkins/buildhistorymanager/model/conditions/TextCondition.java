@@ -1,6 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
-import hudson.model.Job;
+import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -20,7 +20,7 @@ public final class TextCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Job<?, ?> job) {
+    public boolean matches(Run<?, ?> run) {
         return false;
     }
 }

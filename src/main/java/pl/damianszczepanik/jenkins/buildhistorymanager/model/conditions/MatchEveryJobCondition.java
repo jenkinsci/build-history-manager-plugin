@@ -1,6 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
-import hudson.model.Job;
+import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -16,7 +16,7 @@ public class MatchEveryJobCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Job<?, ?> job) {
+    public boolean matches(Run<?, ?> run) {
         return true;
     }
 }

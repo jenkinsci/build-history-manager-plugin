@@ -5,14 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import org.junit.Test;
-import pl.damianszczepanik.jenkins.buildhistorymanager.JobStub;
+import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class DeleteJobActionTest {
 
-    class DeleteJob extends JobStub {
+    class DeleteRun extends RunStub {
+
+        public DeleteRun() throws IOException {
+        }
 
         @Override
         public void delete() {
@@ -25,13 +28,12 @@ public class DeleteJobActionTest {
 
         // given
         DeleteJobAction action = new DeleteJobAction();
-        JobStub job = new DeleteJob();
+        RunStub run = new DeleteRun();
 
         // when
-        action.perform(job);
+        action.perform(run);
 
         // then
-        assertThat(job.times).isOne();
+        assertThat(run.times).isOne();
     }
-
 }

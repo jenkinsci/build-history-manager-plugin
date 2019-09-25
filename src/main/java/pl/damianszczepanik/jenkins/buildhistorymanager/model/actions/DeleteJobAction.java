@@ -2,7 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.IOException;
 
-import hudson.model.Job;
+import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -18,8 +18,8 @@ public class DeleteJobAction extends Action {
     }
 
     @Override
-    public void perform(Job<?, ?> job) throws IOException, InterruptedException {
+    public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         // forever, without any condition
-        job.delete();
+        run.delete();
     }
 }
