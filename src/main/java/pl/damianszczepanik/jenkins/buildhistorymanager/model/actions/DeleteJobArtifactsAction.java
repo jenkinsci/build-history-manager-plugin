@@ -9,6 +9,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Deletes the artifacts.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
+ * @see Run#deleteArtifacts()
  */
 public class DeleteJobArtifactsAction extends Action {
 

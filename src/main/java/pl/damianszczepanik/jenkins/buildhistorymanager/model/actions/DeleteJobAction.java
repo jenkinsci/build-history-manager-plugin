@@ -9,6 +9,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Deletes the job.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
+ * @see Run#delete()
  */
 public class DeleteJobAction extends Action {
 

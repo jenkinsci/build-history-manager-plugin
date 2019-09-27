@@ -19,7 +19,7 @@ public class ConditionBuilder {
     private static class SampleCondition extends Condition {
 
         @Override
-        public boolean matches(Run<?, ?> run) {
+        public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
             throw new NotImplementedException();
         }
     }

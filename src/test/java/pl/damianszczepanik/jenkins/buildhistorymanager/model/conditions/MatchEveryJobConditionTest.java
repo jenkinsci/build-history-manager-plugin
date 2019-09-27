@@ -18,7 +18,7 @@ public class MatchEveryJobConditionTest {
         MatchEveryJobCondition condition = new MatchEveryJobCondition();
 
         // when
-        boolean matches = condition.matches(null);
+        boolean matches = condition.matches(null, null);
 
         // then
         assertThat(matches).isTrue();

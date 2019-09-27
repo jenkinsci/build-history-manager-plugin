@@ -16,24 +16,16 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  */
 public class Rule extends AbstractDescribableImpl<Rule> {
 
-    /**
-     * Indicates that there is no limitation about {@link #matchAtMost}.
-     */
-    public static final int MATCH_UNLIMITED = -1;
-
     private final List<Condition> conditions;
 
     private final List<Action> actions;
 
-    private int matchAtMost;
-    private boolean continueAfterMatch;
+    private final RuleConfiguration configuration = new RuleConfiguration();
 
     @DataBoundConstructor
     public Rule(List<Condition> conditions, List<Action> actions) {
         this.conditions = conditions;
         this.actions = actions;
-        this.matchAtMost = MATCH_UNLIMITED;
-        this.continueAfterMatch = true;
     }
 
     public List<Condition> getConditions() {
@@ -46,20 +38,20 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     @DataBoundSetter
     public void setMatchAtMost(int matchAtMost) {
-        this.matchAtMost = matchAtMost;
+        configuration.setMatchAtMost(matchAtMost);
     }
 
     public int getMatchAtMost() {
-        return matchAtMost;
+        return configuration.getMatchAtMost();
     }
 
     @DataBoundSetter
     public void setContinueAfterMatch(boolean continueAfterMatch) {
-        this.continueAfterMatch = continueAfterMatch;
+        configuration.setContinueAfterMatch(continueAfterMatch);
     }
 
     public boolean getContinueAfterMatch() {
-        return continueAfterMatch;
+        return configuration.isContinueAfterMatch();
     }
 
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
@@ -67,11 +59,11 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
         Run<?, ?> run = job.getLastBuild();
         // for each build from the project history...
-        while (run != null && matchedTimes == matchAtMost) {
+        while (run != null && matchedTimes == configuration.getMatchAtMost()) {
             // validate condition one by one...
             boolean overallMatch = true;
             for (Condition condition : conditions) {
-                boolean conditionMatched = condition.matches(run);
+                boolean conditionMatched = condition.matches(run, configuration);
                 overallMatch &= conditionMatched;
                 if (!overallMatch) {
                     break;
