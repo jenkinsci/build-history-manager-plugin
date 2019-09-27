@@ -59,7 +59,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
         Run<?, ?> run = job.getLastBuild();
         // for each build from the project history...
-        while (run != null && matchedTimes == configuration.getMatchAtMost()) {
+        while (run != null && matchedTimes <= configuration.getMatchAtMost()) {
             // validate condition one by one...
             boolean overallMatch = true;
             for (Condition condition : conditions) {
