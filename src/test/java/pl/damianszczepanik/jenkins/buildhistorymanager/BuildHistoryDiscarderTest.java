@@ -47,7 +47,7 @@ public class BuildHistoryDiscarderTest {
     public void perform_IteratesOverRules() throws IOException, InterruptedException {
 
         // given
-        RuleBuilder.SampleRule ruleCounter = new RuleBuilder.SampleRule();
+        RuleBuilder.TestRule ruleCounter = new RuleBuilder.TestRule();
         List<Rule> rules = Arrays.asList(ruleCounter, ruleCounter, ruleCounter);
         BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(rules);
 

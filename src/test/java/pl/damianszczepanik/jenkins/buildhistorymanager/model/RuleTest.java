@@ -1,13 +1,19 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ActionBuilder.sampleActions;
-import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.sampleConditions;
+import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.buildSampleConditions;
+import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder.buildSampleActions;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import hudson.model.Job;
 import org.junit.Test;
+import pl.damianszczepanik.jenkins.buildhistorymanager.JobBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionAssertion;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
 /**
@@ -19,33 +25,35 @@ public class RuleTest {
     public void getConditions_ReturnsConditions() {
 
         // given
-        Rule rule = new Rule(sampleConditions, sampleActions);
+        List<Condition> conditions = buildSampleConditions();
+        Rule rule = new Rule(conditions, buildSampleActions());
 
         // when
-        List<Condition> conditions = rule.getConditions();
+        List<Condition> returnedConditions = rule.getConditions();
 
         // then
-        assertThat(conditions).containsAll(sampleConditions);
+        assertThat(returnedConditions).containsAll(conditions);
     }
 
     @Test
     public void getConditions_ReturnsActions() {
 
         // given
-        Rule rule = new Rule(sampleConditions, sampleActions);
+        List<Action> actions = buildSampleActions();
+        Rule rule = new Rule(buildSampleConditions(), actions);
 
         // when
-        List<Action> actions = rule.getActions();
+        List<Action> returnedActions = rule.getActions();
 
         // then
-        assertThat(actions).containsAll(sampleActions);
+        assertThat(returnedActions).containsAll(actions);
     }
 
     @Test
     public void getMatchAtMost_ReturnsMatchAtMost() {
 
         // given
-        Rule rule = new Rule(sampleConditions, sampleActions);
+        Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
         int matchAtMost = 123;
         rule.setMatchAtMost(matchAtMost);
 
@@ -60,7 +68,7 @@ public class RuleTest {
     public void newRule_SetsContinueAfterMatch() {
 
         // given
-        Rule rule = new Rule(sampleConditions, sampleActions);
+        Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
 
         // when
         boolean returnedValue = rule.getContinueAfterMatch();
@@ -73,8 +81,8 @@ public class RuleTest {
     public void getContinueAfterMatch_ReturnsContinueAfterMatch() {
 
         // given
-        Rule rule = new Rule(sampleConditions, sampleActions);
-        boolean continueAfterMatch = false;
+        Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
+        final boolean continueAfterMatch = false;
         rule.setContinueAfterMatch(continueAfterMatch);
 
         // when
@@ -82,5 +90,61 @@ public class RuleTest {
 
         // then
         assertThat(returnedValue).isEqualTo(continueAfterMatch);
+    }
+
+    @Test
+    public void perform_OnNoConditions_PerformsAllActions() throws IOException, InterruptedException {
+
+        // given
+        List<Action> actions = buildSampleActions();
+        Rule rule = new Rule(Collections.emptyList(), actions);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        rule.perform(job);
+
+        // then
+        for (Action action : actions) {
+            ActionAssertion.assertThat(action)
+                    .performsOnce()
+                    .withRun(job);
+        }
+    }
+
+    @Test
+    public void perform_OnNegativeCondition_PerformsNoActions() throws IOException, InterruptedException {
+
+        // given
+        List<Action> actions = buildSampleActions();
+        Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), actions);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        rule.perform(job);
+
+        // then
+        for (Action action : actions) {
+            ActionAssertion.assertThat(action)
+                    .skipsAction();
+        }
+    }
+
+    @Test
+    public void perform_OnNegativeAndPositiveCondition_PerformsNoActions() throws IOException, InterruptedException {
+
+        // given
+        List<Action> actions = buildSampleActions();
+        List<Condition> conditions = Arrays.asList(new ConditionBuilder.SampleCondition(), new ConditionBuilder.NegativeCondition());
+        Rule rule = new Rule(conditions, actions);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        rule.perform(job);
+
+        // then
+        for (Action action : actions) {
+            ActionAssertion.assertThat(action)
+                    .skipsAction();
+        }
     }
 }
