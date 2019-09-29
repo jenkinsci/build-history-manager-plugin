@@ -1,9 +1,8 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
+package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import java.io.IOException;
 
 import hudson.model.Job;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

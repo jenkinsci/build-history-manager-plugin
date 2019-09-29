@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.RuleBuilder;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

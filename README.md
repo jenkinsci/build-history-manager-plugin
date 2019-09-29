@@ -29,7 +29,7 @@ The motivation of creating this plugin is to deliver powerful tool that allows t
 - [delete](https://javadoc.jenkins.io/hudson/model/Run.html#deleteArtifacts--) artifacts
 
 There is possibility to build complex rules. Each [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) can define more than single condition and action.
-Plugin is based on [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class.
+Plugin starts as [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class. Core method that is responsible for processing conditions and actions are stored in [Rule.perform()](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) method.
 
 ### Use cases
 Using conditions and actions there is easy to realize following scenarios:
