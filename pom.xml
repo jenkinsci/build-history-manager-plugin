@@ -26,8 +26,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git@github.com:damianszczepanik/build-history-manager-plugin.git</connection>
-        <url>https://github.com/damianszczepanik/build-history-manager-plugin</url>
+        <connection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</developerConnection>
+        <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
     </scm>
     <ciManagement>
         <system>travis</system>
