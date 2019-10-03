@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
@@ -13,9 +14,10 @@
     <packaging>hpi</packaging>
     <name>Build History Manager</name>
     <description>
-        Jenkins plugin that allows to define which builds should be removed from the history and which preserved
+        Jenkins plugin that allows to build complex rules to decide which builds should be removed from the history and
+        which preserved
     </description>
-    <url>https://github.com/damianszczepanik/build-history-manager-plugin</url>
+    <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
 
     <properties>
         <java.level>8</java.level>
@@ -28,17 +30,17 @@
         <connection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <ciManagement>
         <system>travis</system>
-        <url>https://travis-ci.org/damianszczepanik/build-history-manager-plugin</url>
+        <url>https://travis-ci.org/jenkinsci/build-history-manager-plugin</url>
     </ciManagement>
 
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://github.com/damianszczepanik/build-history-manager-plugin/blob/master/LICENSE</url>
+            <url>https://github.com/jenkinsci/build-history-manager-plugin/blob/master/LICENSE</url>
         </license>
     </licenses>
 
@@ -74,7 +76,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>
