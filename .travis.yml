@@ -22,8 +22,8 @@ matrix:
         # push report to codecov server
         bash <(curl -s https://codecov.io/bash)
 
-    - jdk: oraclejdk8
-      env:
-        - DESC="sonarcloud.io analysis"
-      script: mvn test sonar:sonar -Dsonar.projectKey=damianszczepanik_build-history-manager-plugin -Dsonar.organization=damianszczepanik -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-      if: branch = master
+#    - jdk: oraclejdk8
+#      env:
+#        - DESC="sonarcloud.io analysis"
+#      script: mvn test sonar:sonar -Dsonar.projectKey=damianszczepanik_build-history-manager-plugin -Dsonar.organization=damianszczepanik -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+#      if: branch = master
