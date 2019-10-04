@@ -1,10 +1,10 @@
-[![Travis Status](https://img.shields.io/travis/jenkinsci/build-history-manager-plugin/master.svg?label=Travis)](https://travis-ci.org/damianszczepanik/build-history-manager-plugin)
-[![Appveyor Status](https://img.shields.io/appveyor/ci/jenkinsci/build-history-manager-plugin/master?label=AppVeyor)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin)
+[![Travis Status](https://img.shields.io/travis/jenkinsci/build-history-manager-plugin/master?label=Travis)](https://travis-ci.org/jenkinsci/build-history-manager-plugin)
+[![Appveyor status](https://ci.appveyor.com/api/projects/status/cjto87m99168m6ea/branch/master?svg=true)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin/branch/master)
 [![Shippable Status](https://img.shields.io/shippable/5d92f8ecb648590006ff3cfd/master?label=Shippable)](https://app.shippable.com/github/jenkinsci/build-history-manager-plugin/dashboard)
 
 [![Coverage Status](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jenkinsci/build-history-manager-plugin)
 [![Codebeat badge](https://codebeat.co/badges/1b4fcf87-3eb3-4b57-a0fa-ad7258fda8ac)](https://codebeat.co/projects/github-com-jenkinsci-build-history-manager-plugin-master)
-[![Vulnerabilities](https://snyk.io/test/github/jenkinsci/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/jenkinsci/project/115e1c04-215d-48f9-bb9f-606711f95147)
+[![Vulnerabilities](https://snyk.io/test/github/jenkinsci/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/damianszczepanik/project/aab2b0cc-41d6-41e7-a909-fbc9d09dc98d)
 
 # Build History Manager Plugin
 [Jenkins](https://jenkins.io/) plugin that allows to build complex rules to define which builds should be removed from the history and which preserved.
@@ -35,7 +35,7 @@ Using conditions and actions there is easy to realize following scenarios:
 ## Code quality
 Once you developed your new feature or improvement you should test it by providing several unit or integration tests.
 
-![codecov.io](https://codecov.io/gh/damianszczepanik/build-history-manager-plugin/branch/master/graphs/tree.svg)
+![codecov.io](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graphs/tree.svg)
 
 ## Contribution
-Interested in contributing to deliver new condition or action?  Great! Start [here](https://github.com/damianszczepanik/build-history-manager-plugin).
+Interested in contributing to deliver new condition or action?  Great! Start [here](https://github.com/jenkinsci/build-history-manager-plugin).
