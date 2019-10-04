@@ -37,5 +37,8 @@ Once you developed your new feature or improvement you should test it by providi
 
 ![codecov.io](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graphs/tree.svg)
 
+## Release notes
+Check [release](https://github.com/jenkinsci/build-history-manager-plugin/releases) section
+
 ## Contribution
 Interested in contributing to deliver new condition or action?  Great! Start [here](https://github.com/jenkinsci/build-history-manager-plugin).
