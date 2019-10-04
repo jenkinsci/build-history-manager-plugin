@@ -9,7 +9,7 @@
 
     <groupId>pl.damianszczepanik</groupId>
     <artifactId>build-history-manager</artifactId>
-    <version>0.1.1-beta</version>
+    <version>0.1.2-beta-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Build History Manager</name>
     <description>
@@ -29,7 +29,7 @@
         <connection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</developerConnection>
         <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
-        <tag>build-history-manager-0.1.1-beta</tag>
+        <tag>HEAD</tag>
     </scm>
     <ciManagement>
         <system>travis</system>
