@@ -37,12 +37,14 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
      */
     @Override
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
-        Run<?, ?> run = job.getLastBuild();
 
         // reset counters of matched jobs
-        rules.stream().forEach(rule -> rule.initialize());
+        for (Rule rule : rules) {
+            rule.initialize();
+        }
 
-        // for each build from the project history...
+        Run<?, ?> run = job.getLastBuild();
+        // for each completed build...
         do {
             LOG.info("Processing build #" + run.getNumber());
             for (int i = 0; i < rules.size(); i++) {

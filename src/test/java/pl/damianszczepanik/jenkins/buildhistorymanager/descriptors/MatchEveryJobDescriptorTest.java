@@ -13,7 +13,7 @@ public class MatchEveryJobDescriptorTest {
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        MatchEveryJobDescriptor descriptor = new MatchEveryJobDescriptor();
+        MatchEveryJobConditionDescriptor descriptor = new MatchEveryJobConditionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();

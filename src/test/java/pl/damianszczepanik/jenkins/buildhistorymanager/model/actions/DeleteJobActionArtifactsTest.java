@@ -27,7 +27,7 @@ public class DeleteJobActionArtifactsTest {
     public void perform_DeletesJob() throws IOException, InterruptedException {
 
         // given
-        Action action = new DeleteJobArtifactsAction();
+        Action action = new DeleteArtifactsAction();
         RunStub run = new DeleteArtifactsRun();
 
         // when
