@@ -1,6 +1,5 @@
 <?jelly escape-by-default='true'?>
 <div>
     This plugin allows to decide which builds should be deleted and which preserved.
-    <br/>
-    <b>Currently NOT ready for production!</b> Test, report issues so the first release come soon.
+    <font color="red">New plugin!</font>
 </div>
