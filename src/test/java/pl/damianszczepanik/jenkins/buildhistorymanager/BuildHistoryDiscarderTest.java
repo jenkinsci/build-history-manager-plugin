@@ -2,13 +2,11 @@ package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -41,20 +39,5 @@ public class BuildHistoryDiscarderTest {
 
         // then
         assertThat(rules).containsAll(sampleRules);
-    }
-
-    @Test
-    public void perform_IteratesOverRules() throws IOException, InterruptedException {
-
-        // given
-        RuleBuilder.TestRule ruleCounter = new RuleBuilder.TestRule();
-        List<Rule> rules = Arrays.asList(ruleCounter, ruleCounter, ruleCounter);
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(rules);
-
-        // when
-        discarder.perform(null);
-
-        // then
-        assertThat(ruleCounter.times).isEqualTo(rules.size());
     }
 }

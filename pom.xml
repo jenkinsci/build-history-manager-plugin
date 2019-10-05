@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
@@ -9,12 +10,12 @@
 
     <groupId>pl.damianszczepanik</groupId>
     <artifactId>build-history-manager</artifactId>
-    <version>0.1.2-beta-SNAPSHOT</version>
+    <version>0.2.0-beta-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Build History Manager</name>
     <description>
-        Jenkins plugin that allows to build complex rules to decide which builds should be removed from the history and
-        which preserved
+        Jenkins plugin that allows to build complex rules to decide when and which builds should be removed from the
+        history and which preserved
     </description>
     <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
 
@@ -75,7 +76,7 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>
