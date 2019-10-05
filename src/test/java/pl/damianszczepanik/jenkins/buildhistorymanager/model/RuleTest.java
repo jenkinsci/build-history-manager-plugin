@@ -4,16 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.buildSampleConditions;
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder.buildSampleActions;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import hudson.model.Job;
 import org.junit.Test;
-import pl.damianszczepanik.jenkins.buildhistorymanager.JobBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionAssertion;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
 /**
@@ -92,59 +86,4 @@ public class RuleTest {
         assertThat(returnedValue).isEqualTo(continueAfterMatch);
     }
 
-    @Test
-    public void perform_OnNoConditions_PerformsAllActions() throws IOException, InterruptedException {
-
-        // given
-        List<Action> actions = buildSampleActions();
-        Rule rule = new Rule(Collections.emptyList(), actions);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
-
-        // when
-        rule.perform(job);
-
-        // then
-        for (Action action : actions) {
-            ActionAssertion.assertThat(action)
-                    .performsOnce()
-                    .withRun(job);
-        }
-    }
-
-    @Test
-    public void perform_OnNegativeCondition_PerformsNoActions() throws IOException, InterruptedException {
-
-        // given
-        List<Action> actions = buildSampleActions();
-        Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), actions);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
-
-        // when
-        rule.perform(job);
-
-        // then
-        for (Action action : actions) {
-            ActionAssertion.assertThat(action)
-                    .skipsAction();
-        }
-    }
-
-    @Test
-    public void perform_OnNegativeAndPositiveCondition_PerformsNoActions() throws IOException, InterruptedException {
-
-        // given
-        List<Action> actions = buildSampleActions();
-        List<Condition> conditions = Arrays.asList(new ConditionBuilder.SampleCondition(), new ConditionBuilder.NegativeCondition());
-        Rule rule = new Rule(conditions, actions);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
-
-        // when
-        rule.perform(job);
-
-        // then
-        for (Action action : actions) {
-            ActionAssertion.assertThat(action)
-                    .skipsAction();
-        }
-    }
 }

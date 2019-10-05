@@ -10,10 +10,10 @@
         </f:block>
 
         <f:block>
-            <f:entry title="Match at most" field="matchAtMost">
+            <f:entry title="Skip this rule after matching at most n jobs" field="matchAtMost">
                 <f:number default="-1"/>
             </f:entry>
-            <f:entry title="Continue after match" field="continueAfterMatch">
+            <f:entry title="Proceed next rule if this matches" field="continueAfterMatch">
                 <f:checkbox default="true"/>
             </f:entry>
         </f:block>

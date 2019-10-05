@@ -2,9 +2,11 @@ package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import hudson.Util;
 import hudson.model.Job;
+import hudson.model.Run;
 import jenkins.model.BuildDiscarder;
 import org.kohsuke.stapler.DataBoundConstructor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
@@ -13,6 +15,8 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class BuildHistoryDiscarder extends BuildDiscarder {
+
+    private static final Logger LOG = Logger.getLogger(BuildHistoryDiscarder.class.getName());
 
     private final List<Rule> rules;
 
@@ -26,15 +30,38 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
     }
 
     /**
-     * Entry point for the discarding process.
+     * Entry point for the discarding process. Iterates over the completed jobs and rules.
      *
      * @see BuildDiscarder#perform(Job)
      * @see Job#logRotate()
      */
     @Override
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
-        for (Rule rule : rules) {
-            rule.perform(job);
-        }
+        Run<?, ?> run = job.getLastBuild();
+
+        // reset counters of matched jobs
+        rules.stream().forEach(rule -> rule.initialize());
+
+        // for each build from the project history...
+        do {
+            LOG.info("Processing build #" + run.getNumber());
+            for (int i = 0; i < rules.size(); i++) {
+                Rule rule = rules.get(i);
+                LOG.info("Processing rule no " + (i + 1));
+                if (rule.validateConditions(run)) {
+                    LOG.info("Processing actions for rule no " + (i + 1));
+                    rule.performActions(run);
+
+                    // if other rules should not be proceed, shift to next build
+                    if (!rule.getContinueAfterMatch()) {
+                        break;
+                    }
+                }
+            }
+
+            // validateConditions rules for previous completed build
+            run = run.getPreviousBuild();
+            // stop when the iteration reach the oldest build
+        } while (run != null);
     }
 }
