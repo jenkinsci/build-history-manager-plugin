@@ -11,10 +11,10 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see Run#deleteArtifacts()
  */
-public class DeleteJobArtifactsAction extends Action {
+public class DeleteArtifactsAction extends Action {
 
     @DataBoundConstructor
-    public DeleteJobArtifactsAction() {
+    public DeleteArtifactsAction() {
         // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 

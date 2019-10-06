@@ -11,9 +11,9 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.MatchEve
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension
-public class MatchEveryJobDescriptor extends Descriptor<Condition> {
+public class MatchEveryJobConditionDescriptor extends Descriptor<Condition> {
 
-    public MatchEveryJobDescriptor() {
+    public MatchEveryJobConditionDescriptor() {
         super(MatchEveryJobCondition.class);
     }
 

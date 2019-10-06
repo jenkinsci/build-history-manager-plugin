@@ -1,5 +1,7 @@
 <?jelly escape-by-default='true'?>
 <div>
-    This plugin allows to decide which builds should be deleted and which preserved.
-    <font color="red">New plugin!</font>
+    Allows to build complex rules to decide when and which builds should be removed from the
+    history and which preserved
+    <br/>
+    <font color="red">New plugin</font>, still not recommended for production.
 </div>

@@ -13,12 +13,12 @@ public class DeleteJobArtifactsActionDescriptorTest {
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        DeleteJobArtifactsActionDescriptor descriptor = new DeleteJobArtifactsActionDescriptor();
+        DeleteArtifactsActionDescriptor descriptor = new DeleteArtifactsActionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();
 
         // then
-        assertThat(displayName).isEqualTo("Delete job artifacts");
+        assertThat(displayName).isEqualTo("Delete artifacts");
     }
 }
