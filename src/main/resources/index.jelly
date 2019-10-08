@@ -3,5 +3,6 @@
     Allows to build complex rules to decide when and which builds should be removed from the
     history and which preserved
     <br/>
-    <font color="red">New plugin</font>, still not recommended for production.
+    <font color="red">New plugin</font>, still not recommended for production because some new versions might break
+    backward compatibility. Test, give feedback and wait for version 1.x
 </div>

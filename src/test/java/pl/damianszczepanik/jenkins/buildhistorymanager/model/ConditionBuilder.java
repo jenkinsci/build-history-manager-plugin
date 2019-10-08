@@ -15,10 +15,18 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
 public class ConditionBuilder {
 
     public static final List<Condition> buildSampleConditions() {
-        return Collections.unmodifiableList(Arrays.asList(new SampleCondition(), new SampleCondition()));
+        return Collections.unmodifiableList(Arrays.asList(new TestCondition(), new TestCondition()));
     }
 
-    public static abstract class AbstractSampleCondition extends Condition {
+    public static class TestCondition extends Condition {
+
+        public int matchesTimes;
+
+        @Override
+        public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+            matchesTimes++;
+            return true;
+        }
 
         @Override
         public Descriptor getDescriptor() {
@@ -30,22 +38,6 @@ public class ConditionBuilder {
                     return this.getClass().getName();
                 }
             };
-        }
-    }
-
-    public static class SampleCondition extends AbstractSampleCondition {
-
-        @Override
-        public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
-            return true;
-        }
-    }
-
-    public static class NegativeCondition extends AbstractSampleCondition {
-
-        @Override
-        public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
-            return false;
         }
     }
 }
