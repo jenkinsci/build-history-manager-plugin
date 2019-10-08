@@ -18,12 +18,12 @@ public class ActionBuilder {
 
     public static class TestAction extends Action {
 
-        public int times;
+        public int performTimes;
         public Run<?, ?> run;
 
         @Override
         public void perform(Run<?, ?> run) {
-            times++;
+            performTimes++;
             this.run = run;
         }
 

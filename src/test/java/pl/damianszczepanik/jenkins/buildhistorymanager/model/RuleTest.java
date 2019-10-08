@@ -1,13 +1,17 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.powermock.api.mockito.PowerMockito.mock;
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.buildSampleConditions;
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder.buildSampleActions;
 
+import java.io.IOException;
 import java.util.List;
 
+import hudson.model.Run;
 import org.junit.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
 /**
@@ -86,4 +90,35 @@ public class RuleTest {
         assertThat(returnedValue).isEqualTo(continueAfterMatch);
     }
 
+    @Test
+    public void validateConditions_MatchesAllConditions() {
+
+        // given
+        Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
+        Run<?, ?> run = mock(Run.class);
+
+        // when
+        rule.validateConditions(run);
+
+        // then
+        for (Condition condition : rule.getConditions()) {
+            assertThat(((ConditionBuilder.TestCondition) condition).matchesTimes).isOne();
+        }
+    }
+
+    @Test
+    public void performActions_PerformsAllActions() throws IOException, InterruptedException {
+
+        // given
+        Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
+        Run<?, ?> run = mock(Run.class);
+
+        // when
+        rule.performActions(run);
+
+        // then
+        for (Action action : rule.getActions()) {
+            assertThat(((ActionBuilder.TestAction) action).performTimes).isOne();
+        }
+    }
 }
