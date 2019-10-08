@@ -15,7 +15,7 @@ public class RuleConfiguration {
     private int matchAtMost;
     private boolean continueAfterMatch;
 
-    RuleConfiguration() {
+    public RuleConfiguration() {
         this.matchAtMost = MATCH_UNLIMITED;
         this.continueAfterMatch = true;
     }

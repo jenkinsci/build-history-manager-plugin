@@ -11,22 +11,31 @@ public class RuleBuilder {
 
     public static class TestRule extends Rule {
 
-        public int validateTimes;
-        public int initializeTimes;
+        private boolean validateResult;
 
-        public TestRule() {
+        public int validateConditionsTimes;
+        public int initializeTimes;
+        public int performActionsTimes;
+
+        public TestRule(boolean validateResult) {
             super(null, null);
+            this.validateResult = validateResult;
         }
 
         @Override
         public boolean validateConditions(Run<?, ?> run) {
-            validateTimes++;
-            return false;
+            validateConditionsTimes++;
+            return validateResult;
         }
 
         @Override
         public void initialize() {
             initializeTimes++;
+        }
+
+        @Override
+        public void performActions(Run<?, ?> run) {
+            performActionsTimes++;
         }
 
         @Override

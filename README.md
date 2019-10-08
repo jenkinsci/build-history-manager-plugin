@@ -32,9 +32,10 @@ Plugin starts as [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/Build
 
 ### Use cases
 Using conditions and actions there is easy to realize following scenarios:
-- Delete builds which are [unstable](https://javadoc.jenkins.io/hudson/model/Result.html#UNSTABLE) or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED) if they are not valuable.
-- Keep only last build per [result](https://javadoc.jenkins.io/hudson/model/Result.html). So the history contain at most four builds, for aborted, unstable, failure and success.
+- Delete builds which are [unstable](https://javadoc.jenkins.io/hudson/model/Result.html#UNSTABLE) or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED) if they are not valuable from the history/audit point of view.
+- Keep only last build per [result](https://javadoc.jenkins.io/hudson/model/Result.html). So the history contain the most recent builds for result aborted, unstable, failure and success.
 - Keep builds only from `master` branch if the project builds all branches including feature branches
+- Remove builds which have [build number](https://javadoc.jenkins-ci.org/hudson/model/Run.html#getNumber--) lower than given value to easily drop all old builds at once.
 
 ## Code quality
 Once you developed your new feature or improvement you should test it by providing several unit or integration tests.

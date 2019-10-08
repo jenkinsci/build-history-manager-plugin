@@ -7,10 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import hudson.model.Job;
+import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -21,7 +23,7 @@ public class BuildHistoryDiscarderTest {
 
     @Before
     public void setUp() {
-        sampleRules = Arrays.asList(new RuleBuilder.TestRule(), new RuleBuilder.TestRule());
+        sampleRules = Arrays.asList(new RuleBuilder.TestRule(false), new RuleBuilder.TestRule(false));
     }
 
     @Test
@@ -51,7 +53,7 @@ public class BuildHistoryDiscarderTest {
     }
 
     @Test
-    public void perform_InitializeRules() throws IOException, InterruptedException {
+    public void perform_InitializeEachRules() throws IOException, InterruptedException {
 
         // given
         BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
@@ -64,5 +66,75 @@ public class BuildHistoryDiscarderTest {
         for (Rule rule : sampleRules) {
             assertThat(((RuleBuilder.TestRule) rule).initializeTimes).isOne();
         }
+    }
+
+    @Test
+    public void perform_validatesEachRules() throws IOException, InterruptedException {
+
+        // given
+        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        discarder.perform(job);
+
+        // then
+        for (Rule rule : sampleRules) {
+            assertThat(((RuleBuilder.TestRule) rule).validateConditionsTimes).isOne();
+        }
+    }
+
+    @Test
+    public void perform_OnNegativeCondition_ValidatesEachRules() throws IOException, InterruptedException {
+
+        // given
+        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        discarder.perform(job);
+
+        // then
+        for (Rule rule : sampleRules) {
+            assertThat(((RuleBuilder.TestRule) rule).performActionsTimes).isZero();
+        }
+    }
+
+    @Test
+    public void perform_OnPositiveCondition_ValidatesEachRules() throws IOException, InterruptedException {
+
+        // given
+        sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
+
+        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        discarder.perform(job);
+
+        // then
+        for (Rule rule : sampleRules) {
+            assertThat(((RuleBuilder.TestRule) rule).performActionsTimes).isOne();
+        }
+    }
+
+    @Test
+    public void perform_OnNotContinueAfterMatch_ValidatesOnlyFirstRules() throws IOException, InterruptedException {
+
+        // given
+        sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
+        RuleConfiguration configuration = new RuleConfiguration();
+        configuration.setContinueAfterMatch(false);
+        Deencapsulation.setField(sampleRules.get(0), "configuration", configuration);
+
+        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        Job<?, ?> job = JobBuilder.buildSampleJob();
+
+        // when
+        discarder.perform(job);
+
+        // then
+        assertThat(((RuleBuilder.TestRule) sampleRules.get(0)).validateConditionsTimes).isOne();
+        assertThat(((RuleBuilder.TestRule) sampleRules.get(1)).validateConditionsTimes).isZero();
     }
 }
