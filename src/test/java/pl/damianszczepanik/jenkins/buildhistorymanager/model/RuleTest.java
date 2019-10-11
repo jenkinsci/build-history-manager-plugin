@@ -102,7 +102,7 @@ public class RuleTest {
 
         // then
         for (Condition condition : rule.getConditions()) {
-            assertThat(((ConditionBuilder.TestCondition) condition).matchesTimes).isOne();
+            assertThat(((ConditionBuilder.AbstractSampleCondition) condition).matchesTimes).isOne();
         }
     }
 

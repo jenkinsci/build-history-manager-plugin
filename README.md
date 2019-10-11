@@ -38,12 +38,9 @@ Using conditions and actions there is easy to realize following scenarios:
 - Remove builds which have [build number](https://javadoc.jenkins-ci.org/hudson/model/Run.html#getNumber--) lower than given value to easily drop all old builds at once.
 
 ## Code quality
-Once you developed your new feature or improvement you should test it by providing several unit or integration tests.
+Once you developed your new feature or improvement you should test it by providing several [unit](https://en.wikipedia.org/wiki/Unit_testing) or [integration](https://en.wikipedia.org/wiki/Integration_testing) tests.
 
 ![codecov.io](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graphs/tree.svg)
 
 ## Release notes
 Check [release](https://github.com/jenkinsci/build-history-manager-plugin/releases) section
-
-## Contribution
-Interested in contributing to deliver new condition or action?  Great! Start [here](https://github.com/jenkinsci/build-history-manager-plugin).
