@@ -14,7 +14,6 @@ public class RuleBuilder {
         private boolean validateResult;
 
         public int validateConditionsTimes;
-        public int initializeTimes;
         public int performActionsTimes;
 
         public TestRule(boolean validateResult) {
@@ -26,11 +25,6 @@ public class RuleBuilder {
         public boolean validateConditions(Run<?, ?> run) {
             validateConditionsTimes++;
             return validateResult;
-        }
-
-        @Override
-        public void initialize() {
-            initializeTimes++;
         }
 
         @Override

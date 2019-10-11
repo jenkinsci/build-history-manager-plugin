@@ -10,6 +10,7 @@ import hudson.model.Job;
 import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
@@ -53,19 +54,20 @@ public class BuildHistoryDiscarderTest {
     }
 
     @Test
-    public void perform_InitializeEachRules() throws IOException, InterruptedException {
+    public void perform_InitializesRule() throws IOException, InterruptedException {
 
         // given
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), null);
+        Deencapsulation.setField(rule, "matchedTimes", 1);
+        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(Arrays.asList(rule));
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
         discarder.perform(job);
 
         // then
-        for (Rule rule : sampleRules) {
-            assertThat(((RuleBuilder.TestRule) rule).initializeTimes).isOne();
-        }
+        int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
+        assertThat(matchedTimes).isZero();
     }
 
     @Test
