@@ -6,9 +6,12 @@ import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBui
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder.buildSampleActions;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import hudson.model.Run;
+import mockit.Deencapsulation;
 import org.junit.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder;
@@ -94,7 +97,7 @@ public class RuleTest {
     public void validateConditions_MatchesAllConditions() {
 
         // given
-        Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
+        Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
         Run<?, ?> run = mock(Run.class);
 
         // when
@@ -104,6 +107,21 @@ public class RuleTest {
         for (Condition condition : rule.getConditions()) {
             assertThat(((ConditionBuilder.AbstractSampleCondition) condition).matchesTimes).isOne();
         }
+    }
+
+    @Test
+    public void validateConditions_OnNegativeCondition_DoesNotIncrementMatchedTimes() {
+
+        // given
+        Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), Collections.emptyList());
+        Run<?, ?> run = mock(Run.class);
+
+        // when
+        rule.validateConditions(run);
+
+        // then
+        int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
+        assertThat(matchedTimes).isZero();
     }
 
     @Test
@@ -120,5 +138,27 @@ public class RuleTest {
         for (Action action : rule.getActions()) {
             assertThat(((ActionBuilder.TestAction) action).performTimes).isOne();
         }
+    }
+
+    @Test
+    public void validateConditions_PerformsNTimes() throws IOException, InterruptedException {
+
+        // given
+        Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
+        rule.setMatchAtMost(1);
+        Run<?, ?> run = mock(Run.class);
+
+        // when
+        rule.validateConditions(run);
+        rule.validateConditions(run);
+
+        // then
+        int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
+        assertThat(matchedTimes).isOne();
+
+        for (Condition condition : rule.getConditions()) {
+            assertThat(((ConditionBuilder.AbstractSampleCondition) condition).matchesTimes).isOne();
+        }
+
     }
 }

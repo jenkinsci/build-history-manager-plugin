@@ -7,18 +7,18 @@ import org.junit.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class MatchEveryJobDescriptorTest {
+public class MatchEveryBuildDescriptorTest {
 
     @Test
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        MatchEveryJobConditionDescriptor descriptor = new MatchEveryJobConditionDescriptor();
+        MatchEveryBuildConditionDescriptor descriptor = new MatchEveryBuildConditionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();
 
         // then
-        assertThat(displayName).isEqualTo("Match every job");
+        assertThat(displayName).isEqualTo("Match every build");
     }
 }

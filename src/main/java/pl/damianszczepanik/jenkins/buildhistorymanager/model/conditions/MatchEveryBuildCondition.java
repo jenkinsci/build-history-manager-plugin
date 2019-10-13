@@ -5,14 +5,14 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 
 /**
- * Matches every job without any condition.
+ * Matches every build.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class MatchEveryJobCondition extends Condition {
+public class MatchEveryBuildCondition extends Condition {
 
     @DataBoundConstructor
-    public MatchEveryJobCondition() {
+    public MatchEveryBuildCondition() {
         // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 

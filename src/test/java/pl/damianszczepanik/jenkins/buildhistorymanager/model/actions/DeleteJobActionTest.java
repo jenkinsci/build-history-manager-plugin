@@ -27,7 +27,7 @@ public class DeleteJobActionTest {
     public void perform_DeletesJob() throws IOException, InterruptedException {
 
         // given
-        Action action = new DeleteJobAction();
+        Action action = new DeleteBuildAction();
         RunStub run = new DeleteRun();
 
         // when

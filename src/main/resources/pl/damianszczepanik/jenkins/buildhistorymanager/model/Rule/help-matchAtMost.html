@@ -1,11 +1,11 @@
 <h3>Description</h3>
-Number of matched jobs after which the rule is not processed. Then this condition is met, only other rules are processed.
+Number of matched builds after which the rule is not processed. Then this condition is met, only other rules are processed.
 
 <h3>Use cases</h3>
 Gives possibility to limit number of changes performed by given rule.</br>
-<code>-1</code> - there is no limitation, all jobs will evaluated</br>
-<code>0</code> - zero jobs will be evaluated</br>
-<code>1..n</code> - when conditions match <code>n</code> times, no more jobs will be processed by this rule
+<code>-1</code> - there is no limitation, all builds will evaluated</br>
+<code>0</code> - zero builds will be evaluated</br>
+<code>1..n</code> - when conditions match <code>n</code> times, no more builds will be processed by this rule
 
 <h3>Warning!</h3>
 Zero value can be used to temporary disable to rule without deleting whole configuration
