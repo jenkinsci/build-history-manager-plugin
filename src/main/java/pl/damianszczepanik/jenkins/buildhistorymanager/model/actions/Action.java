@@ -15,7 +15,7 @@ public abstract class Action extends AbstractDescribableImpl<Action> {
     /**
      * Performs operation defined by given action.
      *
-     * @param run job which should be updated
+     * @param run build which should be updated
      */
     public abstract void perform(Run<?, ?> run) throws IOException, InterruptedException;
 }

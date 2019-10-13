@@ -16,9 +16,9 @@ public abstract class Condition extends AbstractDescribableImpl<Condition> {
     /**
      * Decides if the build matches given criteria to be updated or not.
      *
-     * @param run           job which should be evaluated
+     * @param run           build which should be evaluated
      * @param configuration configuration from the role
-     * @return <code>true</code> if the job matches given criteria, otherwise <code>false</code>
+     * @return <code>true</code> if the build matches given criteria, otherwise <code>false</code>
      */
     public abstract boolean matches(Run<?, ?> run, RuleConfiguration configuration);
 }

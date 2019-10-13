@@ -6,15 +6,15 @@ import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
- * Deletes the job.
+ * Deletes the build.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see Run#delete()
  */
-public class DeleteJobAction extends Action {
+public class DeleteBuildAction extends Action {
 
     @DataBoundConstructor
-    public DeleteJobAction() {
+    public DeleteBuildAction() {
         // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 

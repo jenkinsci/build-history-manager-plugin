@@ -9,13 +9,13 @@ import org.junit.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class MatchEveryJobConditionTest {
+public class MatchEveryBuildConditionTest {
 
     @Test
     public void matches_ReturnTrue() throws IOException, InterruptedException {
 
         // given
-        MatchEveryJobCondition condition = new MatchEveryJobCondition();
+        MatchEveryBuildCondition condition = new MatchEveryBuildCondition();
 
         // when
         boolean matches = condition.matches(null, null);

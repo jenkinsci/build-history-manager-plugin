@@ -33,7 +33,7 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
     }
 
     /**
-     * Entry point for the discarding process. Iterates over the completed jobs and rules.
+     * Entry point for the discarding process. Iterates over the completed builds and rules.
      *
      * @see BuildDiscarder#perform(Job)
      * @see Job#logRotate()
@@ -41,7 +41,7 @@ public class BuildHistoryDiscarder extends BuildDiscarder {
     @Override
     public void perform(Job<?, ?> job) throws IOException, InterruptedException {
 
-        // reset counters of matched jobs
+        // reset counters of matched builds
         for (Rule rule : rules) {
             rule.initialize();
         }
