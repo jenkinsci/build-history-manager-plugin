@@ -24,6 +24,9 @@ The motivation of creating this plugin is to deliver powerful tool that allows t
 - [delete](https://javadoc.jenkins.io/hudson/model/Run.html#delete--) the build
 - [delete](https://javadoc.jenkins.io/hudson/model/Run.html#deleteArtifacts--) artifacts
 
+### Wiki
+Read [Wiki](https://github.com/jenkinsci/build-history-manager-plugin/wiki) for more details.
+
 There is possibility to build complex rules. Each [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) can define more than single condition and action.
 Plugin starts as [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class. Core method that is responsible for processing conditions and actions are stored in [Rule.perform()](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) method.
 
