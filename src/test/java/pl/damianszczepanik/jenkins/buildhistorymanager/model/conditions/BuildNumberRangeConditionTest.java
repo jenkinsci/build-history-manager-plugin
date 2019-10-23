@@ -91,7 +91,7 @@ public class BuildNumberRangeConditionTest {
     }
 
     private static Run mockRun(int buildNumber) {
-        Run run = mock(Run.class);
+        Run<?, ?> run = mock(Run.class);
         when(run.getNumber()).thenReturn(buildNumber);
         return run;
     }
