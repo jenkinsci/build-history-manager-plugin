@@ -128,20 +128,20 @@ public class BuildAgeRangeConditionTest {
 
         assertThat(matches).isFalse();
     }
+}
 
-    private class RunBuildTime extends RunStub {
+class RunBuildTime extends RunStub {
 
-        public RunBuildTime() throws IOException {
-            this(System.currentTimeMillis());
-        }
+    public RunBuildTime() throws IOException {
+        this(System.currentTimeMillis());
+    }
 
-        public RunBuildTime(long startTime) throws IOException {
-            Deencapsulation.setField(this, "startTime", startTime);
-        }
+    public RunBuildTime(long startTime) throws IOException {
+        Deencapsulation.setField(this, "startTime", startTime);
+    }
 
-        @Override
-        public long getDuration() {
-            return 0;
-        }
+    @Override
+    public long getDuration() {
+        return 0;
     }
 }

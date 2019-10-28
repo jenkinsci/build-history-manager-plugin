@@ -21,5 +21,4 @@ public class BuildAgeRangeConditionDescriptor extends Descriptor<Condition> {
     public String getDisplayName() {
         return "Build age range";
     }
-
 }
