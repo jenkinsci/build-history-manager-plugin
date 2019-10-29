@@ -2,7 +2,9 @@
 Decide whether other rules should validate given build when this rule matches the build.
 
 <h3>Use cases</h3>
-When several rules work exclusively it might be helpful to stop processing others for given build when first of the rule matches.
+This is the way to configure if it is enough to match only at once condition or there should be matched more.
+When this parameter is set to <code>true</code> then there is logical
+<code>and</code> between current and next condition.
 
 <h3>Warning!</h3>
 This rule is validated against rule per each build

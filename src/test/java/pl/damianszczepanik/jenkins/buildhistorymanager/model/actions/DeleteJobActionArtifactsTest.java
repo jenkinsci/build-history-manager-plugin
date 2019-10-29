@@ -12,17 +12,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
  */
 public class DeleteJobActionArtifactsTest {
 
-    class DeleteArtifactsRun extends RunStub {
-
-        public DeleteArtifactsRun() throws IOException {
-        }
-
-        @Override
-        public void deleteArtifacts() {
-            times++;
-        }
-    }
-
     @Test
     public void perform_DeletesJob() throws IOException, InterruptedException {
 
@@ -35,5 +24,16 @@ public class DeleteJobActionArtifactsTest {
 
         // then
         assertThat(run.times).isOne();
+    }
+}
+
+class DeleteArtifactsRun extends RunStub {
+
+    public DeleteArtifactsRun() throws IOException {
+    }
+
+    @Override
+    public void deleteArtifacts() {
+        times++;
     }
 }
