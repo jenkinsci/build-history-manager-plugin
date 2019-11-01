@@ -1,9 +1,9 @@
 <?jelly escape-by-default='true'?>
 <div>
-    Allows to build complex rules to decide when and which builds should be removed from the
-    history and which preserved. Browse <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki">wiki
-</a> to check list of available features.
-    <br/>
+    Allows to build complex rules to decide when and which builds should be deleted from the
+    history. Build number, age, result (status) and many more can be used as a factor.
+    Visit <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki">wiki</a>
+    to check list of available features.<br/>
     <font color="red">New plugin</font>, still not recommended for production because new versions might break
-    backward compatibility. Test, give feedback and wait for stable version 1.x
+    backward compatibility. Test, give feedback, request new feature and wait for stable version 1.x
 </div>
