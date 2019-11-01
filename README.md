@@ -14,9 +14,10 @@
 The motivation of creating this plugin is to deliver powerful tool that allows to define rules that are built from two types of objects:
 
 ### Conditions
+Following simple configuration allows to save last 5 builds, rest will be deleted:
 [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java) filters out builds which should be performed by [actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java). So plugin can filter builds by:
 - build [result](https://javadoc.jenkins-ci.org/hudson/model/Result.html)
-- variables for which you can use [Token Macro](https://wiki.jenkins.io/display/JENKINS/Token+Macro+Plugin) plugin
+- variables for which you can use [Token Macro](https://plugins.jenkins.io/token-macro) plugin
 
 ### Actions
 [Actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java) defines how the build filtered by above condition) should be modified. Plugin can:

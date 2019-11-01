@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import hudson.model.Descriptor;
 import org.junit.Test;
 
 /**
@@ -13,7 +14,7 @@ public class BuildNumberRangeConditionDescriptorTest {
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        BuildNumberRangeConditionDescriptor descriptor = new BuildNumberRangeConditionDescriptor();
+        Descriptor descriptor = new BuildNumberRangeConditionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();
