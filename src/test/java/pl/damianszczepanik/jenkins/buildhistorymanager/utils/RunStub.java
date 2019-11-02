@@ -2,7 +2,9 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
 
+import java.io.File;
 import java.io.IOException;
 
 import hudson.model.Job;
@@ -16,9 +18,11 @@ import mockit.Deencapsulation;
 public class RunStub extends Run {
 
     private Result result;
+    private boolean isLogFilePresent;
 
     private int deleteArtifactsTimes;
     private int deleteTimes;
+    private int deleteLogFile;
 
     public RunStub(int buildNumber) throws IOException {
         this();
@@ -57,6 +61,10 @@ public class RunStub extends Run {
         Deencapsulation.setField(this, "startTime", startTime);
     }
 
+    public void setLogFile(boolean isPresent) {
+        isLogFilePresent = isPresent;
+    }
+
     @Override
     public void deleteArtifacts() {
         deleteArtifactsTimes++;
@@ -67,8 +75,26 @@ public class RunStub extends Run {
         deleteTimes++;
     }
 
+    @Override
+    public File getLogFile() {
+        File logFile = mock(File.class);
+        when(logFile.exists()).thenReturn(isLogFilePresent);
+        when(logFile.delete()).thenReturn(deleteLogFile(isLogFilePresent));
+
+        return logFile;
+    }
+
+    private boolean deleteLogFile(boolean isLogFilePresent) {
+        deleteLogFile++;
+        return isLogFilePresent;
+    }
+
     public void assertBuildWasDeleted() {
         assertThat(deleteTimes).isOne();
+    }
+
+    public void assertLogFileWasDeleted() {
+        assertThat(deleteLogFile).isOne();
     }
 
     public void assertBuildIsAvailable() {
@@ -81,6 +107,10 @@ public class RunStub extends Run {
 
     public void assertArtifactsAreAvailable() {
         assertThat(deleteArtifactsTimes).isZero();
+    }
+
+    public void assertLogFileWasNotDeleted() {
+        assertThat(deleteLogFile).isOne();
     }
 
     @Override
