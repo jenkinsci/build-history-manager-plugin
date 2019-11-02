@@ -1,4 +1,4 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
+package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.conditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,18 +8,18 @@ import org.junit.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class DeleteJobArtifactsActionDescriptorTest {
+public class BuildResultConditionDescriptorTest {
 
     @Test
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        Descriptor descriptor = new DeleteArtifactsActionDescriptor();
+        Descriptor descriptor = new BuildResultConditionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();
 
         // then
-        assertThat(displayName).isEqualTo("Delete artifacts");
+        assertThat(displayName).isEqualTo("Build result");
     }
 }

@@ -1,4 +1,4 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
+package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,18 +8,18 @@ import org.junit.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildResultConditionDescriptorTest {
+public class DeleteLogFileActionDescriptorTest {
 
     @Test
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        Descriptor descriptor = new BuildResultConditionDescriptor();
+        Descriptor descriptor = new DeleteLogFileActionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();
 
         // then
-        assertThat(displayName).isEqualTo("Build result");
+        assertThat(displayName).isEqualTo("Delete log file");
     }
 }
