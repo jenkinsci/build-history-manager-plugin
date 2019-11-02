@@ -15,7 +15,7 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
-import pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.DeleteBuildActionDescriptor;
+import pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions.DeleteBuildActionDescriptor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteBuildAction;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.DescriptorMocker;
