@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
 import hudson.Extension;
 import hudson.model.Descriptor;
+import org.jenkinsci.Symbol;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.TokenMacroCondition;
 
@@ -11,6 +12,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.TokenMac
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension
+@Symbol("TokenMacro")
 public class TokenMacroConditionDescriptor extends Descriptor<Condition> {
 
     public TokenMacroConditionDescriptor() {

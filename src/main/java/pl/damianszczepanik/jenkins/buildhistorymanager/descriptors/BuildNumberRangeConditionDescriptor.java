@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
 import hudson.Extension;
 import hudson.model.Descriptor;
+import org.jenkinsci.Symbol;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.BuildNumberRangeCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
@@ -11,6 +12,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension
+@Symbol("BuildNumberRange")
 public class BuildNumberRangeConditionDescriptor extends Descriptor<Condition> {
 
     public BuildNumberRangeConditionDescriptor() {

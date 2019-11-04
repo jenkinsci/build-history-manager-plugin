@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
 import hudson.Extension;
 import hudson.model.Descriptor;
+import org.jenkinsci.Symbol;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteBuildAction;
 
@@ -11,6 +12,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteBuild
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension
+@Symbol("DeleteBuild")
 public class DeleteBuildActionDescriptor extends Descriptor<Action> {
 
     public DeleteBuildActionDescriptor() {
