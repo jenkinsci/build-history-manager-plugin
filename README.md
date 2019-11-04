@@ -6,6 +6,10 @@
 [![Codebeat badge](https://codebeat.co/badges/1b4fcf87-3eb3-4b57-a0fa-ad7258fda8ac)](https://codebeat.co/projects/github-com-jenkinsci-build-history-manager-plugin-master)
 [![Codacy badge](https://api.codacy.com/project/badge/Grade/4094e20dc4dd43adaf77c6621583d2cf)](https://www.codacy.com/manual/damianszczepanik/build-history-manager-plugin)
 [![Vulnerabilities](https://snyk.io/test/github/jenkinsci/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/damianszczepanik/project/aab2b0cc-41d6-41e7-a909-fbc9d09dc98d)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3370/badge)](https://bestpractices.coreinfrastructure.org/en/projects/3370)
+
+[![Installs](https://img.shields.io/jenkins/plugin/i/build-history-manager.svg)](https://plugins.jenkins.io/build-history-manager)
+[![Version](https://img.shields.io/jenkins/plugin/v/build-history-manager)](https://github.com/jenkinsci/build-history-manager-plugin/releases)
 
 # Build History Manager Plugin
 [Jenkins](https://jenkins.io/) plugin that allows to build complex rules to define which builds should be removed from the history and which preserved.
@@ -47,4 +51,11 @@ Once you developed your new feature or improvement you should test it by providi
 ![codecov.io](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graphs/tree.svg)
 
 ## Release notes
-Check [release](https://github.com/jenkinsci/build-history-manager-plugin/releases) section
+Check [release notes](https://github.com/jenkinsci/build-history-manager-plugin/releases) for changelog details.
+
+## Contribution
+If you find the issue you can send pull request to fix it or file the bug.
+The same about missing <code>Action</code> or <code>Condition</code>
+Remember about:
+- doing tests on your local Jenkins instance
+- adding new unit tests according to [given -> when -> then](https://pl.wikipedia.org/wiki/Behavior-driven_development) approach.
