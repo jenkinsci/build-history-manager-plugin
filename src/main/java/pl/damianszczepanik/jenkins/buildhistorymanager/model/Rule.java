@@ -9,7 +9,6 @@ import hudson.model.AbstractDescribableImpl;
 import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
-import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryDiscarder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
@@ -18,7 +17,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  */
 public class Rule extends AbstractDescribableImpl<Rule> {
 
-    private static final Logger LOG = Logger.getLogger(BuildHistoryDiscarder.class.getName());
+    private static final Logger LOG = Logger.getLogger(Rule.class.getName());
 
     private final List<Condition> conditions;
 

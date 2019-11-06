@@ -18,7 +18,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildHistoryDiscarderTest {
+public class BuildHistoryManagerTest {
 
     private List<Rule> sampleRules;
 
@@ -28,10 +28,10 @@ public class BuildHistoryDiscarderTest {
     }
 
     @Test
-    public void BuildHistoryDiscarderTest_OnEmptyRules_SavesEmptyRule() {
+    public void BuildHistoryManagerTest_OnEmptyRules_SavesEmptyRule() {
 
         // given
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(null);
+        BuildHistoryManager discarder = new BuildHistoryManager(null);
 
         // when
         List<Rule> rules = discarder.getRules();
@@ -44,7 +44,7 @@ public class BuildHistoryDiscarderTest {
     public void getRules_ReturnsRules() {
 
         // given
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
 
         // when
         List<Rule> rules = discarder.getRules();
@@ -59,7 +59,7 @@ public class BuildHistoryDiscarderTest {
         // given
         Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), null);
         Deencapsulation.setField(rule, "matchedTimes", 1);
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(Arrays.asList(rule));
+        BuildHistoryManager discarder = new BuildHistoryManager(Arrays.asList(rule));
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
@@ -74,7 +74,7 @@ public class BuildHistoryDiscarderTest {
     public void perform_validatesEachRules() throws IOException, InterruptedException {
 
         // given
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
@@ -90,7 +90,7 @@ public class BuildHistoryDiscarderTest {
     public void perform_OnNegativeCondition_ValidatesEachRules() throws IOException, InterruptedException {
 
         // given
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
@@ -108,7 +108,7 @@ public class BuildHistoryDiscarderTest {
         // given
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
 
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
@@ -129,7 +129,7 @@ public class BuildHistoryDiscarderTest {
         configuration.setContinueAfterMatch(false);
         Deencapsulation.setField(sampleRules.get(0), "configuration", configuration);
 
-        BuildHistoryDiscarder discarder = new BuildHistoryDiscarder(sampleRules);
+        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when

@@ -5,9 +5,10 @@ Matches builds that age is between given days range. It calculates days only wit
 Allow to match several builds at once based on build age.
 
 <h3>Warning!</h3>
-Time of the build time is reset to zero before comparison so only days are compared.
-For example <code>maxDaysAge</code> equal to <code>0</code> refers to builds which were completed today
-and range <code>1-2</code> means builds which were completed yesterday or the day before yesterday.
+Time of the build completed is reset to zero before comparison so only days are compared.
+<code>maxDaysAge = 0</code> refers to builds which were completed today
+<code>1-2</code> means builds which were completed yesterday or the day before yesterday.<br>
+
 Build completed time (age) is calculated as sum of <code><a
     href="https://javadoc.jenkins-ci.org/hudson/model/Run.html#getStartTimeInMillis--">getStartTimeInMillis()</a></code> and
 <code><a

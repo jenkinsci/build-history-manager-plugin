@@ -17,6 +17,33 @@
 ## Usage
 The motivation of creating this plugin is to deliver powerful tool that allows to define rules that are built from two types of objects:
 
+### Example
+Following configuration has two rules. First one makes sure that the newest build with `failure` status is not deleted.
+Second deletes all builds which are not `success`. In other words it keeps the most recent broken build and all stables.
+```groovy
+pipeline {
+   agent any
+
+    options {
+        buildDiscarder(BuildHistoryManager([
+            [
+                conditions: [
+                    BuildResult(matchFailure: true)
+                ],
+                matchAtMost: 1,
+                continueAfterMatch: false
+            ],
+            [
+                conditions: [
+                    BuildResult(matchAborted: true, matchFailure: true, matchUnstable: true)
+                ],
+                actions: [DeleteBuild()
+            ]
+        ]]))
+    }
+}
+```
+
 ### Conditions
 Following simple configuration allows to save last 5 builds, rest will be deleted:
 [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java) filters out builds which should be performed by [actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java). So plugin can filter builds by:

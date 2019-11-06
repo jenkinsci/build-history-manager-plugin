@@ -17,14 +17,14 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see hudson.tasks.LogRotator
  */
-public class BuildHistoryDiscarder extends BuildDiscarder {
+public class BuildHistoryManager extends BuildDiscarder {
 
-    private static final Logger LOG = Logger.getLogger(BuildHistoryDiscarder.class.getName());
+    private static final Logger LOG = Logger.getLogger(BuildHistoryManager.class.getName());
 
     private final List<Rule> rules;
 
     @DataBoundConstructor
-    public BuildHistoryDiscarder(List<Rule> rules) {
+    public BuildHistoryManager(List<Rule> rules) {
         this.rules = Util.fixNull(rules);
     }
 
