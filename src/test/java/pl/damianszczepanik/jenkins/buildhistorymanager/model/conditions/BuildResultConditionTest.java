@@ -79,7 +79,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchSuccess(true);
-        Run<?, ?> run = new ResultsRun(Result.SUCCESS);
+        Run<?, ?> run = new RunStub(Result.SUCCESS);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -93,7 +93,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchSuccess(false);
-        Run<?, ?> run = new ResultsRun(Result.SUCCESS);
+        Run<?, ?> run = new RunStub(Result.SUCCESS);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -107,7 +107,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchSuccess(true);
-        Run<?, ?> run = new ResultsRun(Result.FAILURE);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -122,7 +122,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchUnstable(true);
-        Run<?, ?> run = new ResultsRun(Result.UNSTABLE);
+        Run<?, ?> run = new RunStub(Result.UNSTABLE);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -136,7 +136,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchUnstable(false);
-        Run<?, ?> run = new ResultsRun(Result.UNSTABLE);
+        Run<?, ?> run = new RunStub(Result.UNSTABLE);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -150,7 +150,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchUnstable(true);
-        Run<?, ?> run = new ResultsRun(Result.FAILURE);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -165,7 +165,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchFailure(true);
-        Run<?, ?> run = new ResultsRun(Result.FAILURE);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -179,7 +179,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchFailure(false);
-        Run<?, ?> run = new ResultsRun(Result.FAILURE);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -193,7 +193,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchFailure(true);
-        Run<?, ?> run = new ResultsRun(Result.SUCCESS);
+        Run<?, ?> run = new RunStub(Result.SUCCESS);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -208,7 +208,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchAborted(true);
-        Run<?, ?> run = new ResultsRun(Result.ABORTED);
+        Run<?, ?> run = new RunStub(Result.ABORTED);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -222,7 +222,7 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchAborted(false);
-        Run<?, ?> run = new ResultsRun(Result.ABORTED);
+        Run<?, ?> run = new RunStub(Result.ABORTED);
 
         // when
         boolean matched = condition.matches(run, null);
@@ -236,25 +236,11 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchAborted(true);
-        Run<?, ?> run = new ResultsRun(Result.FAILURE);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
         boolean matched = condition.matches(run, null);
 
         assertThat(matched).isFalse();
-    }
-}
-
-class ResultsRun extends RunStub {
-
-    private final Result result;
-
-    public ResultsRun(Result result) throws IOException {
-        this.result = result;
-    }
-
-    @Override
-    public Result getResult() {
-        return result;
     }
 }
