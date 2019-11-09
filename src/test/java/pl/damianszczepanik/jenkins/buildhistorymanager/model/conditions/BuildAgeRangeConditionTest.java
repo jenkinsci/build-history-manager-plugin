@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import hudson.model.Run;
-import mockit.Deencapsulation;
 import org.junit.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
 
@@ -52,7 +51,7 @@ public class BuildAgeRangeConditionTest {
         condition.setMaxDaysAge(0);
         condition.setMinDaysAge(0);
 
-        Run<?, ?> run = new RunBuildTime();
+        Run<?, ?> run = new RunStub();
 
         // when
         boolean matches = condition.matches(run, null);
@@ -70,7 +69,7 @@ public class BuildAgeRangeConditionTest {
 
 
         long buildTimeMinus3Days = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 15;
-        Run<?, ?> run = new RunBuildTime(buildTimeMinus3Days);
+        Run<?, ?> run = new RunStub(buildTimeMinus3Days);
 
         // when
         boolean matches = condition.matches(run, null);
@@ -88,7 +87,7 @@ public class BuildAgeRangeConditionTest {
 
 
         long buildTimeMinus3Days = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 3;
-        Run<?, ?> run = new RunBuildTime(buildTimeMinus3Days);
+        Run<?, ?> run = new RunStub(buildTimeMinus3Days);
 
         // when
         boolean matches = condition.matches(run, null);
@@ -105,7 +104,7 @@ public class BuildAgeRangeConditionTest {
         condition.setMinDaysAge(5);
 
         long buildTimeMinus3Days = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 6;
-        Run<?, ?> run = new RunBuildTime(buildTimeMinus3Days);
+        Run<?, ?> run = new RunStub(buildTimeMinus3Days);
 
         // when
         boolean matches = condition.matches(run, null);
@@ -121,27 +120,11 @@ public class BuildAgeRangeConditionTest {
         condition.setMaxDaysAge(5);
         condition.setMinDaysAge(10);
 
-        Run<?, ?> run = new RunBuildTime();
+        Run<?, ?> run = new RunStub();
 
         // when
         boolean matches = condition.matches(run, null);
 
         assertThat(matches).isFalse();
-    }
-}
-
-class RunBuildTime extends RunStub {
-
-    public RunBuildTime() throws IOException {
-        this(System.currentTimeMillis());
-    }
-
-    public RunBuildTime(long startTime) throws IOException {
-        Deencapsulation.setField(this, "startTime", startTime);
-    }
-
-    @Override
-    public long getDuration() {
-        return 0;
     }
 }

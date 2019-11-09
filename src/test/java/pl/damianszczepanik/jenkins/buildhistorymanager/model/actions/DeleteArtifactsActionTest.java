@@ -10,30 +10,19 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class DeleteJobActionTest {
+public class DeleteArtifactsActionTest {
 
     @Test
     public void perform_DeletesJob() throws IOException, InterruptedException {
 
         // given
-        Action action = new DeleteBuildAction();
-        RunStub run = new DeleteRun();
+        Action action = new DeleteArtifactsAction();
+        RunStub run = new RunStub();
 
         // when
         action.perform(run);
 
         // then
-        assertThat(run.times).isOne();
-    }
-}
-
-class DeleteRun extends RunStub {
-
-    public DeleteRun() throws IOException {
-    }
-
-    @Override
-    public void delete() {
-        times++;
+        assertThat(run.deleteArtifactsTimes).isOne();
     }
 }
