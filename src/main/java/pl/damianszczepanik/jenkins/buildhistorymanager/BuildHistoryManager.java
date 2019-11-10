@@ -64,8 +64,8 @@ public class BuildHistoryManager extends BuildDiscarder {
                 }
             }
 
-            // validateConditions rules for previous completed build
-            run = run.getPreviousBuild();
+            // validateConditions rules for previous build - completed in case some previous are still building
+            run = run.getPreviousCompletedBuild();
             // stop when the iteration reach the oldest build
         } while (run != null);
     }
