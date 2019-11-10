@@ -15,7 +15,7 @@ public class JobBuilder {
         Job<JobT, RunT> job = mock(Job.class);
 
         RunT lastBuild = (RunT) mock(Run.class);
-        when(job.getLastBuild()).thenReturn(lastBuild);
+        when(job.getLastCompletedBuild()).thenReturn(lastBuild);
 
         return job;
     }
