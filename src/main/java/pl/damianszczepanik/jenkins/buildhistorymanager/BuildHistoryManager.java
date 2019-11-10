@@ -46,7 +46,7 @@ public class BuildHistoryManager extends BuildDiscarder {
             rule.initialize();
         }
 
-        Run<?, ?> run = job.getLastBuild();
+        Run<?, ?> run = job.getLastCompletedBuild();
         // for each completed build...
         do {
             LOG.info("Processing build #" + run.getNumber());
