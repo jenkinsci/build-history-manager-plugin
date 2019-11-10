@@ -58,6 +58,7 @@ Following simple configuration allows to save last 5 builds, rest will be delete
 
 ### Wiki
 Read [Wiki](https://github.com/jenkinsci/build-history-manager-plugin/wiki) for more details.
+Check also information how to [avoid problems](https://github.com/jenkinsci/build-history-manager-plugin/wiki/Building-good-rules) when creating rules.
 
 There is possibility to build complex rules. Each [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) can define more than single condition and action.
 Plugin starts as [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class. Core method that is responsible for processing conditions and actions are stored in [Rule.perform()](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) method.
