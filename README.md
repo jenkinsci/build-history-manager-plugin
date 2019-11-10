@@ -37,9 +37,9 @@ pipeline {
                 conditions: [
                     BuildResult(matchAborted: true, matchFailure: true, matchUnstable: true)
                 ],
-                actions: [DeleteBuild()
+                actions: [DeleteBuild()]
             ]
-        ]]))
+        ]))
     }
 }
 ```
