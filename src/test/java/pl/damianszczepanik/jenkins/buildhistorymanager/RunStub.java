@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
 import java.io.IOException;
@@ -16,12 +17,12 @@ public class RunStub extends Run {
 
     private Result result;
 
-    public int deleteArtifactsTimes;
-    public int deleteTimes;
+    private int deleteArtifactsTimes;
+    private int deleteTimes;
 
-    public RunStub() throws IOException {
-        super(mock(Job.class));
-        setStartTime(System.currentTimeMillis());
+    public RunStub(int buildNumber) throws IOException {
+        this();
+        setBuildNumber(buildNumber);
     }
 
     public RunStub(Result result) throws IOException {
@@ -32,6 +33,19 @@ public class RunStub extends Run {
     public RunStub(long startTime) throws IOException {
         this();
         setStartTime(startTime);
+    }
+
+    public RunStub() throws IOException {
+        super(mock(Job.class));
+        setStartTime(System.currentTimeMillis());
+    }
+
+    public void setBuildNumber(int buildNumber) {
+        this.number = buildNumber;
+    }
+
+    public void setPreviousBuild(Run previousBuild) {
+        this.previousBuild = previousBuild;
     }
 
     private void setStartTime(long startTime) {
@@ -48,6 +62,22 @@ public class RunStub extends Run {
         deleteTimes++;
     }
 
+    public void assertBuildWasDeleted() {
+        assertThat(deleteTimes).isOne();
+    }
+
+    public void assertBuildIsAvailable() {
+        assertThat(deleteTimes).isZero();
+    }
+
+    public void assertArtifactsWereDeleted() {
+        assertThat(deleteArtifactsTimes).isOne();
+    }
+
+    public void assertArtifactsAreAvailable() {
+        assertThat(deleteArtifactsTimes).isZero();
+    }
+
     @Override
     public Result getResult() {
         return result;
@@ -56,5 +86,10 @@ public class RunStub extends Run {
     @Override
     public long getDuration() {
         return 0;
+    }
+
+    @Override
+    public boolean isBuilding() {
+        return false;
     }
 }

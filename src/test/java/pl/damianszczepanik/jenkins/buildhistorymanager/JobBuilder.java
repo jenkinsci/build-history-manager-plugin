@@ -11,10 +11,13 @@ import hudson.model.Run;
  */
 public class JobBuilder {
 
-    public static <JobT extends Job<JobT, RunT>, RunT extends Run<JobT, RunT>> Job buildSampleJob() {
-        Job<JobT, RunT> job = mock(Job.class);
+    public static Job buildSampleJob() {
+        return buildSampleJob(mock(Run.class));
+    }
 
-        RunT lastBuild = (RunT) mock(Run.class);
+    public static Job buildSampleJob(Run lastBuild) {
+        Job job = mock(Job.class);
+
         when(job.getLastCompletedBuild()).thenReturn(lastBuild);
 
         return job;

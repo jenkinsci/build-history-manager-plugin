@@ -1,7 +1,5 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.IOException;
 
 import org.junit.Test;
@@ -23,6 +21,6 @@ public class DeleteArtifactsActionTest {
         action.perform(run);
 
         // then
-        assertThat(run.deleteArtifactsTimes).isOne();
+        run.assertArtifactsWereDeleted();
     }
 }
