@@ -29,8 +29,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
  */
 @PrepareForTest(Jenkins.class)
 @RunWith(PowerMockRunner.class)
-@PowerMockIgnore({ "javax.management.*", "com.sun.org.apache.xerces.*", "javax.xml.*",
-        "org.xml.*", "org.w3c.dom.*", "com.sun.org.apache.xalan.*", "javax.activation.*" })
+@PowerMockIgnore("javax.xml.*")
 public class DeleteBuildActionIT {
 
     @Test
