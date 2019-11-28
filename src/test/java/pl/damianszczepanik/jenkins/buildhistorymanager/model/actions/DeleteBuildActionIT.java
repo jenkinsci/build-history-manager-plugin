@@ -1,9 +1,5 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,29 +7,35 @@ import java.util.List;
 
 import hudson.model.Job;
 import jenkins.model.Jenkins;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
-import pl.damianszczepanik.jenkins.buildhistorymanager.JobBuilder;
-import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
 import pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.DeleteBuildActionDescriptor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.DescriptorMocker;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
- * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Delete-artifacts">documentation</a>
+ * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Delete-artifacts-action">documentation</a>
  */
 @PrepareForTest(Jenkins.class)
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore("javax.xml.*")
 public class DeleteBuildActionIT {
 
+    @Before
+    public void setUp() {
+        new DescriptorMocker(new DeleteBuildActionDescriptor());
+    }
+
     @Test
-    public void testDeletesArtifacts() throws IOException, InterruptedException {
+    public void testDeletesArtifactsAction() throws IOException, InterruptedException {
 
         // given
         RunStub run23 = new RunStub(23);
@@ -70,7 +72,6 @@ public class DeleteBuildActionIT {
         List<Rule> rules = Arrays.asList(rule1, rule2, rule3);
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(rules);
         Job job = JobBuilder.buildSampleJob(run23);
-        mockDescriptor();
 
         // when
         buildHistoryManager.perform(job);
@@ -94,12 +95,5 @@ public class DeleteBuildActionIT {
         run32.assertBuildWasDeleted();
 
         run35.assertBuildWasDeleted();
-    }
-
-    private static void mockDescriptor() {
-        mockStatic(Jenkins.class);
-        Jenkins jenkins = mock(Jenkins.class);
-        when(Jenkins.getInstance()).thenReturn(jenkins);
-        when(jenkins.getDescriptorOrDie(Matchers.any())).thenReturn(new DeleteBuildActionDescriptor());
     }
 }

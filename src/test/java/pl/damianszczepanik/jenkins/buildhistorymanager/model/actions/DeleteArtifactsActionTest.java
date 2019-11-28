@@ -3,7 +3,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 import java.io.IOException;
 
 import org.junit.Test;
-import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

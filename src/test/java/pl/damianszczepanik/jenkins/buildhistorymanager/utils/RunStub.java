@@ -1,4 +1,4 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager;
+package pl.damianszczepanik.jenkins.buildhistorymanager.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -27,6 +27,11 @@ public class RunStub extends Run {
 
     public RunStub(Result result) throws IOException {
         this();
+        this.result = result;
+    }
+
+    public RunStub(int buildNumber, Result result) throws IOException {
+        this(buildNumber);
         this.result = result;
     }
 

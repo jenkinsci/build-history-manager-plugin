@@ -14,6 +14,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
