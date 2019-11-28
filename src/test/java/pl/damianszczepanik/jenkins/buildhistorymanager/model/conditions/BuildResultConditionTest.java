@@ -7,7 +7,7 @@ import java.io.IOException;
 import hudson.model.Result;
 import hudson.model.Run;
 import org.junit.Test;
-import pl.damianszczepanik.jenkins.buildhistorymanager.RunStub;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)

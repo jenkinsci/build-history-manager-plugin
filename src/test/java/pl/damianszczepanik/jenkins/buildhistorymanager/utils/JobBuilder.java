@@ -1,4 +1,4 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager;
+package pl.damianszczepanik.jenkins.buildhistorymanager.utils;
 
 import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;

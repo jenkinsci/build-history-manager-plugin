@@ -22,7 +22,7 @@ Following configuration has two rules. First one makes sure that the newest buil
 Second deletes all builds which are not `success`. In other words it keeps the most recent broken build and all stables.
 ```groovy
 pipeline {
-   agent any
+    agent any
 
     options {
         buildDiscarder(BuildHistoryManager([
@@ -40,6 +40,14 @@ pipeline {
                 actions: [DeleteBuild()]
             ]
         ]))
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo "Hello!"
+            }
+        }
     }
 }
 ```
