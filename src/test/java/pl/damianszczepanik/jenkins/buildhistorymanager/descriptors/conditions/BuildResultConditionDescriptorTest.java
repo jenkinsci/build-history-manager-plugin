@@ -1,4 +1,4 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
+package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.conditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

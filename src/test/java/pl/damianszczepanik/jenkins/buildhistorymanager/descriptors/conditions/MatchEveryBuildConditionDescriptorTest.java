@@ -1,4 +1,4 @@
-package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
+package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.conditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,18 +8,18 @@ import org.junit.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildNumberRangeConditionDescriptorTest {
+public class MatchEveryBuildConditionDescriptorTest {
 
     @Test
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        Descriptor descriptor = new BuildNumberRangeConditionDescriptor();
+        Descriptor descriptor = new MatchEveryBuildConditionDescriptor();
 
         // when
         String displayName = descriptor.getDisplayName();
 
         // then
-        assertThat(displayName).isEqualTo("Build number range");
+        assertThat(displayName).isEqualTo("Match every build");
     }
 }
