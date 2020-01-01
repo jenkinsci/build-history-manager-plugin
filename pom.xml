@@ -75,7 +75,13 @@
                         <format>html</format>
                         <format>xml</format>
                     </formats>
-                    <check />
+                    <instrumentation>
+                        <excludes>
+                            <!-- generated class -->
+                            <exclude>pl/damianszczepanik/jenkins/buildhistorymanager/Messages.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>

@@ -6,6 +6,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import hudson.model.Job;
 import hudson.model.Result;
@@ -39,8 +40,8 @@ public class RunStub extends Run {
         this.result = result;
     }
 
-    public RunStub(long startTime) throws IOException {
-        this();
+    public RunStub(int buildNumber, long startTime) throws IOException {
+        this(buildNumber);
         setStartTime(startTime);
     }
 
@@ -126,5 +127,13 @@ public class RunStub extends Run {
     @Override
     public boolean isBuilding() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "RunStub:"
+                + (number != 0 ? " number=" + number : "")
+                + (result != null ? " result=" + result : "")
+                + (getStartTimeInMillis() != 0 ? " startTime=" + new Date(getStartTimeInMillis()) : "");
     }
 }

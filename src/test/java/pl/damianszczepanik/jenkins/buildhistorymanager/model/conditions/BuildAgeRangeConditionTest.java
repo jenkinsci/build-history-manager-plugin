@@ -69,7 +69,7 @@ public class BuildAgeRangeConditionTest {
 
 
         long buildTimeMinus3Days = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 15;
-        Run<?, ?> run = new RunStub(buildTimeMinus3Days);
+        Run<?, ?> run = new RunStub(1, buildTimeMinus3Days);
 
         // when
         boolean matches = condition.matches(run, null);
@@ -87,7 +87,7 @@ public class BuildAgeRangeConditionTest {
 
 
         long buildTimeMinus3Days = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 3;
-        Run<?, ?> run = new RunStub(buildTimeMinus3Days);
+        Run<?, ?> run = new RunStub(1, buildTimeMinus3Days);
 
         // when
         boolean matches = condition.matches(run, null);
@@ -104,7 +104,7 @@ public class BuildAgeRangeConditionTest {
         condition.setMinDaysAge(5);
 
         long buildTimeMinus3Days = System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 6;
-        Run<?, ?> run = new RunStub(buildTimeMinus3Days);
+        Run<?, ?> run = new RunStub(1, buildTimeMinus3Days);
 
         // when
         boolean matches = condition.matches(run, null);

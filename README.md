@@ -91,7 +91,8 @@ Check [release notes](https://github.com/jenkinsci/build-history-manager-plugin/
 
 ## Contribution
 If you find the issue you can send pull request to fix it or file the bug.
-The same about missing <code>Action</code> or <code>Condition</code>
+The same about missing `Action` or `Condition`
 Remember about:
 - doing tests on your local Jenkins instance
 - adding new unit tests according to [given -> when -> then](https://pl.wikipedia.org/wiki/Behavior-driven_development) approach.
+- remember about integration tests and wiki update
