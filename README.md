@@ -17,7 +17,10 @@
 ## Usage
 The motivation of creating this plugin is to deliver powerful tool that allows to define rules that are built from two types of objects:
 
-### Example
+### Examples
+
+#### retain most recent broken build
+
 Following configuration has two rules. First one makes sure that the newest build with `failure` status is not deleted.
 Second deletes all builds which are not `success`. In other words it keeps the most recent broken build and all stables.
 ```groovy
@@ -51,6 +54,54 @@ pipeline {
     }
 }
 ```
+
+#### remove builds based on a parameter
+
+Following configuration has two rules. The first uses the token macro condition to test
+the value of a parameter. The second rule will preserve the last 24 builds. In other words
+it removes all builds where the paramater matches a value, and when it does not it keeps the last 24.
+
+```groovy
+pipeline {
+    agent any
+
+    options {
+        buildDiscarder(BuildHistoryManager([
+            [
+                conditions: [
+                    TokenMacro(template: '"${ENABLE_HISTORY}"', value: '"false"')
+                ],
+                actions: [DeleteBuild()],
+                continueAfterMatch: false
+            ],
+            [
+                continueAfterMatch: false,
+                matchAtMost: 24
+            ],
+            [
+                actions: [DeleteBuild()]
+            ]
+        ]))
+    }
+
+    parameters {
+        booleanParam(
+          name: 'ENABLE_HISTORY',
+          defaultValue: true,
+          description: 'Check to preserve build.'
+        )
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo "Hello!"
+            }
+        }
+    }
+}
+```
+
 
 ### Conditions
 Following simple configuration allows to save last 5 builds, rest will be deleted:
