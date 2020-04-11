@@ -57,9 +57,8 @@ pipeline {
 
 #### remove builds based on a parameter
 
-Following configuration has two rules. The first uses the token macro condition to test
-the value of a parameter. The second rule will preserve the last 24 builds. In other words
-it removes all builds where the paramater matches a value, and when it does not it keeps the last 24.
+Following configuration has three rules. The first uses the token macro condition to test
+the value of a parameter. It removes jobs where the string value of `ENABLE_HISTORY` is "false". The second rule will preserve the last 24 builds that do not match the first rule. The third rule deletes the remainder of jobs. Thus the three rules work together to preserve the last 24 builds where `ENABLE_HISTORY` is true.
 
 ```groovy
 pipeline {
@@ -75,8 +74,8 @@ pipeline {
                 continueAfterMatch: false
             ],
             [
-                continueAfterMatch: false,
-                matchAtMost: 24
+                matchAtMost: 24,
+                continueAfterMatch: false
             ],
             [
                 actions: [DeleteBuild()]
