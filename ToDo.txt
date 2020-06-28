@@ -1,0 +1,11 @@
+build moze byc zaznaczony jako keep forever - dodac flage, zeby takie buildy tez mozna bylo wywalic albo warning, ze ich nie wywalamy
+
+akcja, ktora tylko loguje - zeby mozna bylo testowac zmiany
+
+sprawdzac, czy build sie skonczyl? https://github.com/jenkinsci/purge-job-history-plugin/blob/master/src/main/java/jenkins/plugins/purgejobhistory/PurgeJobHistory.java#L134
+
+jak wspiera multibranch https://github.com/jenkinsci/purge-job-history-plugin
+
+wsparcie dla calego folderu https://github.com/jenkinsci/purge-job-history-plugin
+
+wielkosc pliku z logami, jak build number range
