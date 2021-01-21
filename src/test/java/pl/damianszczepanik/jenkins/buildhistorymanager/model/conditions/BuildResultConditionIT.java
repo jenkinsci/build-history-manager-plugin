@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import hudson.model.AbstractItem;
 import hudson.model.Job;
 import hudson.model.Result;
 import jenkins.model.Jenkins;
@@ -26,7 +27,10 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Build-result-condition">documentation</a>
  */
-@PrepareForTest(Jenkins.class)
+@PrepareForTest({
+        Jenkins.class,
+        AbstractItem.class  // getFullName()
+})
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore("javax.xml.*")
 public class BuildResultConditionIT {
@@ -94,3 +98,4 @@ public class BuildResultConditionIT {
         run30.assertBuildWasDeleted();
     }
 }
+

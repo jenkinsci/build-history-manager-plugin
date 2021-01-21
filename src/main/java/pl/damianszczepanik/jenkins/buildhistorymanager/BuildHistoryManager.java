@@ -40,23 +40,26 @@ public class BuildHistoryManager extends BuildDiscarder {
      */
     @Override
     public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
+        String uniquePerformName = job.getFullName();
+        LOG.info(uniquePerformName + ": start evaluating build history");
+
         // reset counters of matched builds
         for (Rule rule : rules) {
-            rule.initialize();
+            rule.initialize(uniquePerformName);
         }
 
         Run<?, ?> run = job.getLastCompletedBuild();
         // for each completed build...
         while (run != null) {
-            LOG.info("Processing build #" + run.getNumber());
+            LOG.info(uniquePerformName + ": Processing build #" + run.getNumber());
             if (run.isKeepLog()) {
-                LOG.info("build #" + run.getNumber() + " is marked as keep forever -> skipping");
+                LOG.info(uniquePerformName + ": build #" + run.getNumber() + " is marked as keep forever -> skipping");
             } else {
                 for (int i = 0; i < rules.size(); i++) {
                     Rule rule = rules.get(i);
-                    LOG.info("Processing rule no " + (i + 1));
+                    LOG.info(uniquePerformName + ": Processing rule no " + (i + 1));
                     if (rule.validateConditions(run)) {
-                        LOG.info("Processing actions for rule no " + (i + 1));
+                        LOG.info(uniquePerformName + ": Processing actions for rule no " + (i + 1));
                         rule.performActions(run);
 
                         // if other rules should not be proceed, shift to next build

@@ -25,6 +25,8 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     private final RuleConfiguration configuration = new RuleConfiguration();
 
+    private String uniquePerformName;
+
     private transient int matchedTimes;
 
     @DataBoundConstructor
@@ -62,7 +64,8 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     /**
      * Resets local counters and variables before processing conditions and actions.
      */
-    public void initialize() {
+    public void initialize(String uniquePerformName) {
+        this.uniquePerformName = uniquePerformName;
         matchedTimes = 0;
     }
 
@@ -75,17 +78,17 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     public boolean validateConditions(Run<?, ?> run) {
         // stop checking if max number of processed builds is reached
         if (matchedTimes == getMatchAtMost()) {
-            LOG.info(String.format("Skipping rule because matched %d times", matchedTimes));
+            LOG.info(uniquePerformName + ": " + String.format("Skipping rule because matched %d times", matchedTimes));
             return false;
         }
 
         // validateConditions condition one by one...
         for (Condition condition : conditions) {
-            LOG.info(String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
+            LOG.info(uniquePerformName + ": " + String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
             boolean conditionMatched = condition.matches(run, configuration);
             // stop checking rest conditions when at least condition does not match
             if (!conditionMatched) {
-                LOG.info(String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
+                LOG.info(uniquePerformName + ": " + String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
                 return false;
             }
         }
@@ -96,7 +99,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     public void performActions(Run<?, ?> run) throws IOException, InterruptedException {
         for (Action action : actions) {
-            LOG.info(String.format("Processing action '%s' for build #%d",
+            LOG.info(uniquePerformName + ": " + String.format("Processing action '%s' for build #%d",
                     action.getDescriptor().getDisplayName(), run.getNumber()));
             action.perform(run);
         }

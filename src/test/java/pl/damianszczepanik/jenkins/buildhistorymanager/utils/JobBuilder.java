@@ -17,7 +17,7 @@ public class JobBuilder {
 
     public static Job buildSampleJob(Run lastBuild) {
         Job job = mock(Job.class);
-
+        when(job.getFullName()).thenReturn("sampleJob");
         when(job.getLastCompletedBuild()).thenReturn(lastBuild);
 
         return job;
