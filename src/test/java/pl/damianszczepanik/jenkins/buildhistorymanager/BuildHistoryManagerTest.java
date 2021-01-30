@@ -1,15 +1,23 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
+
+import hudson.model.AbstractItem;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import hudson.model.Job;
+import hudson.model.Run;
 import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
@@ -19,6 +27,10 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({
+        Run.class, // isKeepLog()
+})
 public class BuildHistoryManagerTest {
 
     private List<Rule> sampleRules;
@@ -84,6 +96,24 @@ public class BuildHistoryManagerTest {
         // then
         for (Rule rule : sampleRules) {
             assertThat(((RuleBuilder.TestRule) rule).validateConditionsTimes).isOne();
+        }
+    }
+
+    @Test
+    public void perform_OnKeptBuild_SkipsValidate() throws IOException, InterruptedException {
+
+        // given
+        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        Run keptRun = mock(Run.class);
+        when(keptRun.isKeepLog()).thenReturn(true);
+        Job<?, ?> job = JobBuilder.buildSampleJob(keptRun);
+
+        // when
+        discarder.perform(job);
+
+        // then
+        for (Rule rule : sampleRules) {
+            assertThat(((RuleBuilder.TestRule) rule).validateConditionsTimes).isZero();
         }
     }
 
