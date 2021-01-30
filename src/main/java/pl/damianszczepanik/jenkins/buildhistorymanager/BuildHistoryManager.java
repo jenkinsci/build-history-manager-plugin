@@ -39,8 +39,7 @@ public class BuildHistoryManager extends BuildDiscarder {
      * @see Job#logRotate()
      */
     @Override
-    public void perform(Job<?, ?> job) throws IOException, InterruptedException {
-
+    public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
         // reset counters of matched builds
         for (Rule rule : rules) {
             rule.initialize();
