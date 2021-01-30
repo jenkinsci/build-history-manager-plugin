@@ -49,7 +49,9 @@ public class BuildHistoryManager extends BuildDiscarder {
         // for each completed build...
         while (run != null) {
             LOG.info("Processing build #" + run.getNumber());
-            if (!run.isKeepLog()) {
+            if (run.isKeepLog()) {
+                LOG.info("build is marked as keep forever -> skipping");
+            } else {
                 for (int i = 0; i < rules.size(); i++) {
                     Rule rule = rules.get(i);
                     LOG.info("Processing rule no " + (i + 1));
