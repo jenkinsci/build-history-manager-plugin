@@ -30,6 +30,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({
         Run.class, // isKeepLog()
+        AbstractItem.class  // getFullName()
 })
 public class BuildHistoryManagerTest {
 

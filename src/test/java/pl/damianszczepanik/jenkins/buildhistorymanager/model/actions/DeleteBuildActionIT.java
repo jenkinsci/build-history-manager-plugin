@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import hudson.model.AbstractItem;
 import hudson.model.Job;
 import jenkins.model.Jenkins;
 import org.junit.Before;
@@ -24,7 +25,10 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Delete-artifacts-action">documentation</a>
  */
-@PrepareForTest(Jenkins.class)
+@PrepareForTest({
+        Jenkins.class,
+        AbstractItem.class  // getFullName()
+})
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore("javax.xml.*")
 public class DeleteBuildActionIT {
