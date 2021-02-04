@@ -19,7 +19,7 @@ The motivation of creating this plugin is to deliver powerful tool that allows t
 
 ### Examples
 
-#### retain most recent broken build
+#### Retain most recent broken build
 
 Following configuration has two rules. First one makes sure that the newest build with `failure` status is not deleted.
 Second deletes all builds which are not `success`. In other words it keeps the most recent broken build and all stables.
@@ -55,7 +55,7 @@ pipeline {
 }
 ```
 
-#### remove builds based on a parameter
+#### Remove builds based on a parameter
 
 Following configuration has three rules. The first uses the token macro condition to test
 the value of a parameter. It removes jobs where the string value of `ENABLE_HISTORY` is "false". The second rule will preserve the last 24 builds that do not match the first rule. The third rule deletes the remainder of jobs. Thus the three rules work together to preserve the last 24 builds where `ENABLE_HISTORY` is true.
@@ -120,6 +120,9 @@ Check also information how to [avoid problems](https://github.com/jenkinsci/buil
 
 There is possibility to build complex rules. Each [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) can define more than single condition and action.
 Plugin starts as [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class. Core method that is responsible for processing conditions and actions are stored in [Rule.perform()](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) method.
+
+### Troubleshooting
+Plugin performs when the builds end. It is not connected to any particular run (like last completed job) which might be deleted by some actions. It logs helpful messages to [Jenkins logs](https://www.jenkins.io/doc/book/system-administration/viewing-logs/).
 
 ### Configuration
 ![feature overview page](./.README/configuration.png)
