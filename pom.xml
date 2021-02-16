@@ -22,8 +22,9 @@
     <properties>
         <java.level>8</java.level>
 
-        <jacoco.version>0.8.6</jacoco.version>
-        <powermock.version>2.0.0-beta.5</powermock.version>
+        <powermock.version>2.0.9</powermock.version>
+
+        <test.integration.pattern>**/*IT.java</test.integration.pattern>
     </properties>
 
     <scm>
@@ -65,12 +66,23 @@
             <url>https://repo.jenkins-ci.org/public/</url>
         </pluginRepository>
     </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>0.8.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -88,11 +100,28 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.21.0</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
                 <configuration>
-                    <!-- fix for JDK11 which fails when forking tests -->
-                    <forkCount>0</forkCount>
+                    <systemPropertyVariables>
+                        <!-- JaCoCo runtime must know where to dump coverage: -->
+                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                    <excludes>
+                        <!-- Integration tests should not be counted by code coverage -->
+                        <exclude>${test.integration.pattern}</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <includes>
+                        <!-- Run only integration tests -->
+                        <include>${test.integration.pattern}</include>
+                    </includes>
                 </configuration>
                 <executions>
                     <execution>
@@ -157,7 +186,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.18.0</version>
+            <version>3.6.28</version>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
