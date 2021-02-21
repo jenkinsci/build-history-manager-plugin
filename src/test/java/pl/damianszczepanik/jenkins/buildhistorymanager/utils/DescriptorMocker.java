@@ -6,7 +6,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 import hudson.model.Descriptor;
 import jenkins.model.Jenkins;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -16,7 +16,8 @@ public class DescriptorMocker {
     public DescriptorMocker(Descriptor descriptor) {
         mockStatic(Jenkins.class);
         Jenkins jenkins = mock(Jenkins.class);
-        when(Jenkins.getInstance()).thenReturn(jenkins);
-        when(jenkins.getDescriptorOrDie(Matchers.any())).thenReturn(descriptor);
+        when(Jenkins.get()).thenReturn(jenkins); // for new Jenkins
+        when(Jenkins.getInstance()).thenReturn(jenkins); // for old Jenkins
+        when(jenkins.getDescriptorOrDie(ArgumentMatchers.any())).thenReturn(descriptor);
     }
 }

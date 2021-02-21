@@ -14,7 +14,8 @@ import org.jenkinsci.plugins.tokenmacro.MacroEvaluationException;
 import org.jenkinsci.plugins.tokenmacro.TokenMacro;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -22,6 +23,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @RunWith(PowerMockRunner.class)
+@PowerMockIgnore("com.thoughtworks.xstream.converters.extended.DurationConverter")
 public class TokenMacroConditionTest {
 
     @Test
@@ -100,7 +102,7 @@ public class TokenMacroConditionTest {
         mockStatic(FilePath.class);
 
         try {
-            when(TokenMacro.expandAll(Matchers.any(), Matchers.any(), Matchers.any(), Matchers.any()))
+            when(TokenMacro.expandAll(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any()))
                     .thenThrow(new MacroEvaluationException("ups!"));
         } catch (MacroEvaluationException | IOException | InterruptedException e) {
             throw new IllegalArgumentException(e);
