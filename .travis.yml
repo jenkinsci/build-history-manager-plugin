@@ -2,28 +2,33 @@ language: java
 
 dist: trusty
 
-cache:
-  directories:
-  - ~/.m2
-
 matrix:
   include:
-    - jdk: oraclejdk8
+    - jdk: openjdk8
       env:
-        - DESC="verifications"
+        - DESC="tests by jdk8"
       script: mvn verify
 
-    - jdk: oraclejdk8
+    - jdk: oraclejdk11
       env:
-        - DESC="codecov analysis"
-      # skip integration tests
-      script: mvn test cobertura:cobertura
-      after_success:
-        # push report to codecov server
-        bash <(curl -s https://codecov.io/bash)
+        - DESC="tests by oracle11"
+      script:
+        - mvn clean verify
 
-#    - jdk: oraclejdk8
-#      env:
-#        - DESC="sonarcloud.io analysis"
-#      script: mvn test sonar:sonar -Dsonar.projectKey=damianszczepanik_build-history-manager-plugin -Dsonar.organization=damianszczepanik -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-#      if: branch = master
+    - jdk: openjdk11
+      env:
+        - DESC="tests by openjdk11"
+      script:
+        - mvn clean verify
+
+    - jdk: oraclejdk11
+      env:
+        - DESC="static analysis"
+      script:
+        # execute out of sonar plugin as Sonarcloud does not have access to the repo which I'm not owner of
+        # SONAR_TOKEN must be defined
+        - mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=damianszczepanik -Dsonar.projectKey=damianszczepanik_build-history-manager-plugin
+
+after_success:
+  # push report to codecov server
+  bash <(curl -s https://codecov.io/bash)
