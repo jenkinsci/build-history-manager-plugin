@@ -1,6 +1,11 @@
 language: java
 
-dist: trusty
+cache:
+  directories:
+    - ~/.m2
+
+git:
+  depth: false # remove the --depth to support full git blame by Sonarqube
 
 matrix:
   include:

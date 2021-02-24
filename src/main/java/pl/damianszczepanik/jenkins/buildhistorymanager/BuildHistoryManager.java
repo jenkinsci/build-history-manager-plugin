@@ -41,7 +41,7 @@ public class BuildHistoryManager extends BuildDiscarder {
     @Override
     public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
         String uniquePerformName = job.getFullName();
-        LOG.info(uniquePerformName + ": Start evaluating build history");
+        log(uniquePerformName, "Start evaluating build history");
 
         // reset counters of matched builds
         for (Rule rule : rules) {
@@ -51,15 +51,15 @@ public class BuildHistoryManager extends BuildDiscarder {
         Run<?, ?> run = job.getLastCompletedBuild();
         // for each completed build...
         while (run != null) {
-            LOG.info(uniquePerformName + ": Processing build #" + run.getNumber());
+            log(uniquePerformName, "Processing build #" + run.getNumber());
             if (run.isKeepLog()) {
-                LOG.info(uniquePerformName + ": Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
+                log(uniquePerformName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
             } else {
                 for (int i = 0; i < rules.size(); i++) {
                     Rule rule = rules.get(i);
-                    LOG.info(uniquePerformName + ": Processing rule no " + (i + 1));
+                    log(uniquePerformName, "Processing rule no " + (i + 1));
                     if (rule.validateConditions(run)) {
-                        LOG.info(uniquePerformName + ": Processing actions for rule no " + (i + 1));
+                        log(uniquePerformName, "Processing actions for rule no " + (i + 1));
                         rule.performActions(run);
 
                         // if other rules should not be proceed, shift to next build
@@ -74,5 +74,9 @@ public class BuildHistoryManager extends BuildDiscarder {
             run = run.getPreviousCompletedBuild();
             // stop when the iteration reach the oldest build
         }
+    }
+
+    private static void log(String jobName, String message) {
+        LOG.info(String.format("[%s] $s", jobName, message));
     }
 }

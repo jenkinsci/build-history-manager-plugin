@@ -31,11 +31,11 @@ public class TokenMacroCondition extends Condition {
      */
     private String value;
 
+    // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     @DataBoundConstructor
     public TokenMacroCondition(String template, String value) {
         this.template = template;
         this.value = value;
-        // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
     public String getTemplate() {
