@@ -34,8 +34,8 @@
         <tag>HEAD</tag>
     </scm>
     <ciManagement>
-        <system>travis</system>
-        <url>https://travis-ci.org/jenkinsci/build-history-manager-plugin</url>
+        <system>jenkins</system>
+        <url>https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/</url>
     </ciManagement>
 
     <licenses>

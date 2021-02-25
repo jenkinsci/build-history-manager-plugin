@@ -27,7 +27,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     private String uniquePerformName;
 
-    private transient int matchedTimes;
+    private int matchedTimes;
 
     @DataBoundConstructor
     public Rule(List<Condition> conditions, List<Action> actions) {
@@ -78,17 +78,17 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     public boolean validateConditions(Run<?, ?> run) {
         // stop checking if max number of processed builds is reached
         if (matchedTimes == getMatchAtMost()) {
-            LOG.info(uniquePerformName + ": " + String.format("Skipping rule because matched %d times", matchedTimes));
+            log(uniquePerformName, String.format("Skipping rule because matched %d times", matchedTimes));
             return false;
         }
 
         // validateConditions condition one by one...
         for (Condition condition : conditions) {
-            LOG.info(uniquePerformName + ": " + String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
+            log(uniquePerformName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
             boolean conditionMatched = condition.matches(run, configuration);
             // stop checking rest conditions when at least condition does not match
             if (!conditionMatched) {
-                LOG.info(uniquePerformName + ": " + String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
+                log(uniquePerformName, String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
                 return false;
             }
         }
@@ -103,5 +103,9 @@ public class Rule extends AbstractDescribableImpl<Rule> {
                     action.getDescriptor().getDisplayName(), run.getNumber()));
             action.perform(run);
         }
+    }
+
+    private static void log(String jobName, String message) {
+        LOG.info(String.format("[%s] $s", jobName, message));
     }
 }
