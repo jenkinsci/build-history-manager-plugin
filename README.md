@@ -1,6 +1,5 @@
 [![Travis Status](https://img.shields.io/travis/jenkinsci/build-history-manager-plugin/master?label=Travis)](https://travis-ci.org/jenkinsci/build-history-manager-plugin)
 [![Appveyor status](https://ci.appveyor.com/api/projects/status/cjto87m99168m6ea/branch/master?svg=true)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin/branch/master)
-[![Shippable Status](https://img.shields.io/shippable/5d92f8ecb648590006ff3cfd/master?label=Shippable)](https://app.shippable.com/github/jenkinsci/build-history-manager-plugin/dashboard)
 
 [![Coverage Status](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jenkinsci/build-history-manager-plugin)
 [![Codebeat badge](https://codebeat.co/badges/1b4fcf87-3eb3-4b57-a0fa-ad7258fda8ac)](https://codebeat.co/projects/github-com-jenkinsci-build-history-manager-plugin-master)
