@@ -111,8 +111,9 @@ Following simple configuration allows to save last 5 builds, rest will be delete
 ### Actions
 [Actions](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java) defines how the build filtered by above condition) should be modified. Plugin can:
 - mark the build to be [kept forever]([https://javadoc.jenkins.io/hudson/model/Run.html#keepLog--)
-- [delete](https://javadoc.jenkins.io/hudson/model/Run.html#delete--) the build
-- [delete](https://javadoc.jenkins.io/hudson/model/Run.html#deleteArtifacts--) artifacts
+- [delete](https://javadoc.jenkins.io/hudson/model/Run.html#delete--) the build (`DeleteBuild()`)
+- [delete](https://javadoc.jenkins.io/hudson/model/Run.html#deleteArtifacts--) artifacts (`DeleteArtifacts()`)
+- delete the log file (`DeleteLogFile()`)
 
 ### Wiki
 Read [Wiki](https://github.com/jenkinsci/build-history-manager-plugin/wiki) for more details.

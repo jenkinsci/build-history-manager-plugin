@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions;
 
 import hudson.Extension;
 import hudson.model.Descriptor;
+import org.jenkinsci.Symbol;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteLogFileAction;
 
@@ -11,6 +12,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteLogFi
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 @Extension
+@Symbol("DeleteLogFile")
 public class DeleteLogFileActionDescriptor extends Descriptor<Action> {
 
     public DeleteLogFileActionDescriptor() {

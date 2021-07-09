@@ -3,12 +3,16 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.conditions;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import hudson.model.Descriptor;
+import org.junit.Rule;
 import org.junit.Test;
+import org.jvnet.hudson.test.JenkinsRule;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class BuildNumberRangeConditionDescriptorTest {
+    @Rule
+    public JenkinsRule j = new JenkinsRule();
 
     @Test
     public void getDisplayName_ReturnsDescriptorName() {
