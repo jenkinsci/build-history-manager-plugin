@@ -1,10 +1,9 @@
-[![Travis Status](https://img.shields.io/travis/jenkinsci/build-history-manager-plugin/master?label=Travis)](https://travis-ci.org/jenkinsci/build-history-manager-plugin)
+[![Build Status](https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/job/master/badge/icon)](https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/job/master/)
 [![Appveyor status](https://ci.appveyor.com/api/projects/status/cjto87m99168m6ea/branch/master?svg=true)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin/branch/master)
 
 [![Coverage Status](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jenkinsci/build-history-manager-plugin)
 [![Codebeat badge](https://codebeat.co/badges/1b4fcf87-3eb3-4b57-a0fa-ad7258fda8ac)](https://codebeat.co/projects/github-com-jenkinsci-build-history-manager-plugin-master)
 [![Sonarqube Status](https://sonarcloud.io/api/project_badges/measure?project=damianszczepanik_build-history-manager-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=damianszczepanik_build-history-manager-plugin)
-[![Codacy badge](https://api.codacy.com/project/badge/Grade/4094e20dc4dd43adaf77c6621583d2cf)](https://www.codacy.com/manual/damianszczepanik/build-history-manager-plugin)
 [![Vulnerabilities](https://snyk.io/test/github/jenkinsci/build-history-manager-plugin/badge.svg)](https://app.snyk.io/org/damianszczepanik/project/aab2b0cc-41d6-41e7-a909-fbc9d09dc98d)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3370/badge)](https://bestpractices.coreinfrastructure.org/en/projects/3370)
 
