@@ -77,6 +77,6 @@ public class BuildHistoryManager extends BuildDiscarder {
     }
 
     private static void log(String jobName, String message) {
-        LOG.info(String.format("[%s] $s", jobName, message));
+        LOG.info(String.format("[%s] %s", jobName, message));
     }
 }

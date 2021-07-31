@@ -99,13 +99,13 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     public void performActions(Run<?, ?> run) throws IOException, InterruptedException {
         for (Action action : actions) {
-            LOG.info(uniquePerformName + ": " + String.format("Processing action '%s' for build #%d",
+            log(uniquePerformName, String.format("Processing action '%s' for build #%d",
                     action.getDescriptor().getDisplayName(), run.getNumber()));
             action.perform(run);
         }
     }
 
     private static void log(String jobName, String message) {
-        LOG.info(String.format("[%s] $s", jobName, message));
+        LOG.info(String.format("[%s] %s", jobName, message));
     }
 }

@@ -11,22 +11,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 public class DeleteLogFileActionTest {
 
     @Test
-    public void perform_OnExistingLogFile_DeletesLogFile() throws IOException, InterruptedException {
-
-        // given
-        Action action = new DeleteLogFileAction();
-        RunStub run = new RunStub();
-        run.setLogFile(true);
-
-        // when
-        action.perform(run);
-
-        // then
-        run.assertLogFileWasDeleted();
-    }
-
-
-    @Test
     public void perform_OnMissingLogFile_SkipDeletion() throws IOException, InterruptedException {
 
         // given

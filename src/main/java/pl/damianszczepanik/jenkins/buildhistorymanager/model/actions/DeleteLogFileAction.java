@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.logging.Logger;
 
 import hudson.model.Run;
@@ -26,12 +27,7 @@ public class DeleteLogFileAction extends Action {
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         File logFile = run.getLogFile();
         if (logFile.exists()) {
-            boolean wasDeleted = logFile.delete();
-            if (!wasDeleted) {
-                LOG.warning(String.format("Log file for build %d could not be deleted", run.getNumber()));
-            }
-            // ToDo: consider https://github.com/jenkinsci/delete-log-plugin/blob/master/src/main/java/jenkinsci/plugin/deletelog/LogDelete.java#L47-L51
-            // for this and other actions
+            Files.delete(logFile.toPath());
         }
     }
 }
