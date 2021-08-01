@@ -4,18 +4,13 @@ version: '{build}'
 init:
   - git config --global core.autocrlf true
 
-branches:
-  only:
-    - master
-
 environment:
   global:
     # https://stackoverflow.com/questions/42024619/maven-build-gets-connection-reset-when-downloading-artifacts
     MAVEN_OPTS: "-Dhttp.keepAlive=false -Dmaven.wagon.http.retryHandler.count=3"
   matrix:
+    # JDK11 is required for sonar
     - JAVA_HOME: C:\Program Files\Java\jdk11
 
 build_script:
-  - mvn clean package --batch-mode -DskipTest
-test_script:
-  - mvn clean verify --batch-mode
+  - mvn -Dsonar.branch.name=%APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH% -Dsonar.login=%SONAR_TOKEN% verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
