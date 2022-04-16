@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import hudson.Util;
@@ -77,6 +78,6 @@ public class BuildHistoryManager extends BuildDiscarder {
     }
 
     private static void log(String jobName, String message) {
-        LOG.info(String.format("[%s] %s", jobName, message));
+        LOG.log(Level.FINE, String.format("[%s] %s", jobName, message));
     }
 }

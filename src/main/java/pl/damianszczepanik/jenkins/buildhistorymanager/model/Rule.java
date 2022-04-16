@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import hudson.Util;
@@ -106,6 +107,6 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     }
 
     private static void log(String jobName, String message) {
-        LOG.info(String.format("[%s] %s", jobName, message));
+        LOG.log(Level.FINE, String.format("[%s] %s", jobName, message));
     }
 }
