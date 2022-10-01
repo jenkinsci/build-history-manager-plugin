@@ -1,0 +1,36 @@
+<h3 xmlns="http://www.w3.org/1999/html">Description</h3>
+<p>Matches builds that class for cause is equal to given string.</p>
+
+<h3>Use cases</h3>
+<p>Allow to match several builds at once based on build cause.<br/>
+    Most popular class names:<p/>
+<ul>
+    <li><code><a
+            href="https://javadoc.jenkins.io/hudson/model/Cause.UserIdCause.html">UserIdCause</a></code> - when user
+        starts the build
+    </li>
+    <li>
+        <code><a
+                href="https://javadoc.jenkins.io/hudson/triggers/TimerTrigger.TimerTriggerCause.html">TimerTriggerCause</a></code>
+        - for time triggers
+    </li>
+    <li> other <a href="https://javadoc.jenkins.io/hudson/model/Cause.html">causes</a></li>
+</ul>
+
+<p>To check class name of the cause, use following code for debug:</p>
+<pre>
+stage("Print causes") {
+    for (String cause in currentBuild.getBuildCauses()) {
+        print cause._class
+    }
+}
+</pre>
+
+<h3>Warning!</h3>
+<p>It validates <a href="https://javadoc.jenkins-ci.org/hudson/model/Run.html#getCauses()">every cause</a> of the build
+    and expects that at least one of <a href="https://javadoc.jenkins-ci.org/hudson/model/Cause.html">cause</a>
+    matches.<br/>
+    Does not support regular expressions but uses <code><a
+            href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#contains(java.lang.CharSequence)">contains()</a></code>
+    to compare class name.
+<p/>
