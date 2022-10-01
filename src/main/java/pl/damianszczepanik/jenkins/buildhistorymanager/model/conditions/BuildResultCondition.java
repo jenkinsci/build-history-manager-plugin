@@ -7,7 +7,7 @@ import org.kohsuke.stapler.DataBoundSetter;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 
 /**
- * Matches builds that have selected build results.
+ * Matches builds that have expected build results.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */
