@@ -84,6 +84,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isTrue();
     }
 
@@ -98,6 +99,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -112,6 +114,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -127,6 +130,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isTrue();
     }
 
@@ -141,6 +145,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -155,6 +160,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -170,6 +176,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isTrue();
     }
 
@@ -184,6 +191,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -198,6 +206,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -213,6 +222,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isTrue();
     }
 
@@ -227,6 +237,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 
@@ -241,6 +252,7 @@ public class BuildResultConditionTest {
         // when
         boolean matched = condition.matches(run, null);
 
+        // then
         assertThat(matched).isFalse();
     }
 }

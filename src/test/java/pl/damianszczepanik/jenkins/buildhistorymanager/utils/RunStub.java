@@ -6,12 +6,18 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
+import hudson.model.Cause;
 import hudson.model.Job;
 import hudson.model.Result;
 import hudson.model.Run;
 import mockit.Deencapsulation;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -20,6 +26,7 @@ public class RunStub extends Run {
 
     private Result result;
     private boolean isLogFilePresent;
+    private List<Cause> causes;
 
     private int deleteArtifactsTimes;
     private int deleteTimes;
@@ -43,6 +50,21 @@ public class RunStub extends Run {
     public RunStub(int buildNumber, long startTime) throws IOException {
         this(buildNumber);
         setStartTime(startTime);
+    }
+
+    public RunStub(String causeClass) throws IOException {
+        this();
+        this.causes = StringUtils.isEmpty(causeClass)
+                ? Collections.emptyList() : Arrays.asList(new MockCause(causeClass));
+    }
+
+    public RunStub(String[] causeClass) throws IOException {
+        this();
+        List<Cause> causes = new ArrayList<>();
+        for (String cause : causeClass) {
+            causes.add(new MockCause(cause));
+        }
+        this.causes = causes;
     }
 
     public RunStub() throws IOException {
@@ -122,6 +144,11 @@ public class RunStub extends Run {
     @Override
     public long getDuration() {
         return 0;
+    }
+
+    @Override
+    public List<Cause> getCauses() {
+        return causes;
     }
 
     @Override
