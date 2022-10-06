@@ -3,7 +3,6 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.logging.Logger;
 
 import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -15,8 +14,6 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * @see Run#delete()
  */
 public class DeleteLogFileAction extends Action {
-
-    private static final Logger LOG = Logger.getLogger(DeleteLogFileAction.class.getName());
 
     @DataBoundConstructor
     public DeleteLogFileAction() {

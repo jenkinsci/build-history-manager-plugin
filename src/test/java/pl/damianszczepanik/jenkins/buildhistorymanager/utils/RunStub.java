@@ -84,10 +84,6 @@ public class RunStub extends Run {
         Deencapsulation.setField(this, "startTime", startTime);
     }
 
-    public void setLogFile(boolean isPresent) {
-        isLogFilePresent = isPresent;
-    }
-
     @Override
     public void deleteArtifacts() {
         deleteArtifactsTimes++;
@@ -114,10 +110,6 @@ public class RunStub extends Run {
 
     public void assertBuildWasDeleted() {
         assertThat(deleteTimes).isOne();
-    }
-
-    public void assertLogFileWasDeleted() {
-        assertThat(deleteLogFile).isOne();
     }
 
     public void assertBuildIsAvailable() {
