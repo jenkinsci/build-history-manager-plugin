@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundSetter;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 
 /**
- * Matches builds that have build number between given number range.
+ * Matches builds with build number between given number range.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  */

@@ -1,9 +1,8 @@
-<h3 xmlns="http://www.w3.org/1999/html">Description</h3>
-<p>Matches builds that class for cause is equal to given string.</p>
+<p><b>Description</b></p>
+<p>Matches builds that class for the cause contains given string.</p>
 
-<h3>Use cases</h3>
-<p>Allow to match several builds at once based on build cause.<br/>
-    Most popular class names:<p/>
+<p><b>Use cases</b></p>
+<p>Most popular class names are:</p>
 <ul>
     <li><code><a
             href="https://javadoc.jenkins.io/hudson/model/Cause.UserIdCause.html">UserIdCause</a></code> - when user
@@ -12,7 +11,7 @@
     <li>
         <code><a
                 href="https://javadoc.jenkins.io/hudson/triggers/TimerTrigger.TimerTriggerCause.html">TimerTriggerCause</a></code>
-        - for time triggers
+        - for builds triggered by time (mostly cron)
     </li>
     <li> other <a href="https://javadoc.jenkins.io/hudson/model/Cause.html">causes</a></li>
 </ul>
@@ -26,11 +25,10 @@ stage("Print causes") {
 }
 </pre>
 
-<h3>Warning!</h3>
+<p><b>Warning!</b></p>
 <p>It validates <a href="https://javadoc.jenkins-ci.org/hudson/model/Run.html#getCauses()">every cause</a> of the build
-    and expects that at least one of <a href="https://javadoc.jenkins-ci.org/hudson/model/Cause.html">cause</a>
-    matches.<br/>
+    and expects that at least one of <a href="https://javadoc.jenkins-ci.org/hudson/model/Cause.html">cause</a> matches.
+    <br/>
     Does not support regular expressions but uses <code><a
             href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#contains(java.lang.CharSequence)">contains()</a></code>
-    to compare class name.
-<p/>
+    to compare class name.</p>

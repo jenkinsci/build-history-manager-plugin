@@ -1,12 +1,17 @@
-<h3>Description</h3>
-Number of matched builds after which the rule is not processed. Then this condition is met, only other rules are processed.
+<p><b>Description</b></p>
+<p>Number of matched builds after which the rule is not processed. Then this condition is met, only other rules are
+    processed.</p>
 
-<h3>Use cases</h3>
-Gives possibility to limit number of changes performed by given rule
-(what of course saves the time for long build history!).</br>
-<code>-1</code> - there is no limitation, all builds will evaluated</br>
-<code>0</code> - zero builds will be evaluated</br>
-<code>1..n</code> - when conditions match <code>n</code> times, no more builds will be processed by this rule
-
-<h3>Warning!</h3>
-Zero value can be used to temporary disable to rule without deleting whole configuration
+<p><b>Use cases</b></p>
+<p>Gives possibility to limit number of changes performed by given rule
+    (what of course saves the time for long build history!).</p>
+<ul>
+    <li><code>-1</code> There is no limitation, all builds will evaluated</li>
+    <li><code>0</code> Zero builds will be evaluated. This is helpful when it is easier to match builds that should not
+        be deleted and to skip them from evaluation.
+    </li>
+    <li><code>1..n</code> When conditions match <code>n</code> times, no more builds will be processed by this rule
+    </li>
+</ul>
+<p><b>Warning!</b></p>
+<p>Zero value can be used to temporary disable to rule without deleting whole job configuration.</p>
