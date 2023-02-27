@@ -17,6 +17,7 @@ public class BuildResultCondition extends Condition {
     private boolean matchUnstable;
     private boolean matchFailure;
     private boolean matchAborted;
+    private boolean matchNotBuilt;
 
     @DataBoundConstructor
     public BuildResultCondition() {
@@ -59,6 +60,15 @@ public class BuildResultCondition extends Condition {
         this.matchAborted = matchAborted;
     }
 
+    public boolean getMatchNotBuilt() {
+        return matchNotBuilt;
+    }
+
+    @DataBoundSetter
+    public void setMatchNotBuilt(boolean matchNotBuilt) {
+        this.matchNotBuilt = matchNotBuilt;
+    }
+
     @Override
     public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
         Result result = run.getResult();
@@ -72,6 +82,9 @@ public class BuildResultCondition extends Condition {
             return true;
         }
         if (matchAborted && result == Result.ABORTED) {
+            return true;
+        }
+        if (matchNotBuilt && result == Result.NOT_BUILT) {
             return true;
         }
         return false;

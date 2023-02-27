@@ -74,6 +74,20 @@ public class BuildResultConditionTest {
     }
 
     @Test
+    public void setMatchNotBuilt_Sets_NotBuilt() {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        boolean matchNotBuilt = true;
+
+        // when
+        condition.setMatchNotBuilt(matchNotBuilt);
+
+        // then
+        assertThat(condition.getMatchNotBuilt()).isEqualTo(matchNotBuilt);
+    }
+
+    @Test
     public void match_OnMatchSuccessAndResultSuccess_ReturnsTrue() throws IOException {
 
         // given
@@ -247,6 +261,52 @@ public class BuildResultConditionTest {
         // given
         BuildResultCondition condition = new BuildResultCondition();
         condition.setMatchAborted(true);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
+
+        // when
+        boolean matched = condition.matches(run, null);
+
+        // then
+        assertThat(matched).isFalse();
+    }
+
+
+    @Test
+    public void match_OnMatchNotBuiltAndResultNotBuilt_ReturnsTrue() throws IOException {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        condition.setMatchNotBuilt(true);
+        Run<?, ?> run = new RunStub(Result.NOT_BUILT);
+
+        // when
+        boolean matched = condition.matches(run, null);
+
+        // then
+        assertThat(matched).isTrue();
+    }
+
+    @Test
+    public void match_OnNotMatchNotBuiltAndResultNotBuilt_ReturnsTrue() throws IOException {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        condition.setMatchNotBuilt(false);
+        Run<?, ?> run = new RunStub(Result.NOT_BUILT);
+
+        // when
+        boolean matched = condition.matches(run, null);
+
+        // then
+        assertThat(matched).isFalse();
+    }
+
+    @Test
+    public void match_OnMatchNotBuiltAndResultNotNotBuilt_ReturnsTrue() throws IOException {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        condition.setMatchNotBuilt(true);
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
