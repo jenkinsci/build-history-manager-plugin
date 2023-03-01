@@ -16,6 +16,7 @@ import hudson.model.Cause;
 import hudson.model.Job;
 import hudson.model.Result;
 import hudson.model.Run;
+import hudson.security.Permission;
 import mockit.Deencapsulation;
 import org.apache.commons.lang.StringUtils;
 
@@ -101,6 +102,16 @@ public class RunStub extends Run {
         when(logFile.delete()).thenReturn(deleteLogFile(isLogFilePresent));
 
         return logFile;
+    }
+
+    // skips serialization which is quite problematic
+    @Override
+    public synchronized void save() {
+    }
+
+    // skips security checking which is quite problematic
+    @Override
+    public void checkPermission(Permission permission) {
     }
 
     private boolean deleteLogFile(boolean isLogFilePresent) {
