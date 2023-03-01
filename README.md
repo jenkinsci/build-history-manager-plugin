@@ -22,6 +22,7 @@ The motivation of creating this plugin is to deliver powerful tool that allows t
 
 Following configuration has two rules. First one makes sure that the newest build with `failure` status is not deleted.
 Second deletes all builds which are not `success`. In other words it keeps the most recent broken build and all stables.
+
 ```groovy
 pipeline {
     agent any
@@ -84,9 +85,9 @@ pipeline {
 
     parameters {
         booleanParam(
-          name: 'ENABLE_HISTORY',
-          defaultValue: true,
-          description: 'Check to preserve build.'
+            name: 'ENABLE_HISTORY',
+            defaultValue: true,
+            description: 'Check to preserve build.'
         )
     }
 
@@ -123,6 +124,10 @@ Plugin starts as [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/Build
 
 ### Troubleshooting
 Plugin performs when the builds end. It is not connected to any particular run (like last completed job) which might be deleted by some actions. It logs helpful messages to [Jenkins logs](https://www.jenkins.io/doc/book/system-administration/viewing-logs/).
+
+### Test & debug
+For debug purpose use
+action [ChangeBuildDescriptionAction](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/ChangeBuildDescriptionAction.java). It updates build description only so it is easy to test and debug conditions before real deletions is applied as action.
 
 ### Configuration
 ![feature overview page](./.README/configuration.png)
