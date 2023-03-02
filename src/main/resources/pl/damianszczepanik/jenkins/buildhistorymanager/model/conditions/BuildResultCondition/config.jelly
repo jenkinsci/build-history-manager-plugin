@@ -13,5 +13,8 @@
     <f:entry title="Aborted result" field="matchAborted">
         <f:checkbox default="false"/>
     </f:entry>
+    <f:entry title="Not Built result" field="matchNotBuilt">
+        <f:checkbox default="false"/>
+    </f:entry>
 
 </j:jelly>
