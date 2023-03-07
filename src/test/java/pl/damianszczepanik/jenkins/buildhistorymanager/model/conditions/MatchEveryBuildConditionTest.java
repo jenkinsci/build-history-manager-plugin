@@ -12,7 +12,7 @@ import org.junit.Test;
 public class MatchEveryBuildConditionTest {
 
     @Test
-    public void matches_ReturnTrue() throws IOException, InterruptedException {
+    public void matches_ReturnsTrue() throws IOException, InterruptedException {
 
         // given
         MatchEveryBuildCondition condition = new MatchEveryBuildCondition();
