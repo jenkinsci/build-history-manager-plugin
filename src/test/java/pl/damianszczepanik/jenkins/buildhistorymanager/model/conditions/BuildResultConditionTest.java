@@ -272,6 +272,52 @@ public class BuildResultConditionTest {
 
 
     @Test
+    public void match_OnMatchNotBuiltAndResultNull_ReturnsTrue() throws IOException {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        condition.setMatchNotBuilt(true);
+        Run<?, ?> run = new RunStub();
+
+        // when
+        boolean matched = condition.matches(run, null);
+
+        // then
+        assertThat(matched).isTrue();
+    }
+
+    @Test
+    public void match_OnNotMatchNotBuiltAndResultNull_ReturnsFalse() throws IOException {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        condition.setMatchNotBuilt(false);
+        Run<?, ?> run = new RunStub();
+
+        // when
+        boolean matched = condition.matches(run, null);
+
+        // then
+        assertThat(matched).isFalse();
+    }
+
+    @Test
+    public void match_OnMatchNotBuiltAndResultNotNull_ReturnsFalse() throws IOException {
+
+        // given
+        BuildResultCondition condition = new BuildResultCondition();
+        condition.setMatchNotBuilt(true);
+        Run<?, ?> run = new RunStub(Result.FAILURE);
+
+        // when
+        boolean matched = condition.matches(run, null);
+
+        // then
+        assertThat(matched).isFalse();
+    }
+
+
+    @Test
     public void match_OnMatchNotBuiltAndResultNotBuilt_ReturnsTrue() throws IOException {
 
         // given
