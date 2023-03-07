@@ -84,7 +84,7 @@ public class BuildResultCondition extends Condition {
         if (matchAborted && result == Result.ABORTED) {
             return true;
         }
-        if (matchNotBuilt && result == Result.NOT_BUILT) {
+        if (matchNotBuilt && (result == null || result == Result.NOT_BUILT)) {
             return true;
         }
         return false;
