@@ -92,7 +92,7 @@ public class CauseConditionTest {
     }
 
     @Test
-    public void match_OnMultiplyCause_ReturnsFalse() throws IOException {
+    public void match_OnMultiplyCause_ReturnsTrue() throws IOException {
 
         // given
         final String[] causeClasses = {"one", "two"};
