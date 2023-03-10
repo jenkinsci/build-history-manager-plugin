@@ -20,7 +20,7 @@ The motivation of creating this plugin is to deliver powerful tool that allows t
 
 #### Retain most recent broken build
 
-Following configuration has two rules. First one makes sure that the newest build with `failure` status is not deleted.
+Following configuration has two rules. First one makes sure that the newest build with [result](https://javadoc.jenkins-ci.org/hudson/model/Result.html) `failure` is not deleted.
 Second deletes all builds which are not `success`. In other words it keeps the most recent broken build and all stables.
 
 ```groovy
