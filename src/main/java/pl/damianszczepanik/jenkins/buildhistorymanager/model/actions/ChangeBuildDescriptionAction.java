@@ -25,6 +25,11 @@ public class ChangeBuildDescriptionAction extends Action {
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         // null-safe concatenation
-        run.setDescription(PRE_DESCRIPTION + StringUtils.defaultString(run.getDescription()));
+        String description = StringUtils.defaultString(run.getDescription());
+
+        // do not append if already updated
+        if (!description.startsWith(PRE_DESCRIPTION)) {
+            run.setDescription(PRE_DESCRIPTION + description);
+        }
     }
 }

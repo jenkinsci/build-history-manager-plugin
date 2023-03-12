@@ -12,17 +12,39 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  */
 public class ChangeBuildDescriptionActionTest {
 
+    private static final String PRE_DESCRIPTION = "[build-history-manager]\n";
+
     @Test
-    public void perform_DescriptionUpdate() throws IOException, InterruptedException {
+    public void perform__UpdatedAgain() throws IOException, InterruptedException {
 
         // given
         ChangeBuildDescriptionAction action = new ChangeBuildDescriptionAction();
         RunStub run = new RunStub();
 
+        final String oldDescription = "Yellow Duck";
+        run.setDescription(oldDescription);
+
         // when
         action.perform(run);
 
         // then
-        assertThat(run.getDescription()).startsWith("[build-history-manager]");
+        assertThat(run.getDescription()).startsWith(PRE_DESCRIPTION + oldDescription);
+    }
+
+    @Test
+    public void perform_OnUpdatedDescription_DoesNotUpdatedAgain() throws IOException, InterruptedException {
+
+        // given
+        ChangeBuildDescriptionAction action = new ChangeBuildDescriptionAction();
+        RunStub run = new RunStub();
+
+        final String oldDescription = "Yellow Duck";
+        run.setDescription(PRE_DESCRIPTION + oldDescription);
+
+        // when
+        action.perform(run);
+
+        // then
+        assertThat(run.getDescription()).startsWith(PRE_DESCRIPTION + oldDescription);
     }
 }
