@@ -42,7 +42,7 @@ public class BuildHistoryManager extends BuildDiscarder {
     @Override
     public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
         String uniquePerformName = job.getFullName();
-        log(uniquePerformName, "Start evaluating build history");
+        log(uniquePerformName, "Start evaluating build history for build " + job.getFullName());
 
         // reset counters of matched builds
         for (Rule rule : rules) {
