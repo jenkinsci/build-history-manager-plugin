@@ -187,11 +187,13 @@
                 <artifactId>asm-util</artifactId>
                 <version>${asm.version}</version>
             </dependency>
+            <!-- dependency of mockito-core -->
             <dependency>
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
                 <version>3.3</version>
             </dependency>
+            <!-- dependency of token-macro -->
             <dependency>
                 <groupId>net.minidev</groupId>
                 <artifactId>json-smart</artifactId>
