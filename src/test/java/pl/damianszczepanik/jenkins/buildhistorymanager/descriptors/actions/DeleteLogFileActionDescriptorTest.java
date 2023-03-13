@@ -13,6 +13,7 @@ import org.jvnet.hudson.test.JenkinsRule;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class DeleteLogFileActionDescriptorTest {
+
     @Rule
     public JenkinsRule j = new JenkinsRule();
 
