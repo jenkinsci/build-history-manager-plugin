@@ -12,7 +12,8 @@ import org.jvnet.hudson.test.JenkinsRule;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class DeleteJobArtifactsActionDescriptorTest {
+public class DeleteArtifactsActionDescriptorTest {
+
     @Rule
     public JenkinsRule j = new JenkinsRule();
 
