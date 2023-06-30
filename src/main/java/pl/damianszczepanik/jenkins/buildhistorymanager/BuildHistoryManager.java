@@ -35,6 +35,10 @@ public class BuildHistoryManager extends BuildDiscarder {
 
     /**
      * Entry point for the discarding process. Iterates over the completed builds and rules.
+     * This method is invoked by {@link Job#logRotate()}, which is called for example by <br/>
+     * {@link jenkins.model.JobGlobalBuildDiscarderStrategy#apply(Job)}, <br>
+     * <a href="https://github.com/jenkinsci/workflow-job-plugin/blob/master/src/main/java/org/jenkinsci/plugins/workflow/job/WorkflowRun.java#L658">org.jenkinsci.plugins.workflow.job.WorkflowRun#finish()</a> <br/>
+     * thus this method can be invoked several time after completed build.
      *
      * @see BuildDiscarder#perform(Job)
      * @see Job#logRotate()
