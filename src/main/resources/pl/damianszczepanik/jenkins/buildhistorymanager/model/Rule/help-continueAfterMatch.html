@@ -1,10 +1,22 @@
 <p><b>Description</b></p>
-<p>Decides whether next rules should validate current build when this rule matches the build.</p>
+<p>
+    By default, after the conditions of a rule are met and the action are apllied,
+    the plugin moves on to the next completed build in the build history and
+    starts to process all the rules again from the start of the list of rules.
+</p>
+<p>
+    When this flag is set to <code>false</code> (default) AND this rule's conditions are met,
+    this rule is the last rule applied to the build. The plugin moves on to the next completed build
+    and starts processing the rules from the start of the list of rules.
+</p>
+<p>
+    When this flag is set to <code>true</code> AND this rule's conditions are met,
+    the plugin moves on to the next rule with the same build. This way multiple consecutive rules
+    can be applied to the same build.
+</p>
 
 <p><b>Use cases</b></p>
-<p>This is the way to configure if it is enough to match only at once condition or there should be matched more.
-    When this parameter is set to <code>true</code> then there is logical <code>and</code> condition between current and
-    next condition so all must match.</p>
+<p>
+    This is the way to apply more than one rule to the same build, providing the conditions of all those rules are met.
+</p>
 
-<p><b>Warning!</b></p>
-<p>This rule is validated against rule per each build.</p>
