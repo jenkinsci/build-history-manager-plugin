@@ -13,7 +13,7 @@
             <f:entry title="Process this rule at most (times)" field="matchAtMost">
                 <f:number default="-1"/>
             </f:entry>
-            <f:entry title="Proceed next rules if this one is matched" field="continueAfterMatch">
+            <f:entry title="Proceed to the next rule if the conditions of this rule are met" field="continueAfterMatch">
                 <f:checkbox default="true"/>
             </f:entry>
         </f:block>
