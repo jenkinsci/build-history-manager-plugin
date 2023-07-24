@@ -246,4 +246,13 @@ public class DeleteArtifactsWithPatternActionTest {
         Assert.assertTrue(buildXML.exists());
         assertFileExists("archive/test1.xml");
     }
+
+    @Test // test 10, for archiveRootPath
+    public void testRemoveLastSlash_NoSlash() throws IOException, InterruptedException {
+        String inputPath = "path/without/slash";
+
+        String result = DeleteArtifactsWithPatternAction.removeLastSlash(inputPath);
+
+        Assert.assertEquals(inputPath, result);
+    }
 }
