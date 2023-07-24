@@ -54,6 +54,13 @@ public class DeleteArtifactsWithPatternAction extends Action {
         // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
+    public static String removeLastSlash(String archiveRootPath) {
+        if(archiveRootPath.endsWith("/")) {
+            return archiveRootPath.substring(0, archiveRootPath.lastIndexOf("/"));
+        } else {
+            return archiveRootPath;
+        }
+    }
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     private static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1;
@@ -61,14 +68,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
         public Delete(String archiveRootPath) {
             this.archiveRootPath = removeLastSlash(archiveRootPath);
-        }
-
-        public String removeLastSlash(String archiveRootPath) {
-            if(archiveRootPath.endsWith("/")) {
-                return archiveRootPath.substring(0, archiveRootPath.lastIndexOf("/"));
-            } else {
-                return archiveRootPath;
-            }
         }
 
         @Override 
