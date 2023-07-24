@@ -78,8 +78,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
                 LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
                 directories.add(vFile.getParentFile());
                 Util.deleteFile(vFile); 
-            } else if (vFile.isDirectory()){
-                Util.deleteFile(vFile);
             } else {
                 LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
             }
