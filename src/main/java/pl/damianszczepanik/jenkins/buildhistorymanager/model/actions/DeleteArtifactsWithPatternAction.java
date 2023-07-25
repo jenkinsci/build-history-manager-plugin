@@ -118,16 +118,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
                 parent = parent.getParentFile();
             }
         }
-
-        // public boolean isDirEmpty(Path path) throws IOException {
-        //     if (Files.isDirectory(path)) {
-        //         try (Stream<Path> entries = Files.list(path)) {
-        //             return !entries.findFirst().isPresent();
-        //         }
-        //     }        
-        //     return false;
-        // }
-       
         // checkRoles method is used for access control and security purposes in Jenkins.
         // It is responsible for checking if the current user has the required permissions to execute the code defined in the FileCallable object.
         // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
