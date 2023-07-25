@@ -62,6 +62,15 @@ public class DeleteArtifactsWithPatternAction extends Action {
             return archiveRootPath;
         }
     }
+
+    public static boolean isDirEmpty(Path path) throws IOException {
+        if (Files.isDirectory(path)) {
+            try (Stream<Path> entries = Files.list(path)) {
+                return !entries.findFirst().isPresent();
+            }
+        }        
+        return false;
+    }
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     private static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1;
@@ -110,14 +119,14 @@ public class DeleteArtifactsWithPatternAction extends Action {
             }
         }
 
-        public boolean isDirEmpty(Path path) throws IOException {
-            if (Files.isDirectory(path)) {
-                try (Stream<Path> entries = Files.list(path)) {
-                    return !entries.findFirst().isPresent();
-                }
-            }        
-            return false;
-        }
+        // public boolean isDirEmpty(Path path) throws IOException {
+        //     if (Files.isDirectory(path)) {
+        //         try (Stream<Path> entries = Files.list(path)) {
+        //             return !entries.findFirst().isPresent();
+        //         }
+        //     }        
+        //     return false;
+        // }
        
         // checkRoles method is used for access control and security purposes in Jenkins.
         // It is responsible for checking if the current user has the required permissions to execute the code defined in the FileCallable object.
