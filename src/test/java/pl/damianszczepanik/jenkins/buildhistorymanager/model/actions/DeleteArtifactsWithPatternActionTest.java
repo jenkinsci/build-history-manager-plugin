@@ -3,6 +3,8 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -276,5 +278,15 @@ public class DeleteArtifactsWithPatternActionTest {
         String actualExclude = action.getExclude();
 
         Assert.assertEquals(expectedExclude, actualExclude);
+    }
+
+    @Test // testing isDirEmpty method for code coverage
+    public void testIsDirEmpty() throws IOException, InterruptedException {
+        DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
+        Path nonEmptyDir = Files.createTempDirectory("nonEmptyDir");
+        Files.createFile(nonEmptyDir.resolve("file.txt"));
+
+        Assert.assertFalse(action.isDirEmpty(nonEmptyDir));
+        Assert.assertTrue(Files.exists(nonEmptyDir));
     }
 }
