@@ -21,6 +21,7 @@ import hudson.Util;
 import hudson.model.Run;
 import hudson.remoting.VirtualChannel;
 import jenkins.util.VirtualFile;
+import javax.annotation.Generated;
 
 /**
  * Deletes the artifacts with patterns.
@@ -118,6 +119,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         // It is responsible for checking if the current user has the required permissions to execute the code defined in the FileCallable object.
         // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
         @Override
+        @Generated(value = "JaCoCo") // Exclude this method from code coverage
         public void checkRoles(RoleChecker checker) throws SecurityException {
             // TODO Auto-generated method stub
             // Nothing to do here  
