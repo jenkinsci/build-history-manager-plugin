@@ -135,12 +135,16 @@ public class DeleteArtifactsWithPatternAction extends Action {
         Collection<String> files = vRoot.list(include, exclude, false);
         LOGGER.log(Level.FINE, "Include Pattern Files: ------ " + files);
 
-        Delete deleteInstance = new Delete(vRoot.toURI().getPath());
-
         for (String path : files){
-            VirtualFile vFile = vRoot.child(path);
-            FilePath filePath = new FilePath(new File(vFile.toURI().getPath()));
-            filePath.act(deleteInstance);
+            deleteFileAtPath(vRoot, path);
         }
+    }
+
+    public void deleteFileAtPath(VirtualFile vRoot, String path) throws IOException, InterruptedException {
+        VirtualFile vFile = vRoot.child(path);
+        File file = new File(vFile.toURI().getPath());
+        FilePath filePath = new FilePath(file);
+        Delete deleteInstance = new Delete(vRoot.toURI().getPath());
+        filePath.act(deleteInstance);
     }
 }
