@@ -98,15 +98,20 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
         private void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
             for (File dir : directories){
-                if (dir != null && dir.isDirectory() && isDirEmpty(dir.toPath())) {
-                    File parent = dir.getParentFile();
-                    if (parent == null || !parent.getPath().equals(this.archiveRootPath)) {
-                        continue;
-                    }
+                if (shouldDeleteDirectory(dir)) {
                     Util.deleteFile(dir);
-                    deleteParentDirectories(parent);
+                    deleteParentDirectories(dir.getParentFile());
                 }
             }
+        }
+
+        private boolean shouldDeleteDirectory(File dir) throws IOException {
+            if (dir == null || !dir.isDirectory() || !isDirEmpty(dir.toPath())) {
+                return false;
+            }
+
+            File parent = dir.getParentFile();
+            return parent != null && parent.getPath().equals(this.archiveRootPath);
         }
 
         private void deleteParentDirectories(File directory) {
