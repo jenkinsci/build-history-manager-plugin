@@ -131,9 +131,9 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
-        Collection<String> files = run.getArtifactManager().root().list(include, exclude, false);
-        LOGGER.log(Level.FINE, "Include Pattern Files: ------ " + files);
         VirtualFile vRoot = run.getArtifactManager().root();
+        Collection<String> files = vRoot.list(include, exclude, false);
+        LOGGER.log(Level.FINE, "Include Pattern Files: ------ " + files);
 
         Delete deleteInstance = new Delete(vRoot.toURI().getPath());
 
