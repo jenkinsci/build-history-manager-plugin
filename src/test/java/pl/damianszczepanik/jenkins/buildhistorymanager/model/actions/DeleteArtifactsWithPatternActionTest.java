@@ -280,13 +280,21 @@ public class DeleteArtifactsWithPatternActionTest {
         Assert.assertEquals(expectedExclude, actualExclude);
     }
 
-    @Test // testing isDirEmpty method for code coverage
-    public void testIsDirEmpty() throws IOException, InterruptedException {
+    @Test // testing isDirEmpty method returns 'False' for code coverage
+    public void testIsDirEmptyFalse() throws IOException, InterruptedException {
         DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
         Path nonEmptyDir = Files.createTempDirectory("nonEmptyDir");
         Files.createFile(nonEmptyDir.resolve("file.txt"));
 
         Assert.assertFalse(action.isDirEmpty(nonEmptyDir));
         Assert.assertTrue(Files.exists(nonEmptyDir));
+    }
+
+    @Test // testing isDirEmpty method returns 'True' for code coverage
+    public void testIsDirEmptyTrue() throws IOException, InterruptedException {
+        DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
+        Path emptyDir = Files.createTempDirectory("emptyDir");
+
+        Assert.assertTrue(action.isDirEmpty(emptyDir));
     }
 }
