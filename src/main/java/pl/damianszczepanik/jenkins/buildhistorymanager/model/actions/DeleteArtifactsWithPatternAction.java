@@ -71,6 +71,16 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }        
         return false;
     }
+
+    static void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
+        if (vFile.isFile()) {
+            LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
+            directories.add(vFile.getParentFile());
+            Util.deleteFile(vFile);
+            return; // Return early when the condition is met
+        }
+        LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
+    }
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     private static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1;
@@ -84,14 +94,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         public Void invoke(File vFile, VirtualChannel channel) throws IOException {          
 
             Set<File> directories = new HashSet<>();
-            if (vFile.isFile()) {
-                LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
-                directories.add(vFile.getParentFile());
-                Util.deleteFile(vFile); 
-            } else {
-                LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
-            }
-
+            deleteFileOrLogError(vFile, directories);
             deleteEmptyDirectoriesAndParents(directories);
             return null;
         }
