@@ -54,7 +54,7 @@ The conditions are:
 - [Match every build](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/MatchEveryBuildCondition.java)
 - [Token Macro](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/TokenMacroCondition.java)
 
-Providing the built-in conditions allow, the condition checks have the following effects:
+Providing the built-in conditions allow, the optional condition checks have the following effects:
 
 1. As soon as one of the conditions does not match, the plugin ignores the Actions.
 2. When all the conditions of the rule are met, the plugin applies the rule's Actions.
