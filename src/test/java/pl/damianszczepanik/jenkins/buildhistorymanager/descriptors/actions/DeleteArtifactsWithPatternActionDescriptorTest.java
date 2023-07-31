@@ -52,8 +52,8 @@ public class DeleteArtifactsWithPatternActionDescriptorTest {
         Assert.assertEquals(include, result);
     }
 
-    @Test
-    public void testGetExclude() {
+    @Test // testing getExclude method for code coverage
+    public void testGetExclude() throws IOException, InterruptedException {
         // Given
         String exclude = "excludePattern";
         descriptor.setExclude(exclude);
