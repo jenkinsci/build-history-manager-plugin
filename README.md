@@ -73,7 +73,7 @@ The actions are:
 - [Delete artifacts](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/DeleteArtifactsAction.java)
 - [Delete build](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/DeleteBuildAction.java)
 
-If the first action is to delete the build, the other actions may still be applied but have no real effect.
+If the first action is to delete the build, the other actions will still be applied but have no real effect.
 
 ## Operation
 
