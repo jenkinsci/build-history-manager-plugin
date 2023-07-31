@@ -42,7 +42,7 @@ The built-in conditions are:
 ### Optional Conditions
 
 Users can add a list of [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java)s to each rule,
-in any order as needed.
+in any order they need.
 The conditions are checked in the order they are defined.
 
 The conditions are:
