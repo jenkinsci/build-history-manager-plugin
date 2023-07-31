@@ -22,7 +22,7 @@ Users can add Build History Manager rules to Jenkins jobs. The rules are compose
 
 1. Built-in conditions that control the applications of rules to builds,
 2. Optional [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java)s that are ANDed together to filter (select) builds,
-3. Optional [Action](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java)s that are applied to builds when all the conditions are met.
+3. Optional [Action](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java)s that are applied to builds when all their rule's conditions are met.
 
 ### Built-in conditions
 
