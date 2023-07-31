@@ -86,7 +86,7 @@ once for each completed build.
 1. For each completed build, the following happens:
     1. If the build is marked as keep forever, the build is ignored and the loop move on to the completed build.
     2. For each rule, the following happens to the build currently operated on:
-        1. If the rule match counter equals the `matchAtMost` value,
+        1. If the "rule match counter" equals the `matchAtMost` value,
            stop processing the current rule and move on to the next rule (next iteration of "for each rule")
         2. If there are no optional conditions, or if all the optional conditions are matched, the following happens:
             1. The rule counter is incremented by one.
