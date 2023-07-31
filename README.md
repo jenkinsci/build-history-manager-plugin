@@ -92,7 +92,7 @@ once for each completed build.
             1. The rule counter is incremented by one.
             2. All the actions are performed.
             3. If `continueAfterMatch` is `true`,
-               the next rule is applied to the same build, and goes to the next iteration of the for each rule loop
+               the next rule is applied to the same build, and goes to the next iteration of the "for each rule" loop.
             4. If `continueAfterMatch` is `false`,
                the plugin stops applying rules to this build, and goes to the next iteration of the "for each completed build" loop.
         3. If one or more optional condition are not met,
