@@ -56,7 +56,7 @@ The conditions are:
 
 Providing the built-in conditions allow, the optional condition checks have the following effects:
 
-1. As soon as one of the conditions does not match, the plugin ignores the Actions.
+1. As soon as one of the conditions does not match, the plugin ignores the rule's Actions.
 2. When all the conditions of the rule are met, the plugin applies the rule's Actions.
 3. When no optional conditions are specified, the plugin automatically applies the rule's Actions.
 
