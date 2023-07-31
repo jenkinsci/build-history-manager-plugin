@@ -63,7 +63,7 @@ Providing the built-in conditions allow, the optional condition checks have the 
 ### Optional Actions
 
 Users can add a list of [Action](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java)s to each rule,
-in any order as needed.
+in any order they need.
 The actions are applied in the order they are defined.
 
 The actions are:
