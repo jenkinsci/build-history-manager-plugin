@@ -79,7 +79,7 @@ If the first action is to delete the build, the other actions may still be appli
 
 The plugin starts by initializing its internal rules counters to zero.
 
-Then the plugin loops through all the completed builds in the build history starting from the most recent,
+The plugin then loops through all the completed builds in the build history, starting from the most recent,
 and processes each build with possibly every rule (depending on the conditions) by looping through the rule list
 once for each completed build.
 
