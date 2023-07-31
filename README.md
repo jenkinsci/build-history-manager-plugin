@@ -27,7 +27,7 @@ Users can add Build History Manager rules to Jenkins jobs. The rules are compose
 ### Built-in conditions
 
 The plugin has three built-in conditions that control the flow of operations. Users cannot remove these conditions.
-The first one is build-in to the plugin for all rules, and the other two are configurable on a per-rule basis.
+The first one is built-in to the plugin for all rules, and the other two are configurable on a per-rule basis.
 
 The built-in conditions are:
 
