@@ -34,7 +34,7 @@ The built-in conditions are:
 1. A global check for the "Keep this build forever" state, and when it returns true, rules are not applied to the build.
    This currently cannot be controlled nor configured by the user.
 2. A per-rule `matchAtMost` counter (`Process this rule at most (times)` in the UI) that limits the number of times a rule can be applied
-   (default is `-1`, meaning there is no limit);
+   (default is `-1`, meaning there is no limit).
 3. A per-rule `continueAfterMatch` boolean (`Proceed to the next rule if the conditions of this rule are met` in the UI)
    that causes the plugin to apply the next rule to the same build after the current rule has been applied
    (default is `true`, meaning to continue to apply rules to the build being processed).
