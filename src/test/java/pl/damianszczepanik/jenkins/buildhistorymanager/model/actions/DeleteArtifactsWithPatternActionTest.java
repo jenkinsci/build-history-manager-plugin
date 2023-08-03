@@ -1,11 +1,14 @@
 
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
+import static org.junit.Assert.assertFalse;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.jenkinsci.remoting.RoleChecker;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -282,19 +285,36 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // testing isDirEmpty method returns 'False' for code coverage
     public void testIsDirEmptyFalse() throws IOException, InterruptedException {
-        DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
         Path nonEmptyDir = Files.createTempDirectory("nonEmptyDir");
         Files.createFile(nonEmptyDir.resolve("file.txt"));
 
-        Assert.assertFalse(action.isDirEmpty(nonEmptyDir));
+        Assert.assertFalse(DeleteArtifactsWithPatternAction.isDirEmpty(nonEmptyDir));
         Assert.assertTrue(Files.exists(nonEmptyDir));
     }
 
     @Test // testing isDirEmpty method returns 'True' for code coverage
     public void testIsDirEmptyTrue() throws IOException, InterruptedException {
-        DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
         Path emptyDir = Files.createTempDirectory("emptyDir");
 
-        Assert.assertTrue(action.isDirEmpty(emptyDir));
+        Assert.assertTrue(DeleteArtifactsWithPatternAction.isDirEmpty(emptyDir));
+    }
+
+    @Test // testing isDirEmpty method for code coverage
+    public void testIsDirEmptyNonExistentDirectory() throws IOException {
+        // Given
+        Path nonExistentDirectory = tempFolder.newFolder("non_existent").toPath();
+        Files.delete(nonExistentDirectory);
+
+        boolean result = DeleteArtifactsWithPatternAction.isDirEmpty(nonExistentDirectory);
+
+        assertFalse(result);
+    }
+
+    @Test // testing checkRoles method for code coverage
+    public void testCheckRolesNoException() throws IOException, InterruptedException {
+        DeleteArtifactsWithPatternAction.Delete actionDelete = new DeleteArtifactsWithPatternAction.Delete("archiveRootPath/");
+        RoleChecker mockRoleChecker = Mockito.mock(RoleChecker.class);
+
+        actionDelete.checkRoles(mockRoleChecker);
     }
 }
