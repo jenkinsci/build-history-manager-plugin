@@ -21,7 +21,6 @@ import hudson.Util;
 import hudson.model.Run;
 import hudson.remoting.VirtualChannel;
 import jenkins.util.VirtualFile;
-import javax.annotation.Generated;
 
 /**
  * Deletes the artifacts with patterns.
@@ -72,7 +71,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         return false;
     }
 
-    static void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
+    public static void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
         if (vFile.isFile()) {
             LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
             directories.add(vFile.getParentFile());
@@ -82,7 +81,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
     }
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
-    private static final class Delete implements FileCallable<Void> {
+    public static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1;
         private final String archiveRootPath;
 
@@ -99,7 +98,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
             return null;
         }
 
-        private void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
+        public void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
             for (File dir : directories){
                 if (shouldDeleteDirectory(dir)) {
                     Util.deleteFile(dir);
@@ -108,7 +107,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
             }
         }
 
-        private boolean shouldDeleteDirectory(File dir) throws IOException {
+        public boolean shouldDeleteDirectory(File dir) throws IOException {
             if (dir == null || !dir.isDirectory() || !isDirEmpty(dir.toPath())) {
                 return false;
             }
@@ -117,7 +116,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
             return parent != null && parent.getPath().equals(this.archiveRootPath);
         }
 
-        private void deleteParentDirectories(File directory) {
+        public void deleteParentDirectories(File directory) {
             File parent = directory.getParentFile();
             while (parent != null && !parent.getPath().equals(this.archiveRootPath)) {
                 if (!parent.delete()) {
@@ -130,7 +129,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
         // It is responsible for checking if the current user has the required permissions to execute the code defined in the FileCallable object.
         // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
         @Override
-        @Generated(value = "JaCoCo") // Exclude this method from code coverage
         public void checkRoles(RoleChecker checker) throws SecurityException {
             // TODO Auto-generated method stub
             // Nothing to do here  
