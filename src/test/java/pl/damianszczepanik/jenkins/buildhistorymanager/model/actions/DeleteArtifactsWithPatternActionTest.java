@@ -31,7 +31,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @BeforeClass
     public static void beforeClass() {
-        System.setProperty("java.util.logging.config.file", ClassLoader.getSystemResource("logging.properties").getPath());
+        System.setProperty("java.util.logging.config.file",
+                ClassLoader.getSystemResource("logging.properties").getPath());
     }
 
     @Rule
@@ -46,7 +47,7 @@ public class DeleteArtifactsWithPatternActionTest {
         VirtualFile root = VirtualFile.forFile(tempFolder.getRoot());
         Mockito.when(mockArtifactManager.root()).thenReturn(root);
 
-        //Create the tempFolder and its contents
+        // Create the tempFolder and its contents
         tempFolder.newFile("test.xml");
         tempFolder.newFile("testLog.log");
         tempFolder.newFile("testTxt.txt");
@@ -58,14 +59,14 @@ public class DeleteArtifactsWithPatternActionTest {
 
     private void assertTempFolderContains(final int expectedNumFiles) {
         final int actualNumFiles = countFiles(tempFolder.getRoot());
-        final String assertMessage = String.format("Expected %d files, actual found %d files", expectedNumFiles, actualNumFiles);
+        final String assertMessage = String.format("Expected %d files, actual found %d files", expectedNumFiles,
+                actualNumFiles);
         Assert.assertEquals(assertMessage, expectedNumFiles, actualNumFiles);
-
     }
 
     // Custom assertFileExists method
     public void assertFileExists(final String filePath, final String message) {
-       final File file = new File(tempFolder.getRoot(), filePath);
+        final File file = new File(tempFolder.getRoot(), filePath);
         Assert.assertTrue(message, file.exists());
     }
 
@@ -86,7 +87,7 @@ public class DeleteArtifactsWithPatternActionTest {
     // Count the number of files in the directory
     public static int countFiles(final File directory) {
         int fileCount = 0;
-        File[] files = directory.listFiles();       
+        File[] files = directory.listFiles();
         for (File file : files) {
             if (file.isFile() && file.exists()) {
                 fileCount++;
@@ -108,7 +109,7 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileExists("testFolder/test1.xml");
     }
 
-    @Test //test 2, inc="", exc="**", nothing deleted
+    @Test // test 2, inc="", exc="**", nothing deleted
     public void excludesOnlyNothingDeleted() throws IOException, InterruptedException {
         action.setInclude("");
         action.setExclude("**");
@@ -152,7 +153,8 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileExists("testFolder/testLog1.log", "Log files should have been excluded.");
     }
 
-    @Test // test 5.1 inc="**", exc="**/*.log, **/*.txt" everything except logs and txt files are deleted
+    @Test // test 5.1 inc="**", exc="**/*.log, **/*.txt" everything except logs and txt
+          // files are deleted
     public void everythingDeletedButMultipleExcludePatterns() throws IOException, InterruptedException {
         action.setInclude("**");
         action.setExclude("**/*.log, **/*.txt");
@@ -165,7 +167,7 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileNotExists("testFolder/test1.xml");
     }
 
-    @Test //test 6 inc="*.txt", exc="**/*.log" only text files in the root are deleted
+    @Test // test 6 inc="*.txt", exc="**/*.log" only text files in the root are deleted
     public void selectiveFileDeletionRootOnly() throws IOException, InterruptedException {
         action.setInclude("*.txt");
         action.setExclude("**/*.log");
@@ -176,7 +178,8 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileNotExists("testTxt.txt");
     }
 
-    @Test //test 6.1 inc="*.txt, *.xml", exc="**/*.log" only txt files and xml files in the root are deleted
+    @Test // test 6.1 inc="*.txt, *.xml", exc="**/*.log" only txt files and xml files in
+          // the root are deleted
     public void multipleIncludePatternFilesDeletionRootOnly() throws IOException, InterruptedException {
         action.setInclude("*.txt, *.xml");
         action.setExclude("**/*.log");
@@ -188,7 +191,8 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileNotExists("test.xml");
     }
 
-    @Test //test 6.2 inc="*.txt, **/*.xml", exc="**/*.log" only txt files and xml files are deleted
+    @Test // test 6.2 inc="*.txt, **/*.xml", exc="**/*.log" only txt files and xml files
+          // are deleted
     public void multipleIncludePatternFilesDeletion() throws IOException, InterruptedException {
         action.setInclude("*.txt, **/*.xml");
         action.setExclude("**/*.log");
@@ -212,7 +216,8 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileNotExists("testTxt.txt");
     }
 
-    @Test // test 8 inc="**/*.txt", exc="*.txt", all text files but those in the root are deleted
+    @Test // test 8 inc="**/*.txt", exc="*.txt", all text files but those in the root are
+          // deleted
     public void selectiveFileDeletionExcludeRoot() throws IOException, InterruptedException {
         action.setInclude("**/*.txt");
         action.setExclude("*.txt");
@@ -312,7 +317,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // testing checkRoles method for code coverage
     public void testCheckRolesNoException() throws IOException, InterruptedException {
-        DeleteArtifactsWithPatternAction.Delete actionDelete = new DeleteArtifactsWithPatternAction.Delete("archiveRootPath/");
+        DeleteArtifactsWithPatternAction.Delete actionDelete = new DeleteArtifactsWithPatternAction.Delete(
+                "archiveRootPath/");
         RoleChecker mockRoleChecker = Mockito.mock(RoleChecker.class);
 
         actionDelete.checkRoles(mockRoleChecker);
@@ -330,12 +336,14 @@ public class DeleteArtifactsWithPatternActionTest {
 
         // Set up Delete instance with the archiveRootPath
         String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootPath);
+        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
+                archiveRootPath);
 
         // Call the method
         deleteInstance.deleteParentDirectories(childDir);
 
-        // Verify that child, parent and grandparent directories are deleted, but the archive root directory remains
+        // Verify that child, parent and grandparent directories are deleted, but the
+        // archive root directory remains
         Assert.assertFalse(childDir.exists());
         Assert.assertFalse(parentDir.exists());
         Assert.assertFalse(grandparentDir.exists());
