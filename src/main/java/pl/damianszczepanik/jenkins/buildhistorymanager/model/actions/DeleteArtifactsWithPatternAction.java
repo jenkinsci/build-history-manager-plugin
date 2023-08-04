@@ -119,7 +119,9 @@ public class DeleteArtifactsWithPatternAction extends Action {
         public void deleteParentDirectories(File directory) {
             File parent = directory;
             while (parent != null && !parent.getPath().equals(this.archiveRootPath)) {
-                if (!parent.delete()) {
+                boolean deleteSuccess = parent.delete();
+                if (!deleteSuccess) {
+                    // If the deletion failed, break out of the loop
                     break;
                 }
                 parent = parent.getParentFile();
