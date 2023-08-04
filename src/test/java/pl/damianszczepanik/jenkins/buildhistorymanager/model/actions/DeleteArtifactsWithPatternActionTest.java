@@ -317,4 +317,28 @@ public class DeleteArtifactsWithPatternActionTest {
 
         actionDelete.checkRoles(mockRoleChecker);
     }
+
+    @Test // testing deleteParentDirectories method for code coverage
+    public void testDeleteParentDirectories() throws IOException, InterruptedException {
+        // Create a temporary directory for testing
+        Path tempDir = Files.createTempDirectory("testDir");
+        File archiveRootDir = tempDir.resolve("archive").toFile();
+        File grandparentDir = new File(archiveRootDir, "grandparent");
+        File parentDir = new File(grandparentDir, "parent");
+        File childDir = new File(parentDir, "child");
+        Assert.assertTrue(childDir.mkdirs());
+
+        // Set up Delete instance with the archiveRootPath
+        String archiveRootPath = archiveRootDir.getAbsolutePath();
+        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootPath);
+
+        // Call the method
+        deleteInstance.deleteParentDirectories(childDir);
+
+        // Verify that child, parent and grandparent directories are deleted, but the archive root directory remains
+        Assert.assertFalse(childDir.exists());
+        Assert.assertFalse(parentDir.exists());
+        Assert.assertFalse(grandparentDir.exists());
+        Assert.assertTrue(archiveRootDir.exists());
+    }
 }
