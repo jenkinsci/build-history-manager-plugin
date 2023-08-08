@@ -118,15 +118,24 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
         public void deleteParentDirectories(File directory) {
             File parent = directory;
-            while (parent != null && !parent.getPath().equals(this.archiveRootPath)) {
-                boolean deleteSuccess = parent.delete();
-                if (!deleteSuccess) {
-                    // If the deletion failed, break out of the loop
-                    break;
-                }
+
+            while (shouldDelete(parent)) {
+                deleteDirectory(parent);
                 parent = parent.getParentFile();
             }
         }
+
+        public boolean shouldDelete(File directory) {
+            return directory != null && !directory.getPath().equals(this.archiveRootPath);
+        }
+
+        public void deleteDirectory(File directory) {
+            boolean deleteSuccess = directory.delete();
+            if(!deleteSuccess) {
+                throw new RuntimeException("Deletion of directory failed: " + directory.getAbsolutePath());
+            }
+        }
+
         // checkRoles method is used for access control and security purposes in Jenkins.
         // It is responsible for checking if the current user has the required permissions to execute the code defined in the FileCallable object.
         // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
