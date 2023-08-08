@@ -71,15 +71,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
         return false;
     }
 
-    public static void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
-        if (vFile.isFile()) {
-            LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
-            directories.add(vFile.getParentFile());
-            Util.deleteFile(vFile);
-            return; // Return early when the condition is met
-        }
-        LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
-    }
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     public static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1;
@@ -134,6 +125,16 @@ public class DeleteArtifactsWithPatternAction extends Action {
             if(!deleteSuccess) {
                 throw new RuntimeException("Deletion of directory failed: " + directory.getAbsolutePath());
             }
+        }
+
+        public void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
+            if (vFile.isFile()) {
+                LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
+                directories.add(vFile.getParentFile());
+                Util.deleteFile(vFile);
+                return; // Return early when the condition is met
+            }
+            LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
         }
 
         // checkRoles method is used for access control and security purposes in Jenkins.
