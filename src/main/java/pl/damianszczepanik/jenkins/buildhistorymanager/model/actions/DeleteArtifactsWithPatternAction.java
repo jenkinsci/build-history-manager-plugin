@@ -132,7 +132,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
         // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
         @Override
         public void checkRoles(RoleChecker checker) throws SecurityException {
-            // TODO Auto-generated method stub
             // Nothing to do here  
         }
     }
