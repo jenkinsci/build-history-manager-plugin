@@ -348,19 +348,8 @@ public class DeleteArtifactsWithPatternActionTest {
         Assert.assertFalse(parentDir.exists());
         Assert.assertFalse(grandparentDir.exists());
         Assert.assertTrue(archiveRootDir.exists());
-    }
 
-    @Test // testing shouldDelete method for code coverage
-    public void testShouldDelete() throws IOException, InterruptedException {
-          // Create a temporary directory for testing
-        Path tempDir = Files.createTempDirectory("testDir");
-        File archiveRootDir = tempDir.resolve("archive").toFile();
-
-        // Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
-                archiveRootPath);
-
+        // testing shouldDelete method
         File nullDirectory = null;
         // Call the method
         boolean result = deleteInstance.shouldDelete(nullDirectory);

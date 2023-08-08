@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.jenkins-ci.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>4.15</version>
+    </parent>
+
+    <groupId>pl.damianszczepanik</groupId>
+    <artifactId>build-history-manager</artifactId>
+    <version>1.7.1-SNAPSHOT</version>
+    <packaging>hpi</packaging>
+    <name>Build History Manager</name>
+    <description>
+        Jenkins plugin that allows to build complex rules to decide when and which builds should be removed from the
+        history and which preserved
+    </description>
+    <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
+
+    <properties>
+        <java.level>8</java.level>
+        <jenkins.version>2.289.3</jenkins.version>
+
+        <slf4jVersion>1.7.30</slf4jVersion>
+        <asm.version>9.4</asm.version>
+        <powermock.version>2.0.9</powermock.version>
+        <!-- releases newer than this do not have Deencapsulation class-->
+        <jmockit.version>1.34</jmockit.version>
+
+        <test.integration.pattern>**/*IT.java</test.integration.pattern>
+
+        <sonar.projectKey>damianszczepanik_build-history-manager-plugin</sonar.projectKey>
+        <sonar.organization>damianszczepanik</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
+
+    <scm>
+        <connection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/build-history-manager-plugin.git</developerConnection>
+        <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
+        <tag>HEAD</tag>
+    </scm>
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/</url>
+    </ciManagement>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/jenkinsci/build-history-manager-plugin/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>damianszczepanik</id>
+            <name>Damian Szczepanik</name>
+            <email>damianszczepanik@github</email>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <!-- JaCoCo runtime must know where to dump coverage: -->
+                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                    <excludes>
+                        <!-- Integration tests should not be counted by code coverage -->
+                        <exclude>${test.integration.pattern}</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <includes>
+                        <!-- Run only integration tests -->
+                        <include>${test.integration.pattern}</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jenkins-ci.tools</groupId>
+                <artifactId>maven-hpi-plugin</artifactId>
+                <version>3.5</version>
+                <configuration>
+                    <!-- Jenkins test InjectedTest renamed to InjectedIT so it is executed only during integration tests -->
+                    <injectedTestName>InjectionIT</injectedTestName>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- to satisfy:
+            Require upper bound dependencies error -->
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-tree</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-analysis</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm-util</artifactId>
+                <version>${asm.version}</version>
+            </dependency>
+            <!-- dependency of mockito-core -->
+            <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>3.3</version>
+            </dependency>
+            <!-- dependency of token-macro -->
+            <dependency>
+                <groupId>net.minidev</groupId>
+                <artifactId>json-smart</artifactId>
+                <version>2.4.9</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.289.x</artifactId>
+                <version>1500.ve4d05cd32975</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>token-macro</artifactId>
+            <version>321.vd7cc1f2a_52c8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>structs</artifactId>
+            <version>324.va_f5d6774f3a_d</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.11.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito2</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>${jmockit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-cps</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-durable-task-step</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-job</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-step-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-multibranch</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins.workflow</groupId>
+            <artifactId>workflow-basic-steps</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
