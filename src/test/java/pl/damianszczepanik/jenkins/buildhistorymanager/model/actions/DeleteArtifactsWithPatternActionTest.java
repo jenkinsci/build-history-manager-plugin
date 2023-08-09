@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.jenkinsci.remoting.RoleChecker;
 import org.junit.Assert;
@@ -373,5 +375,43 @@ public class DeleteArtifactsWithPatternActionTest {
                 archiveRootPath);
 
        deleteInstance.deleteDirectory(parentDir);
+    }
+
+    @Test // testing deleteFileOrLogError method for code coverage
+    public void testDeleteRegularFile() throws IOException, InterruptedException {
+        Path tempDir = Files.createTempDirectory("testDir");
+        File archiveRootDir = tempDir.resolve("archive").toFile();
+        File parentDir = new File(archiveRootDir, "parent");
+        File childDir = new File(parentDir, "child");
+        childDir.mkdirs();
+
+        // Create a regular text file named "testFile.txt" under the child directory
+        File testFile = new File(childDir, "testFile.txt");
+        boolean result = testFile.createNewFile();
+        Set<File> directories = new HashSet<>();
+        // Set up Delete instance with the archiveRootPath
+        String archiveRootPath = archiveRootDir.getAbsolutePath();
+        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
+                archiveRootPath);
+        deleteInstance.deleteFileOrLogError(testFile, directories);
+
+        Assert.assertTrue(directories.contains(childDir));
+        Assert.assertFalse(testFile.exists());
+    }
+
+    @Test // testing Log non regular file message for code coverage
+    public void testLogNonRegularFile() throws IOException, InterruptedException {
+        Path tempDir = Files.createTempDirectory("testDir");
+        File archiveRootDir = tempDir.resolve("archive").toFile();
+
+        File nonRegularFile = Mockito.mock(File.class);
+        Set<File> directories = new HashSet<>();
+
+        Mockito.when(nonRegularFile.isFile()).thenReturn(false);
+        // Set up Delete instance with the archiveRootPath
+        String archiveRootPath = archiveRootDir.getAbsolutePath();
+        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
+                archiveRootPath);
+        deleteInstance.deleteFileOrLogError(nonRegularFile, directories);
     }
 }
