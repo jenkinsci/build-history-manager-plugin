@@ -414,4 +414,21 @@ public class DeleteArtifactsWithPatternActionTest {
                 archiveRootPath);
         deleteInstance.deleteFileOrLogError(nonRegularFile, directories);
     }
+
+    @Test // testing shouldDeleteDirectory method for code coverage
+    public void testShouldDeleteDirectory() throws IOException, InterruptedException {
+        Path tempDir = Files.createTempDirectory("testDir");
+        File archiveRootDir = tempDir.resolve("archive").toFile();
+        File parentDir = new File(archiveRootDir, "parent");
+        parentDir.mkdirs();
+
+        // Set up Delete instance with the archiveRootPath
+        String archiveRootPath = archiveRootDir.getAbsolutePath();
+        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
+                archiveRootPath);
+
+        File nullDirectory = null;
+        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(nullDirectory));
+        Assert.assertTrue(deleteInstance.shouldDeleteDirectory(parentDir));
+    }
 }
