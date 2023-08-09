@@ -420,7 +420,11 @@ public class DeleteArtifactsWithPatternActionTest {
         Path tempDir = Files.createTempDirectory("testDir");
         File archiveRootDir = tempDir.resolve("archive").toFile();
         File parentDir = new File(archiveRootDir, "parent");
+        File parentDir2 = new File(archiveRootDir, "parent2");
         parentDir.mkdirs();
+        parentDir2.mkdirs();
+        File newFile = new File(parentDir2,"testFile.txt");
+        boolean result = newFile.createNewFile();
 
         // Set up Delete instance with the archiveRootPath
         String archiveRootPath = archiveRootDir.getAbsolutePath();
@@ -429,6 +433,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
         File nullDirectory = null;
         Assert.assertFalse(deleteInstance.shouldDeleteDirectory(nullDirectory));
+        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(archiveRootDir));
+        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(parentDir2));
         Assert.assertTrue(deleteInstance.shouldDeleteDirectory(parentDir));
     }
 }
