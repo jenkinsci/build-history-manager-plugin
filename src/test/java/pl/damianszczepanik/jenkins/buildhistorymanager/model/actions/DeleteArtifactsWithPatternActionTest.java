@@ -419,31 +419,34 @@ public class DeleteArtifactsWithPatternActionTest {
     public void testShouldDeleteDirectory() throws IOException, InterruptedException {
         Path tempDir = Files.createTempDirectory("testDir");
         File archiveRootDir = tempDir.resolve("archive").toFile();
-        File parentDir = new File(archiveRootDir, "parent");
-        File parentDir2 = new File(archiveRootDir, "parent2");
-        parentDir.mkdirs();
-        parentDir2.mkdirs();
-        File newFile = new File(parentDir2,"testFile.txt");
-        boolean result = newFile.createNewFile();
-
         // Set up Delete instance with the archiveRootPath
         String archiveRootPath = archiveRootDir.getAbsolutePath();
         DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
                 archiveRootPath);
 
-        File nullDirectory = null;
-        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(nullDirectory));
-        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(newFile));
-        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(parentDir2));
-        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(archiveRootDir));
+        // test isInvalidDirectory_NullDirectory_ReturnsTrue
+        Assert.assertTrue(deleteInstance.isInvalidDirectory(null));
 
-        Assert.assertTrue(parentDir.getParentFile() != null);
-        Assert.assertTrue(deleteInstance.shouldDeleteDirectory(parentDir));
-        Assert.assertTrue(parentDir.getParentFile().getPath().equals(archiveRootPath));
+        // test isInvalidDirectory_NonDirectory_ReturnsTrue
+        File nonDirectory = new File("nonDirectory.txt");
+        Assert.assertTrue(deleteInstance.isInvalidDirectory(nonDirectory));
 
-        // Create a parent directory that is not equal to archiveRootPath
-        File differentParentDir = new File("path/to/some/other/directory");
-        // Assert that the shouldDeleteDirectory method returns false for this case
-        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(differentParentDir));
+        // test isInvalidDirectory_NonEmptyDirectory_returnsTrue
+        File nonEmptyDirectory = new File("path/to/nonEmptyDirectory");
+        // Create some files in the directory
+        nonEmptyDirectory.mkdirs();
+        new File(nonEmptyDirectory, "file1.txt").createNewFile();
+        Assert.assertTrue(deleteInstance.isInvalidDirectory(nonEmptyDirectory));
+
+        // test hasValidParent_NullParent_ReturnsFalse
+        Assert.assertFalse(deleteInstance.hasValidParent(null));
+
+        // test hasValidParent_NonMatchingParent_ReturnsFalse
+        File nonMatchingParent = new File("path/to/nonMatchingParent");
+        Assert.assertFalse(deleteInstance.hasValidParent(nonMatchingParent));
+
+        // test hasValidParent_MatchingParent_ReturnsTrue
+        File matchingParent = new File(archiveRootDir, "matchingParent");
+        Assert.assertTrue(deleteInstance.hasValidParent(matchingParent.getParentFile()));
     }
 }
