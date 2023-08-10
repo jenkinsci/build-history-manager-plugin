@@ -99,12 +99,20 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         public boolean shouldDeleteDirectory(File dir) throws IOException {
-            if (dir == null || !dir.isDirectory() || !isDirEmpty(dir.toPath())) {
+            if (isInvalidDirectory(dir)) {
                 return false;
             }
 
             File parent = dir.getParentFile();
+            return hasValidParent(parent);
+        }
+
+        public boolean hasValidParent(File parent) {
             return parent != null && parent.getPath().equals(this.archiveRootPath);
+        }
+
+        public boolean isInvalidDirectory(File dir) throws IOException {
+            return dir == null || !dir.isDirectory() || !isDirEmpty(dir.toPath());
         }
 
         public void deleteParentDirectories(File directory) {
