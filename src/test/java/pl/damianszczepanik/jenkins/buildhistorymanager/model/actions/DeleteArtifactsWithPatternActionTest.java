@@ -28,6 +28,8 @@ import jenkins.util.VirtualFile;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteArtifactsWithPatternActionTest {
     private DeleteArtifactsWithPatternAction action;
+    private DeleteArtifactsWithPatternAction.Delete deleteInstance;
+    private File archiveRootDir;
     private Run<?, ?> mockRun;
     private ArtifactManager mockArtifactManager;
 
@@ -57,6 +59,13 @@ public class DeleteArtifactsWithPatternActionTest {
         tempFolder.newFile("testFolder/test1.xml");
         tempFolder.newFile("testFolder/testLog1.log");
         tempFolder.newFile("testFolder/testTxt1.txt");
+
+        // Create a temporary directory for code coverage testing
+        Path tempDir = Files.createTempDirectory("testDir");
+        archiveRootDir = tempDir.resolve("archive").toFile();
+        //Set up Delete instance with the archiveRootPath
+        String archiveRootPath = archiveRootDir.getAbsolutePath();
+        deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootPath);
     }
 
     private void assertTempFolderContains(final int expectedNumFiles) {
@@ -328,23 +337,15 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // testing deleteParentDirectories method for code coverage
     public void testDeleteParentDirectories() throws IOException, InterruptedException {
-        // Create a temporary directory for testing
-        Path tempDir = Files.createTempDirectory("testDir");
-        File archiveRootDir = tempDir.resolve("archive").toFile();
         File grandparentDir = new File(archiveRootDir, "grandparent");
         File parentDir = new File(grandparentDir, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
 
-        // Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
-                archiveRootPath);
-
         // Call the method
         deleteInstance.deleteParentDirectories(childDir);
 
-        // Verify that child, parent and grandparent directories are deleted, but the
+        // Assert that child, parent and grandparent directories are deleted, but the
         // archive root directory remains
         Assert.assertFalse(childDir.exists());
         Assert.assertFalse(parentDir.exists());
@@ -353,34 +354,21 @@ public class DeleteArtifactsWithPatternActionTest {
 
         // testing shouldDelete method
         File nullDirectory = null;
-        // Call the method
-        boolean result = deleteInstance.shouldDelete(nullDirectory);
-
         // Assert that the result is false since directory is null
-        Assert.assertFalse(result);
+        Assert.assertFalse(deleteInstance.shouldDelete(nullDirectory));
     }
 
     @Test(expected = RuntimeException.class)
     public void testDeleteDirectoryFailure() throws IOException, InterruptedException {
-        // Create a temporary directory for testing
-        Path tempDir = Files.createTempDirectory("testDir");
-        File archiveRootDir = tempDir.resolve("archive").toFile();
         File parentDir = new File(archiveRootDir, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
-
-        // Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
-                archiveRootPath);
 
        deleteInstance.deleteDirectory(parentDir);
     }
 
     @Test // testing deleteFileOrLogError method for code coverage
     public void testDeleteRegularFile() throws IOException, InterruptedException {
-        Path tempDir = Files.createTempDirectory("testDir");
-        File archiveRootDir = tempDir.resolve("archive").toFile();
         File parentDir = new File(archiveRootDir, "parent");
         File childDir = new File(parentDir, "child");
         childDir.mkdirs();
@@ -389,10 +377,6 @@ public class DeleteArtifactsWithPatternActionTest {
         File testFile = new File(childDir, "testFile.txt");
         boolean result = testFile.createNewFile();
         Set<File> directories = new HashSet<>();
-        // Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
-                archiveRootPath);
         deleteInstance.deleteFileOrLogError(testFile, directories);
 
         Assert.assertTrue(directories.contains(childDir));
@@ -401,29 +385,15 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // testing Log non regular file message for code coverage
     public void testLogNonRegularFile() throws IOException, InterruptedException {
-        Path tempDir = Files.createTempDirectory("testDir");
-        File archiveRootDir = tempDir.resolve("archive").toFile();
-
         File nonRegularFile = Mockito.mock(File.class);
         Set<File> directories = new HashSet<>();
 
         Mockito.when(nonRegularFile.isFile()).thenReturn(false);
-        // Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
-                archiveRootPath);
         deleteInstance.deleteFileOrLogError(nonRegularFile, directories);
     }
 
     @Test // testing shouldDeleteDirectory method for code coverage
     public void testShouldDeleteDirectory() throws IOException, InterruptedException {
-        Path tempDir = Files.createTempDirectory("testDir");
-        File archiveRootDir = tempDir.resolve("archive").toFile();
-        // Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        DeleteArtifactsWithPatternAction.Delete deleteInstance = new DeleteArtifactsWithPatternAction.Delete(
-                archiveRootPath);
-
         // test isInvalidDirectory_NullDirectory_ReturnsTrue
         Assert.assertTrue(deleteInstance.isInvalidDirectory(null));
 
