@@ -436,8 +436,14 @@ public class DeleteArtifactsWithPatternActionTest {
         Assert.assertFalse(deleteInstance.shouldDeleteDirectory(newFile));
         Assert.assertFalse(deleteInstance.shouldDeleteDirectory(parentDir2));
         Assert.assertFalse(deleteInstance.shouldDeleteDirectory(archiveRootDir));
+
         Assert.assertTrue(parentDir.getParentFile() != null);
         Assert.assertTrue(deleteInstance.shouldDeleteDirectory(parentDir));
         Assert.assertTrue(parentDir.getParentFile().getPath().equals(archiveRootPath));
+
+        // Create a parent directory that is not equal to archiveRootPath
+        File differentParentDir = new File("path/to/some/other/directory");
+        // Assert that the shouldDeleteDirectory method returns false for this case
+        Assert.assertFalse(deleteInstance.shouldDeleteDirectory(differentParentDir));
     }
 }
