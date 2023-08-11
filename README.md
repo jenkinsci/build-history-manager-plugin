@@ -104,7 +104,7 @@ __Notes__:
    This is useful if the user wants to disable a rule while keeping its other configuration values.
 2. Once the `matchAtMost` value is reached, the rule is effectively disabled and is no longer applied.
 3. It may not make sense to continue to apply rules after a build is deleted, but the plugin handles this case gracefully.
-4. Having no condition is a way to unconditionally apply actions to builds, for example to delete all the builds.
+4. Having no condition is a way to unconditionally apply actions to builds, for example to delete all the builds. Use it wisely.
 5. Having no action is a way to ignore builds and keep them in the build history.
 
 ## Use cases
