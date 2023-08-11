@@ -1,17 +1,13 @@
 <p><b>Description</b></p>
-<p>Number of matched builds after which the rule is not processed. Then this condition is met, only other rules are
-    processed.</p>
+<p>The rule will stop being processed after a certain number of matched builds.
+    Once this condition is met, only the other rules will continue to be processed..</p>
 
 <p><b>Use cases</b></p>
-<p>Gives possibility to limit number of changes performed by given rule
-    (what of course saves the time for long build history!).</p>
+<p>This feature provides the option to control the number of changes executed by a specific rule, which can significantly save time for longer build histories.</p>
 <ul>
-    <li><code>-1</code> There is no limitation, all builds will evaluated</li>
-    <li><code>0</code> Zero builds will be evaluated. This is helpful when it is easier to match builds that should not
-        be deleted and to skip them from evaluation.
-    </li>
-    <li><code>1..n</code> When conditions match <code>n</code> times, no more builds will be processed by this rule
-    </li>
+    <li>If the value is set to <code>-1</code>, there is no limitation, all builds will be evaluated</li>
+    <li>If the value is set to <code>0</code>, no builds will be evaluated. This is useful when it's simpler to match builds that shouldn't be deleted and skip them from evaluation.</li>
+    <li>If the value is set to <code>1..n</code> Once the value is reached, the rule is effectively disabled and is no longer applied.</li>
 </ul>
 <p><b>Warning!</b></p>
-<p>Zero value can be used to temporary disable to rule without deleting whole job configuration.</p>
+<p>If the `matchAtMost` value is set to zero,the rule is effectively disabled. This is useful if the user wants to disable a rule while keeping its other configuration values.</p>
