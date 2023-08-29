@@ -3,11 +3,11 @@
     Once this condition is met, only the other rules will continue to be processed.</p>
 
 <p><b>Use cases</b></p>
-<p>This feature provides the option to control the number of changes executed by a specific rule, which can significantly save time for longer build histories.</p>
+<p>This feature provides the option to control the number of builds the rule can process. It may save a significantly amount of time when the build history is long.</p>
 <ul>
-    <li>If the value is set to <code>-1</code>, there is no limitation, all builds will be evaluated</li>
-    <li>If the value is set to <code>0</code>, no builds will be evaluated. This is useful when it's simpler to match builds that shouldn't be deleted and skip them from evaluation.</li>
-    <li>If the value is set to <code>1..n</code> Once the value is reached, the rule is effectively disabled and is no longer applied.</li>
+    <li>If the value is set to <code>-1</code>, there is no limitation, all builds will be evaluated.</li>
+    <li>If the value is set to <code>0</code>, no builds will be evaluated. This disables the rule as it will not apply to any build.</li>
+    <li>If the value is set to <code>1..n</code>, once the value is reached, the rule is effectively disabled and is no longer applied.</li>
 </ul>
 <p><b>Warning!</b></p>
 <p>If the <code>matchAtMost</code> value is set to zero, the rule is effectively disabled. This is useful if the user wants to disable a rule while keeping its other configuration values.</p>
