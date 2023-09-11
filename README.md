@@ -113,7 +113,7 @@ By using conditions and actions, it becomes straightforward to achieve a number 
   or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED)
   builds from the build history if they do not provide any value.
 - Keep only the last builds depending on their [result](https://javadoc.jenkins.io/hudson/model/Result.html),
-  so the history contains the most recent builds with the specified result(s): aborted, unstable, not built, failure, or success.
+  so the history contains the most recent builds with the specified result(s): aborted, unstable, failure, or success.
 - Keep builds only from `master` branch if the project builds all branches including feature branches
 - Remove any builds with a [build number](https://javadoc.jenkins-ci.org/hudson/model/Run.html#getNumber--)
   lower than the specified value to easily discard all old builds at once.
