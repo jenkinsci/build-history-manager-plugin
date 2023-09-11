@@ -95,8 +95,8 @@ once for each completed build.
                the next rule is applied to the same build, and goes to the next iteration of the "for each rule" loop.
             4. If `continueAfterMatch` is `false`,
                the plugin stops applying rules to this build, and goes to the next iteration of the "for each completed build" loop.
-        3. If one or more optional condition are not met,
-           go to the next completed build (next iteration of the "for each completed build" loop).
+        3. If one or more optional conditions are not met,
+           the build continues to the next rule (next iteration of the "for each rule" loop).
 
 __Notes__:
 
