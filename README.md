@@ -37,7 +37,7 @@ The built-in conditions are:
    (default is `-1`, meaning there is no limit).
 3. A per-rule `continueAfterMatch` boolean (`Proceed to the next rule if the conditions of this rule are met` in the UI)
    that causes the plugin to apply the next rule to the same build after the current rule has been applied
-   (default is `false`, meaning to stop applying rules to the build being processed).
+   (default is `true`, meaning to continue to apply rules to the build being processed).
 
 ### Optional Conditions
 
