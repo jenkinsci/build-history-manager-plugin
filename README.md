@@ -95,8 +95,8 @@ once for each completed build.
                the next rule is applied to the same build, and goes to the next iteration of the "for each rule" loop.
             4. If `continueAfterMatch` is `false`,
                the plugin stops applying rules to this build, and goes to the next iteration of the "for each completed build" loop.
-        3. If one or more optional condition are not met,
-           go to the next completed build (next iteration of the "for each completed build" loop).
+        3. If one or more optional conditions are not met,
+           the build continues to the next rule (next iteration of the "for each rule" loop).
 
 __Notes__:
 
@@ -104,7 +104,7 @@ __Notes__:
    This is useful if the user wants to disable a rule while keeping its other configuration values.
 2. Once the `matchAtMost` value is reached, the rule is effectively disabled and is no longer applied.
 3. It may not make sense to continue to apply rules after a build is deleted, but the plugin handles this case gracefully.
-4. Having no condition is a way to unconditionally apply actions to builds, for example to delete all the builds.
+4. Having no condition is a way to unconditionally apply actions to builds, for example to delete all the builds. Use it wisely.
 5. Having no action is a way to ignore builds and keep them in the build history.
 
 ## Use cases
@@ -113,7 +113,7 @@ By using conditions and actions, it becomes straightforward to achieve a number 
   or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED)
   builds from the build history if they do not provide any value.
 - Keep only the last builds depending on their [result](https://javadoc.jenkins.io/hudson/model/Result.html),
-  so the history contains the most recent builds with the specified result(s): aborted, unstable, failure, or success.
+  so the history contains the most recent builds with the specified result(s): aborted, unstable, not built, failure, or success.
 - Keep builds only from `master` branch if the project builds all branches including feature branches
 - Remove any builds with a [build number](https://javadoc.jenkins-ci.org/hudson/model/Run.html#getNumber--)
   lower than the specified value to easily discard all old builds at once.

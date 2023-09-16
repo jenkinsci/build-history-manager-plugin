@@ -1,22 +1,20 @@
 <p><b>Description</b></p>
-<p>
-    By default, after the conditions of a rule are met and the action are apllied,
-    the plugin moves on to the next completed build in the build history and
-    starts to process all the rules again from the start of the list of rules.
-</p>
-<p>
-    When this flag is set to <code>false</code> (default) AND this rule's conditions are met,
-    this rule is the last rule applied to the build. The plugin moves on to the next completed build
-    and starts processing the rules from the start of the list of rules.
-</p>
-<p>
-    When this flag is set to <code>true</code> AND this rule's conditions are met,
-    the plugin moves on to the next rule with the same build. This way multiple consecutive rules
-    can be applied to the same build.
-</p>
+<ul>
+    <li>
+        When this flag is set to <code>false</code>,
+        AND the conditions of this rule are met,
+        this rule will be the final rule applied to the build,
+        the plugin stops applying rules to this build,
+        and goes to the next iteration of the "for each completed build" loop.</li>
+    <li>
+        When this flag is set to <code>true</code> (which is the default),
+        AND the conditions of this rule are met,
+        the next rule is applied to the same build,
+        and goes to the next iteration of the "for each rule" loop.
+    </li>
+</ul>
 
 <p><b>Use cases</b></p>
 <p>
-    This is the way to apply more than one rule to the same build, providing the conditions of all those rules are met.
+    This feature allows for the application of multiple consecutive rules to the same build, as long as the conditions for each of those rules are met.
 </p>
-
