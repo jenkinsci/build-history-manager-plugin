@@ -1,7 +1,5 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions;
 
-import java.util.logging.Logger;
-
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundSetter;
 
@@ -16,7 +14,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteArtif
 @Extension
 @Symbol("DeleteArtifactsWithPattern")
 public class DeleteArtifactsWithPatternActionDescriptor extends Descriptor<Action>{
-    private static final Logger LOGGER = Logger.getLogger(DeleteArtifactsWithPatternActionDescriptor.class.getName());
 
     private String include;
     private String exclude;
