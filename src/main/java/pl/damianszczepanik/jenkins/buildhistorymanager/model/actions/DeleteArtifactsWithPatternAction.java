@@ -26,7 +26,7 @@ import jenkins.util.VirtualFile;
  * Deletes the artifacts with patterns.
  */
 public class DeleteArtifactsWithPatternAction extends Action {
-    private static final Logger LOGGER = Logger.getLogger(DeleteArtifactsWithPatternAction.class.getName());
+    private static final Logger LOG = Logger.getLogger(DeleteArtifactsWithPatternAction.class.getName());
 
     private String include;
     private String exclude;
@@ -137,12 +137,12 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
         public void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
             if (vFile.isFile()) {
-                LOGGER.log(Level.FINE, "Deleting " + vFile.getName());
+                LOG.log(Level.FINE, "Deleting " + vFile.getName());
                 directories.add(vFile.getParentFile());
                 Util.deleteFile(vFile);
                 return; // Return early when the condition is met
             }
-            LOGGER.log(Level.FINE, vFile + " is neither a directory nor a regular file");
+            LOG.log(Level.FINE, vFile + " is neither a directory nor a regular file");
         }
 
         // checkRoles method is used for access control and security purposes in Jenkins.
@@ -158,7 +158,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         VirtualFile vRoot = run.getArtifactManager().root();
         Collection<String> files = vRoot.list(include, exclude, false);
-        LOGGER.log(Level.FINE, "Include Pattern Files: ------ " + files);
+        LOG.log(Level.FINE, "Include Pattern Files: ------ " + files);
 
         for (String path : files){
             deleteFileAtPath(vRoot, path);
