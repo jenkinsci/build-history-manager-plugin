@@ -91,7 +91,7 @@ public class DeleteArtifactsWithPatternActionIT {
         // Add the WorkflowRuns to the list
         for (int i = 1; i <= 5; i++) {
             WorkflowRun run = executeAndWaitForSuccessfulRun(pipelineJob);
-            if (i == 2 || i == 4){
+            if (i == 2 || i == 4) {
                 // Mark the second and fourth build to be kept
                 run.keepLog();
             }

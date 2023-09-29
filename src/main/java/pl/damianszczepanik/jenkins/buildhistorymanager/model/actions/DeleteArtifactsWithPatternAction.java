@@ -89,7 +89,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         public void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
-            for (File dir : directories){
+            for (File dir : directories) {
                 if (shouldDeleteDirectory(dir)) {
                     Util.deleteFile(dir);
                     deleteParentDirectories(dir.getParentFile());
@@ -159,7 +159,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         Collection<String> files = vRoot.list(include, exclude, false);
         LOG.log(Level.FINE, "Include Pattern Files: ------ " + files);
 
-        for (String path : files){
+        for (String path : files) {
             deleteFileAtPath(vRoot, path);
         }
     }
