@@ -299,29 +299,29 @@ public class DeleteArtifactsWithPatternActionTest {
         Assert.assertEquals(expectedExclude, actualExclude);
     }
 
-    @Test // testing isDirEmpty method returns 'False' for code coverage
-    public void testIsDirEmptyFalse() throws IOException, InterruptedException {
-        Path nonEmptyDir = Files.createTempDirectory("nonEmptyDir");
-        Files.createFile(nonEmptyDir.resolve("file.txt"));
+    @Test // testing isDirectoryEmpty method returns 'False' for code coverage
+    public void testIsDirectoryEmptyFalse() throws IOException, InterruptedException {
+        Path nonEmptyDirectory = Files.createTempDirectory("nonEmptyDirectory");
+        Files.createFile(nonEmptyDirectory.resolve("file.txt"));
 
-        Assert.assertFalse(DeleteArtifactsWithPatternAction.isDirEmpty(nonEmptyDir));
-        Assert.assertTrue(Files.exists(nonEmptyDir));
+        Assert.assertFalse(DeleteArtifactsWithPatternAction.isDirectoryEmpty(nonEmptyDirectory));
+        Assert.assertTrue(Files.exists(nonEmptyDirectory));
     }
 
-    @Test // testing isDirEmpty method returns 'True' for code coverage
-    public void testIsDirEmptyTrue() throws IOException, InterruptedException {
-        Path emptyDir = Files.createTempDirectory("emptyDir");
+    @Test // testing isDirectoryEmpty method returns 'True' for code coverage
+    public void testIsDirectoryEmptyTrue() throws IOException, InterruptedException {
+        Path emptyDirectory = Files.createTempDirectory("emptyDirectory");
 
-        Assert.assertTrue(DeleteArtifactsWithPatternAction.isDirEmpty(emptyDir));
+        Assert.assertTrue(DeleteArtifactsWithPatternAction.isDirectoryEmpty(emptyDirectory));
     }
 
-    @Test // testing isDirEmpty method for code coverage
-    public void testIsDirEmptyNonExistentDirectory() throws IOException {
+    @Test // testing isDirectoryEmpty method for code coverage
+    public void testIsDirectoryEmptyNonExistentDirectory() throws IOException {
         // Given
         Path nonExistentDirectory = tempFolder.newFolder("non_existent").toPath();
         Files.delete(nonExistentDirectory);
 
-        boolean result = DeleteArtifactsWithPatternAction.isDirEmpty(nonExistentDirectory);
+        boolean result = DeleteArtifactsWithPatternAction.isDirectoryEmpty(nonExistentDirectory);
 
         assertFalse(result);
     }
