@@ -31,6 +31,11 @@ public class DeleteArtifactsWithPatternAction extends Action {
     private String include;
     private String exclude;
 
+    @DataBoundConstructor
+    public DeleteArtifactsWithPatternAction() {
+        // Jenkins stapler requires to have public constructor with @DataBoundConstructor
+    }
+
     public String getInclude() {
         return include;
     }
@@ -47,11 +52,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
     @DataBoundSetter
     public void setExclude(String exclude) {
         this.exclude = exclude;
-    }
-
-    @DataBoundConstructor
-    public DeleteArtifactsWithPatternAction() {
-        // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
     public static String removeLastSlash(String archiveRootPath) {
@@ -73,6 +73,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     public static final class Delete implements FileCallable<Void> {
+        private static final long serialVersionUID = 1L;
         private final String archiveRootPath;
 
         public Delete(String archiveRootPath) {
@@ -81,7 +82,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
 
         @Override 
         public Void invoke(File vFile, VirtualChannel channel) throws IOException {          
-
             Set<File> directories = new HashSet<>();
             deleteFileOrLogError(vFile, directories);
             deleteEmptyDirectoriesAndParents(directories);
@@ -134,14 +134,15 @@ public class DeleteArtifactsWithPatternAction extends Action {
             }
         }
 
-        public void deleteFileOrLogError(File vFile, Set<File> directories) throws IOException {
-            if (vFile.isFile()) {
-                LOG.log(Level.FINE, "Deleting " + vFile.getName());
-                directories.add(vFile.getParentFile());
-                Util.deleteFile(vFile);
-                return; // Return early when the condition is met
+        public void deleteFileOrLogError(File file, Set<File> directories) throws IOException {
+            if (file.isFile()) {
+                LOG.log(Level.FINE, "Deleting " + file.getName());
+                directories.add(file.getParentFile());
+                Util.deleteFile(file);
+                // Return early when the condition is met
+                return;
             }
-            LOG.log(Level.FINE, vFile + " is neither a directory nor a regular file");
+            LOG.log(Level.FINE, file + " is neither a directory nor a regular file.");
         }
 
         // checkRoles method is used for access control and security purposes in Jenkins.
@@ -149,7 +150,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
         @Override
         public void checkRoles(RoleChecker checker) throws SecurityException {
-            // Nothing to do here  
+            // This method has to be present to make the plugin work.
         }
     }
 
@@ -157,7 +158,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         VirtualFile vRoot = run.getArtifactManager().root();
         Collection<String> files = vRoot.list(include, exclude, false);
-        LOG.log(Level.FINE, "Include Pattern Files: ------ " + files);
+        LOG.log(Level.FINE, "Include Pattern Files: " + files);
 
         for (String path : files) {
             deleteFileAtPath(vRoot, path);
@@ -165,8 +166,8 @@ public class DeleteArtifactsWithPatternAction extends Action {
     }
 
     public void deleteFileAtPath(VirtualFile vRoot, String path) throws IOException, InterruptedException {
-        VirtualFile vFile = vRoot.child(path);
-        File file = new File(vFile.toURI().getPath());
+        VirtualFile virtualFile = vRoot.child(path);
+        File file = new File(virtualFile.toURI().getPath());
         FilePath filePath = new FilePath(file);
         Delete deleteInstance = new Delete(vRoot.toURI().getPath());
         filePath.act(deleteInstance);
