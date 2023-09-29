@@ -18,6 +18,10 @@ public class DeleteArtifactsWithPatternActionDescriptor extends Descriptor<Actio
     private String include;
     private String exclude;
 
+    public DeleteArtifactsWithPatternActionDescriptor() {
+        super(DeleteArtifactsWithPatternAction.class);
+    }
+
     public String getInclude() {
         return include;
     }
@@ -34,10 +38,6 @@ public class DeleteArtifactsWithPatternActionDescriptor extends Descriptor<Actio
     @DataBoundSetter
     public void setExclude(String exclude) {
         this.exclude = exclude;
-    }
-    
-    public DeleteArtifactsWithPatternActionDescriptor() {
-        super(DeleteArtifactsWithPatternAction.class);
     }
 
     @Override
