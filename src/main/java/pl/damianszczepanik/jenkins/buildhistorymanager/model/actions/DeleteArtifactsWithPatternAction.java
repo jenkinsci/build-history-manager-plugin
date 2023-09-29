@@ -54,7 +54,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         this.exclude = exclude;
     }
 
-    public static String removeLastSlash(String archiveRootPath) {
+    static String removeLastSlash(String archiveRootPath) {
         if(archiveRootPath.endsWith("/") || archiveRootPath.endsWith("\\")) {
             return archiveRootPath.substring(0, archiveRootPath.length() - 1);
         } else {
@@ -62,7 +62,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
     }
 
-    public static boolean isDirectoryEmpty(Path path) throws IOException {
+    static boolean isDirectoryEmpty(Path path) throws IOException {
         if (Files.isDirectory(path)) {
             try (Stream<Path> entries = Files.list(path)) {
                 return !entries.findFirst().isPresent();
@@ -88,7 +88,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
             return null;
         }
 
-        public void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
+        void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
             for (File dir : directories) {
                 if (shouldDeleteDirectory(dir)) {
                     Util.deleteFile(dir);
@@ -97,7 +97,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
             }
         }
 
-        public boolean shouldDeleteDirectory(File dir) throws IOException {
+        boolean shouldDeleteDirectory(File dir) throws IOException {
             if (!isValidDirectory(dir)) {
                 return false;
             }
@@ -106,15 +106,15 @@ public class DeleteArtifactsWithPatternAction extends Action {
             return hasValidParent(parent);
         }
 
-        public boolean hasValidParent(File parent) {
+        boolean hasValidParent(File parent) {
             return parent != null && parent.getPath().equals(this.archiveRootPath);
         }
 
-        public boolean isValidDirectory(File dir) throws IOException {
+        boolean isValidDirectory(File dir) throws IOException {
             return dir != null && dir.isDirectory() && isDirectoryEmpty(dir.toPath());
         }
 
-        public void deleteParentDirectories(File directory) {
+        void deleteParentDirectories(File directory) {
             File parent = directory;
 
             while (shouldDelete(parent)) {
@@ -123,18 +123,18 @@ public class DeleteArtifactsWithPatternAction extends Action {
             }
         }
 
-        public boolean shouldDelete(File directory) {
+        boolean shouldDelete(File directory) {
             return directory != null && !directory.getPath().equals(this.archiveRootPath);
         }
 
-        public void deleteDirectory(File directory) {
+        void deleteDirectory(File directory) {
             boolean deleteSuccess = directory.delete();
             if(!deleteSuccess) {
                 throw new RuntimeException("Deletion of directory failed: " + directory.getAbsolutePath());
             }
         }
 
-        public void deleteFileOrLogError(File file, Set<File> directories) throws IOException {
+        void deleteFileOrLogError(File file, Set<File> directories) throws IOException {
             if (file.isFile()) {
                 LOG.log(Level.FINE, "Deleting " + file.getName());
                 directories.add(file.getParentFile());
