@@ -55,8 +55,8 @@ public class DeleteArtifactsWithPatternAction extends Action {
     }
 
     public static String removeLastSlash(String archiveRootPath) {
-        if(archiveRootPath.endsWith("/")) {
-            return archiveRootPath.substring(0, archiveRootPath.lastIndexOf("/"));
+        if(archiveRootPath.endsWith("/") || archiveRootPath.endsWith("\\")) {
+            return archiveRootPath.substring(0, archiveRootPath.length() - 1);
         } else {
             return archiveRootPath;
         }
