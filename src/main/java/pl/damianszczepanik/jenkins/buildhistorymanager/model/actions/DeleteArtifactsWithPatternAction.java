@@ -98,7 +98,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         public boolean shouldDeleteDirectory(File dir) throws IOException {
-            if (isInvalidDirectory(dir)) {
+            if (!isValidDirectory(dir)) {
                 return false;
             }
 
@@ -110,8 +110,8 @@ public class DeleteArtifactsWithPatternAction extends Action {
             return parent != null && parent.getPath().equals(this.archiveRootPath);
         }
 
-        public boolean isInvalidDirectory(File dir) throws IOException {
-            return dir == null || !dir.isDirectory() || !isDirEmpty(dir.toPath());
+        public boolean isValidDirectory(File dir) throws IOException {
+            return dir != null && dir.isDirectory() && isDirEmpty(dir.toPath());
         }
 
         public void deleteParentDirectories(File directory) {
