@@ -81,9 +81,9 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         @Override 
-        public Void invoke(File vFile, VirtualChannel channel) throws IOException {          
+        public Void invoke(File file, VirtualChannel channel) throws IOException {
             Set<File> directories = new HashSet<>();
-            deleteFileOrLogError(vFile, directories);
+            deleteFileOrLogError(file, directories);
             deleteEmptyDirectoriesAndParents(directories);
             return null;
         }
