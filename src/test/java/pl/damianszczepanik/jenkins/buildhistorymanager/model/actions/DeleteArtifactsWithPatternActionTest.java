@@ -394,19 +394,19 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // testing shouldDeleteDirectory method for code coverage
     public void testShouldDeleteDirectory() throws IOException, InterruptedException {
-        // test isInvalidDirectory_NullDirectory_ReturnsTrue
-        Assert.assertTrue(deleteInstance.isInvalidDirectory(null));
+        // test isValidDirectory_NullDirectory_ReturnsFalse
+        Assert.assertFalse(deleteInstance.isValidDirectory(null));
 
-        // test isInvalidDirectory_NonDirectory_ReturnsTrue
+        // test isValidDirectory_NonDirectory_ReturnsFalse
         File nonDirectory = new File("nonDirectory.txt");
-        Assert.assertTrue(deleteInstance.isInvalidDirectory(nonDirectory));
+        Assert.assertFalse(deleteInstance.isValidDirectory(nonDirectory));
 
-        // test isInvalidDirectory_NonEmptyDirectory_returnsTrue
+        // test isValidDirectory_NonEmptyDirectory_returnsFalse
         File nonEmptyDirectory = new File("path/to/nonEmptyDirectory");
         // Create some files in the directory
         nonEmptyDirectory.mkdirs();
         new File(nonEmptyDirectory, "file1.txt").createNewFile();
-        Assert.assertTrue(deleteInstance.isInvalidDirectory(nonEmptyDirectory));
+        Assert.assertFalse(deleteInstance.isValidDirectory(nonEmptyDirectory));
 
         // test hasValidParent_NullParent_ReturnsFalse
         Assert.assertFalse(deleteInstance.hasValidParent(null));
