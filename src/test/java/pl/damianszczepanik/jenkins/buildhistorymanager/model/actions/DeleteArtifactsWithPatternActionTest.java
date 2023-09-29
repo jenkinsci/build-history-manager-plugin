@@ -268,13 +268,23 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileExists("archive/test1.xml");
     }
 
-    @Test // testing archiveRootPath for code coverage
+    @Test // testing removeLastSlash method for code coverage
     public void testRemoveLastSlash_NoSlash() throws IOException, InterruptedException {
-        String inputPath = "path/without/slash";
+        String pathNoSlash = "path/no/slash";
 
-        String result = DeleteArtifactsWithPatternAction.removeLastSlash(inputPath);
+        String result = DeleteArtifactsWithPatternAction.removeLastSlash(pathNoSlash);
 
-        Assert.assertEquals(inputPath, result);
+        Assert.assertEquals(pathNoSlash, result);
+    }
+
+    @Test // testing removeLastSlash method for code coverage
+    public void testRemoveLastSlash_withSlash() throws IOException, InterruptedException {
+        String pathWithSlash = "path/with/slash/";
+
+        String result = DeleteArtifactsWithPatternAction.removeLastSlash(pathWithSlash);
+
+        String pathWithoutSlash = pathWithSlash.substring(0, pathWithSlash.length() - 1);
+        Assert.assertEquals(pathWithoutSlash, result);
     }
 
     @Test // testing getInclude method for code coverage
