@@ -279,12 +279,24 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // testing removeLastSlash method for code coverage
     public void testRemoveLastSlash_withSlash() throws IOException, InterruptedException {
+        // On macOS, Linux, Android, and all Unix-like operation systems, forward slashes ('/') are used as directory separators in file paths.
         String pathWithSlash = "path/with/slash/";
 
         String result = DeleteArtifactsWithPatternAction.removeLastSlash(pathWithSlash);
 
         String pathWithoutSlash = pathWithSlash.substring(0, pathWithSlash.length() - 1);
         Assert.assertEquals(pathWithoutSlash, result);
+    }
+
+    @Test // testing removeLastSlash method for code coverage
+    public void testRemoveLastSlash_withBackslash() throws IOException, InterruptedException {
+        // In Microsoft Windows operating system(OS), backslashes ('\') are used as directory separators in file paths.
+        String pathWithBackslash = "path\\with\\backslash\\";
+
+        String result = DeleteArtifactsWithPatternAction.removeLastSlash(pathWithBackslash);
+
+        String pathWithoutBackslash = pathWithBackslash.substring(0, pathWithBackslash.length() - 1);
+        Assert.assertEquals(pathWithoutBackslash, result);
     }
 
     @Test // testing getInclude method for code coverage
