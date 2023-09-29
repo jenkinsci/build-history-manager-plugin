@@ -62,7 +62,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
     }
 
-    public static boolean isDirEmpty(Path path) throws IOException {
+    public static boolean isDirectoryEmpty(Path path) throws IOException {
         if (Files.isDirectory(path)) {
             try (Stream<Path> entries = Files.list(path)) {
                 return !entries.findFirst().isPresent();
@@ -111,7 +111,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         public boolean isValidDirectory(File dir) throws IOException {
-            return dir != null && dir.isDirectory() && isDirEmpty(dir.toPath());
+            return dir != null && dir.isDirectory() && isDirectoryEmpty(dir.toPath());
         }
 
         public void deleteParentDirectories(File directory) {
