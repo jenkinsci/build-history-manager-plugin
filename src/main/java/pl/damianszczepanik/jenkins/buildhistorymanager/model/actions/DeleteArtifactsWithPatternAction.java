@@ -54,9 +54,11 @@ public class DeleteArtifactsWithPatternAction extends Action {
         this.exclude = exclude;
     }
 
-    static String removeLastSlash(String archiveRootPath) {
-        if(archiveRootPath.endsWith("/") || archiveRootPath.endsWith("\\")) {
-            return archiveRootPath.substring(0, archiveRootPath.length() - 1);
+    static String removeLastFileSeparator(String archiveRootPath) {
+        // Assign the platform-specific file separator character to the 'fileSeparator' variable (e.g., '\' on Windows and '/' on Unix-based systems).
+        String fileSeparator = File.separator;
+        if(archiveRootPath.endsWith(fileSeparator)) {
+            return archiveRootPath.substring(0, archiveRootPath.length() - fileSeparator.length());
         } else {
             return archiveRootPath;
         }
@@ -77,7 +79,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         private final String archiveRootPath;
 
         public Delete(String archiveRootPath) {
-            this.archiveRootPath = removeLastSlash(archiveRootPath);
+            this.archiveRootPath = removeLastFileSeparator(archiveRootPath);
         }
 
         @Override 
