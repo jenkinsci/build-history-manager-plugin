@@ -54,16 +54,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
         this.exclude = exclude;
     }
 
-    static String removeLastFileSeparator(String archiveRootPath) {
-        // Assign the platform-specific file separator character to the 'fileSeparator' variable (e.g., '\' on Windows and '/' on Unix-based systems).
-        String fileSeparator = File.separator;
-        if(archiveRootPath.endsWith(fileSeparator)) {
-            return archiveRootPath.substring(0, archiveRootPath.length() - fileSeparator.length());
-        } else {
-            return archiveRootPath;
-        }
-    }
-
     static boolean isDirectoryEmpty(Path path) throws IOException {
         if (Files.isDirectory(path)) {
             try (Stream<Path> entries = Files.list(path)) {
@@ -76,10 +66,10 @@ public class DeleteArtifactsWithPatternAction extends Action {
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     public static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1L;
-        private final String archiveRootPath;
+        private final File archiveRooFile;
 
-        public Delete(String archiveRootPath) {
-            this.archiveRootPath = removeLastFileSeparator(archiveRootPath);
+        public Delete(File archiveRootFile) {
+            this.archiveRooFile = archiveRootFile;
         }
 
         @Override 
@@ -109,7 +99,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         boolean hasValidParent(File parent) {
-            return parent != null && parent.getPath().equals(this.archiveRootPath);
+            return parent != null && parent.getPath().equals(this.archiveRooFile.getPath());
         }
 
         boolean isValidDirectory(File dir) throws IOException {
@@ -126,7 +116,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         boolean shouldDelete(File directory) {
-            return directory != null && !directory.getPath().equals(this.archiveRootPath);
+            return directory != null && !directory.getPath().equals(this.archiveRooFile.getPath());
         }
 
         void deleteDirectory(File directory) {
@@ -171,7 +161,8 @@ public class DeleteArtifactsWithPatternAction extends Action {
         VirtualFile virtualFile = vRoot.child(path);
         File file = new File(virtualFile.toURI().getPath());
         FilePath filePath = new FilePath(file);
-        Delete deleteInstance = new Delete(vRoot.toURI().getPath());
+        File archiveRootFile = new File(vRoot.toURI());
+        Delete deleteInstance = new Delete(archiveRootFile);
         filePath.act(deleteInstance);
     }
 }
