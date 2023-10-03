@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import org.jenkinsci.remoting.RoleChecker;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
@@ -135,14 +134,6 @@ public class DeleteArtifactsWithPatternAction extends Action {
                 return;
             }
             LOG.log(Level.FINE, file + " is neither a directory nor a regular file.");
-        }
-
-        // checkRoles method is used for access control and security purposes in Jenkins.
-        // It is responsible for checking if the current user has the required permissions to execute the code defined in the FileCallable object.
-        // By implementing the checkRoles method and checking for the required permission, the code is more secure and protected against unauthorized access.
-        @Override
-        public void checkRoles(RoleChecker checker) throws SecurityException {
-            // This method has to be present to make the plugin work.
         }
     }
 
