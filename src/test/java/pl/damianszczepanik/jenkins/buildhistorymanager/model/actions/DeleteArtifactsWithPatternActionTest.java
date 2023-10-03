@@ -62,9 +62,9 @@ public class DeleteArtifactsWithPatternActionTest {
         // Create a temporary directory for code coverage testing
         Path tempDir = Files.createTempDirectory("testDir");
         archiveRootDir = tempDir.resolve("archive").toFile();
-        //Set up Delete instance with the archiveRootPath
-        String archiveRootPath = archiveRootDir.getAbsolutePath();
-        deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootPath);
+        //Set up Delete instance with the archiveRootFile
+        File archiveRootFile = new File(archiveRootDir.getAbsolutePath());
+        deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootFile);
     }
 
     private void assertTempFolderContains(final int expectedNumFiles) {
