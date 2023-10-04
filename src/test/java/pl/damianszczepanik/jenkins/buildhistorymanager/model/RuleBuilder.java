@@ -2,7 +2,6 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import hudson.model.Descriptor;
 import hudson.model.Run;
-import javax.annotation.Nonnull;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -36,7 +35,6 @@ public class RuleBuilder {
         public Descriptor getDescriptor() {
             return new Descriptor() {
 
-                @Nonnull
                 @Override
                 public String getDisplayName() {
                     return "TestRule";
