@@ -3,7 +3,7 @@ properties(
         buildDiscarder(BuildHistoryManager(
                 [
                     [
-                        actions: [DeleteArtifactsWithPattern(excludePatterns: '**/*.log', includePatterns: '**')],
+                        actions: [DeleteArtifactsMatchingPatterns(excludePatterns: '**/*.log', includePatterns: '**')],
                         conditions: [BuildNumberRange(maxBuildNumber: Integer.parseInt(env.BUILD_NUMBER, 10) - 1, minBuildNumber: 0)]
                     ]
                 ]
