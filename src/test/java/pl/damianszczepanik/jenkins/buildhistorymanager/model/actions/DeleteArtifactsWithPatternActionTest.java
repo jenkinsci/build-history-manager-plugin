@@ -110,8 +110,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 1, inc="", exc="", nothing deleted
     public void noneProvidedNothingDeleted() throws IOException, InterruptedException {
-        action.setInclude("");
-        action.setExclude("");
+        action.setIncludePatterns("");
+        action.setExcludePatterns("");
 
         action.perform(mockRun);
 
@@ -121,8 +121,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 2, inc="", exc="**", nothing deleted
     public void excludesOnlyNothingDeleted() throws IOException, InterruptedException {
-        action.setInclude("");
-        action.setExclude("**");
+        action.setIncludePatterns("");
+        action.setExcludePatterns("**");
 
         action.perform(mockRun);
 
@@ -131,8 +131,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 3, inc="**", exc="**", nothing deleted
     public void bothProvidedNothingDeleted() throws IOException, InterruptedException {
-        action.setInclude("**");
-        action.setExclude("**");
+        action.setIncludePatterns("**");
+        action.setExcludePatterns("**");
 
         action.perform(mockRun);
 
@@ -141,8 +141,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 4, inc="**", exc="", everything deleted
     public void includesOnlyEverythingDeleted() throws IOException, InterruptedException {
-        action.setInclude("**");
-        action.setExclude("");
+        action.setIncludePatterns("**");
+        action.setExcludePatterns("");
 
         action.perform(mockRun);
 
@@ -153,8 +153,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 5 inc="**", exc="**/*.log" everything except logs are deleted
     public void everythingDeletedButExcludePatterns() throws IOException, InterruptedException {
-        action.setInclude("**");
-        action.setExclude("**/*.log");
+        action.setIncludePatterns("**");
+        action.setExcludePatterns("**/*.log");
 
         action.perform(mockRun);
 
@@ -166,8 +166,8 @@ public class DeleteArtifactsWithPatternActionTest {
     @Test // test 5.1 inc="**", exc="**/*.log, **/*.txt" everything except logs and txt
           // files are deleted
     public void everythingDeletedButMultipleExcludePatterns() throws IOException, InterruptedException {
-        action.setInclude("**");
-        action.setExclude("**/*.log, **/*.txt");
+        action.setIncludePatterns("**");
+        action.setExcludePatterns("**/*.log, **/*.txt");
 
         action.perform(mockRun);
 
@@ -179,8 +179,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 6 inc="*.txt", exc="**/*.log" only text files in the root are deleted
     public void selectiveFileDeletionRootOnly() throws IOException, InterruptedException {
-        action.setInclude("*.txt");
-        action.setExclude("**/*.log");
+        action.setIncludePatterns("*.txt");
+        action.setExcludePatterns("**/*.log");
 
         action.perform(mockRun);
 
@@ -191,8 +191,8 @@ public class DeleteArtifactsWithPatternActionTest {
     @Test // test 6.1 inc="*.txt, *.xml", exc="**/*.log" only txt files and xml files in
           // the root are deleted
     public void multipleIncludePatternFilesDeletionRootOnly() throws IOException, InterruptedException {
-        action.setInclude("*.txt, *.xml");
-        action.setExclude("**/*.log");
+        action.setIncludePatterns("*.txt, *.xml");
+        action.setExcludePatterns("**/*.log");
 
         action.perform(mockRun);
 
@@ -203,9 +203,9 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 6.2 inc="*.txt, **/*.xml", exc="**/*.log" only txt files and xml files
           // are deleted
-    public void multipleIncludePatternFilesDeletion() throws IOException, InterruptedException {
-        action.setInclude("*.txt, **/*.xml");
-        action.setExclude("**/*.log");
+    public void multipleIncludePatternsFilesDeletion() throws IOException, InterruptedException {
+        action.setIncludePatterns("*.txt, **/*.xml");
+        action.setExcludePatterns("**/*.log");
 
         action.perform(mockRun);
 
@@ -216,8 +216,8 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 7 inc="**/*.txt", exc="**/*.log", all text files are deleted
     public void deleteIncludeMatchingFilesButExcludePatterns() throws IOException, InterruptedException {
-        action.setInclude("**/*.txt");
-        action.setExclude("**/*.log");
+        action.setIncludePatterns("**/*.txt");
+        action.setExcludePatterns("**/*.log");
 
         action.perform(mockRun);
 
@@ -229,8 +229,8 @@ public class DeleteArtifactsWithPatternActionTest {
     @Test // test 8 inc="**/*.txt", exc="*.txt", all text files but those in the root are
           // deleted
     public void selectiveFileDeletionExcludeRoot() throws IOException, InterruptedException {
-        action.setInclude("**/*.txt");
-        action.setExclude("*.txt");
+        action.setIncludePatterns("**/*.txt");
+        action.setExcludePatterns("*.txt");
 
         action.perform(mockRun);
 
@@ -255,8 +255,8 @@ public class DeleteArtifactsWithPatternActionTest {
         VirtualFile root = VirtualFile.forFile(archiveFolder);
         Mockito.when(mockArtifactManager.root()).thenReturn(root);
 
-        action.setInclude("../**");
-        action.setExclude("");
+        action.setIncludePatterns("../**");
+        action.setExcludePatterns("");
 
         action.perform(mockRun);
 
@@ -267,26 +267,26 @@ public class DeleteArtifactsWithPatternActionTest {
         assertFileExists("archive/test1.xml");
     }
 
-    @Test // testing getInclude method for code coverage
-    public void testGetInclude() throws IOException, InterruptedException {
-        String expectedInclude = "**";
+    @Test // testing getIncludePatterns method for code coverage
+    public void testGetIncludePatterns() throws IOException, InterruptedException {
+        String expectedIncludePatterns = "**";
         DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
-        action.setInclude(expectedInclude);
+        action.setIncludePatterns(expectedIncludePatterns);
 
-        String actualInclude = action.getInclude();
+        String actualIncludePatterns = action.getIncludePatterns();
 
-        Assert.assertEquals(expectedInclude, actualInclude);
+        Assert.assertEquals(expectedIncludePatterns, actualIncludePatterns);
     }
 
-    @Test // testing getInclude method for code coverage
-    public void testGetExclude() throws IOException, InterruptedException {
-        String expectedExclude = "**/*.log";
+    @Test // testing getExcludePatterns method for code coverage
+    public void testGetExcludePatterns() throws IOException, InterruptedException {
+        String expectedExcludePatterns = "**/*.log";
         DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
-        action.setExclude(expectedExclude);
+        action.setExcludePatterns(expectedExcludePatterns);
 
-        String actualExclude = action.getExclude();
+        String actualExcludePatterns = action.getExcludePatterns();
 
-        Assert.assertEquals(expectedExclude, actualExclude);
+        Assert.assertEquals(expectedExcludePatterns, actualExcludePatterns);
     }
 
     @Test // testing isDirectoryEmpty method returns 'False' for code coverage

@@ -28,30 +28,30 @@ import jenkins.util.VirtualFile;
 public class DeleteArtifactsWithPatternAction extends Action {
     private static final Logger LOG = Logger.getLogger(DeleteArtifactsWithPatternAction.class.getName());
 
-    private String include;
-    private String exclude;
+    private String includePatterns;
+    private String excludePatterns;
 
     @DataBoundConstructor
     public DeleteArtifactsWithPatternAction() {
         // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
-    public String getInclude() {
-        return include;
+    public String getIncludePatterns() {
+        return includePatterns;
     }
 
     @DataBoundSetter
-    public void setInclude(String include) {
-        this.include = include;
+    public void setIncludePatterns(String includePatterns) {
+        this.includePatterns = includePatterns;
     }
 
-    public String getExclude() {
-        return exclude;
+    public String getExcludePatterns() {
+        return excludePatterns;
     }
 
     @DataBoundSetter
-    public void setExclude(String exclude) {
-        this.exclude = exclude;
+    public void setExcludePatterns(String excludePatterns) {
+        this.excludePatterns = excludePatterns;
     }
 
     static boolean isDirectoryEmpty(Path path) throws IOException {
@@ -152,7 +152,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         VirtualFile vRoot = run.getArtifactManager().root();
-        Collection<String> files = vRoot.list(include, exclude, false);
+        Collection<String> files = vRoot.list(includePatterns, excludePatterns, false);
         LOG.log(Level.FINE, "Include Pattern Files: " + files);
 
         for (String path : files) {
