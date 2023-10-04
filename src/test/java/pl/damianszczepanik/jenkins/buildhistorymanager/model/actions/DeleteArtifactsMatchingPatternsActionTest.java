@@ -26,9 +26,9 @@ import jenkins.model.ArtifactManager;
 import jenkins.util.VirtualFile;
 
 @RunWith(MockitoJUnitRunner.class)
-public class DeleteArtifactsWithPatternActionTest {
-    private DeleteArtifactsWithPatternAction action;
-    private DeleteArtifactsWithPatternAction.Delete deleteInstance;
+public class DeleteArtifactsMatchingPatternsActionTest {
+    private DeleteArtifactsMatchingPatternsAction action;
+    private DeleteArtifactsMatchingPatternsAction.Delete deleteInstance;
     private File archiveRootDir;
     private Run<?, ?> mockRun;
     private ArtifactManager mockArtifactManager;
@@ -44,7 +44,7 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Before
     public void setup() throws IOException {
-        action = new DeleteArtifactsWithPatternAction();
+        action = new DeleteArtifactsMatchingPatternsAction();
         mockRun = Mockito.mock(Run.class);
         mockArtifactManager = Mockito.mock(ArtifactManager.class);
         Mockito.when(mockRun.getArtifactManager()).thenReturn(mockArtifactManager);
@@ -64,7 +64,7 @@ public class DeleteArtifactsWithPatternActionTest {
         Path tempDir = Files.createTempDirectory("testDir");
         archiveRootDir = tempDir.resolve("archive").toFile();
         //Set up Delete instance with the archiveRootDir
-        deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootDir);
+        deleteInstance = new DeleteArtifactsMatchingPatternsAction.Delete(archiveRootDir);
     }
 
     private void assertTempFolderContains(final int expectedNumFiles) {
@@ -241,7 +241,7 @@ public class DeleteArtifactsWithPatternActionTest {
 
     @Test // test 9, inc="../**", exc=""
     public void nothingDeletedWhenPointingAboveStartingPoint() throws IOException, InterruptedException {
-        action = new DeleteArtifactsWithPatternAction();
+        action = new DeleteArtifactsMatchingPatternsAction();
         mockRun = Mockito.mock(Run.class);
         mockArtifactManager = Mockito.mock(ArtifactManager.class);
         Mockito.when(mockRun.getArtifactManager()).thenReturn(mockArtifactManager);
@@ -270,7 +270,7 @@ public class DeleteArtifactsWithPatternActionTest {
     @Test // testing getIncludePatterns method for code coverage
     public void testGetIncludePatterns() throws IOException, InterruptedException {
         String expectedIncludePatterns = "**";
-        DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
+        DeleteArtifactsMatchingPatternsAction action = new DeleteArtifactsMatchingPatternsAction();
         action.setIncludePatterns(expectedIncludePatterns);
 
         String actualIncludePatterns = action.getIncludePatterns();
@@ -281,7 +281,7 @@ public class DeleteArtifactsWithPatternActionTest {
     @Test // testing getExcludePatterns method for code coverage
     public void testGetExcludePatterns() throws IOException, InterruptedException {
         String expectedExcludePatterns = "**/*.log";
-        DeleteArtifactsWithPatternAction action = new DeleteArtifactsWithPatternAction();
+        DeleteArtifactsMatchingPatternsAction action = new DeleteArtifactsMatchingPatternsAction();
         action.setExcludePatterns(expectedExcludePatterns);
 
         String actualExcludePatterns = action.getExcludePatterns();
@@ -294,7 +294,7 @@ public class DeleteArtifactsWithPatternActionTest {
         Path nonEmptyDirectory = Files.createTempDirectory("nonEmptyDirectory");
         Files.createFile(nonEmptyDirectory.resolve("file.txt"));
 
-        Assert.assertFalse(DeleteArtifactsWithPatternAction.isDirectoryEmpty(nonEmptyDirectory));
+        Assert.assertFalse(DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(nonEmptyDirectory));
         Assert.assertTrue(Files.exists(nonEmptyDirectory));
     }
 
@@ -302,7 +302,7 @@ public class DeleteArtifactsWithPatternActionTest {
     public void testIsDirectoryEmptyTrue() throws IOException, InterruptedException {
         Path emptyDirectory = Files.createTempDirectory("emptyDirectory");
 
-        Assert.assertTrue(DeleteArtifactsWithPatternAction.isDirectoryEmpty(emptyDirectory));
+        Assert.assertTrue(DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(emptyDirectory));
     }
 
     @Test // testing isDirectoryEmpty method for code coverage
@@ -311,7 +311,7 @@ public class DeleteArtifactsWithPatternActionTest {
         Path nonExistentDirectory = tempFolder.newFolder("non_existent").toPath();
         Files.delete(nonExistentDirectory);
 
-        boolean result = DeleteArtifactsWithPatternAction.isDirectoryEmpty(nonExistentDirectory);
+        boolean result = DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(nonExistentDirectory);
 
         assertFalse(result);
     }

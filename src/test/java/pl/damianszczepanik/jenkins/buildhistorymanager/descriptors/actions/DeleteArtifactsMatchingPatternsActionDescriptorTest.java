@@ -11,27 +11,27 @@ import org.jvnet.hudson.test.JenkinsRule;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
 
-public class DeleteArtifactsWithPatternActionDescriptorTest {
-    private DeleteArtifactsWithPatternActionDescriptor descriptor;
+public class DeleteArtifactsMatchingPatternsActionDescriptorTest {
+    private DeleteArtifactsMatchingPatternsActionDescriptor descriptor;
 
     @Rule
     public JenkinsRule j = new JenkinsRule();
 
     @Before
     public void setUp() {
-        descriptor = new DeleteArtifactsWithPatternActionDescriptor();
+        descriptor = new DeleteArtifactsMatchingPatternsActionDescriptor();
     }
 
     @Test
     public void getDisplayName_ReturnsDescriptorName() {
 
         // given
-        Descriptor descriptor = SymbolLookup.get().findDescriptor(AbstractDescribableImpl.class, "DeleteArtifactsWithPattern");
+        Descriptor descriptor = SymbolLookup.get().findDescriptor(AbstractDescribableImpl.class, "DeleteArtifactsMatchingPatterns");
 
         // when
         String displayName = descriptor.getDisplayName();
 
         // then
-        assertThat(displayName).isEqualTo("Delete artifacts with pattern");
+        assertThat(displayName).isEqualTo("Delete artifacts matching patterns");
     }
 }

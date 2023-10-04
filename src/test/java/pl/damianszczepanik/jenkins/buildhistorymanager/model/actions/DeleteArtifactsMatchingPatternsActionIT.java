@@ -21,7 +21,7 @@ import org.jvnet.hudson.test.JenkinsRule;
 import hudson.model.Result;
 import hudson.model.Run;
 
-public class DeleteArtifactsWithPatternActionIT {
+public class DeleteArtifactsMatchingPatternsActionIT {
 
     @Rule
     public JenkinsRule jenkinsRule = new JenkinsRule();

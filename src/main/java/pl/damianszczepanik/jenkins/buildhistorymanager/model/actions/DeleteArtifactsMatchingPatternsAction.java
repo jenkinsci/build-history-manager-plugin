@@ -25,14 +25,14 @@ import jenkins.util.VirtualFile;
 /**
  * Deletes the artifacts with patterns.
  */
-public class DeleteArtifactsWithPatternAction extends Action {
-    private static final Logger LOG = Logger.getLogger(DeleteArtifactsWithPatternAction.class.getName());
+public class DeleteArtifactsMatchingPatternsAction extends Action {
+    private static final Logger LOG = Logger.getLogger(DeleteArtifactsMatchingPatternsAction.class.getName());
 
     private String includePatterns;
     private String excludePatterns;
 
     @DataBoundConstructor
-    public DeleteArtifactsWithPatternAction() {
+    public DeleteArtifactsMatchingPatternsAction() {
         // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
