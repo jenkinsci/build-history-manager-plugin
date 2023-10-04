@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.jenkinsci.remoting.RoleChecker;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -62,9 +63,8 @@ public class DeleteArtifactsWithPatternActionTest {
         // Create a temporary directory for code coverage testing
         Path tempDir = Files.createTempDirectory("testDir");
         archiveRootDir = tempDir.resolve("archive").toFile();
-        //Set up Delete instance with the archiveRootFile
-        File archiveRootFile = new File(archiveRootDir.getAbsolutePath());
-        deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootFile);
+        //Set up Delete instance with the archiveRootDir
+        deleteInstance = new DeleteArtifactsWithPatternAction.Delete(archiveRootDir);
     }
 
     private void assertTempFolderContains(final int expectedNumFiles) {
@@ -314,6 +314,13 @@ public class DeleteArtifactsWithPatternActionTest {
         boolean result = DeleteArtifactsWithPatternAction.isDirectoryEmpty(nonExistentDirectory);
 
         assertFalse(result);
+    }
+
+    @Test // testing checkRoles method for code coverage
+    public void testCheckRolesNoException() throws IOException, InterruptedException {
+        RoleChecker mockRoleChecker = Mockito.mock(RoleChecker.class);
+
+        deleteInstance.checkRoles(mockRoleChecker);
     }
 
     @Test // testing deleteParentDirectories method for code coverage
