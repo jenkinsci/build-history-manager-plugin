@@ -3,7 +3,7 @@ properties(
         buildDiscarder(BuildHistoryManager(
                 [
                     [
-                        actions: [DeleteArtifactsWithPattern(exclude: '**/*.log', include: '**')],
+                        actions: [DeleteArtifactsWithPattern(excludePatterns: '**/*.log', includePatterns: '**')],
                         conditions: [MatchEveryBuild()]
                     ]
                 ]

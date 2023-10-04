@@ -4,11 +4,11 @@ properties(
         buildDiscarder(BuildHistoryManager(
                 [
                     [
-                        actions: [DeleteArtifactsWithPattern(exclude: '**/*.log', include: '**')],
+                        actions: [DeleteArtifactsWithPattern(excludePatterns: '**/*.log', includePatterns: '**')],
                         conditions: [BuildNumberRange(maxBuildNumber: buildNumber - 2, minBuildNumber: 0)]
                     ],
                     [
-                        actions: [DeleteArtifactsWithPattern(exclude: '', include: '**')],
+                        actions: [DeleteArtifactsWithPattern(excludePatterns: '', includePatterns: '**')],
                         conditions: [BuildNumberRange(maxBuildNumber: buildNumber - 5, minBuildNumber: 0)]
                     ]
                 ]
