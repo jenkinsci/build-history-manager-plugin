@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import org.jenkinsci.remoting.RoleChecker;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 
@@ -134,6 +135,17 @@ public class DeleteArtifactsWithPatternAction extends Action {
                 return;
             }
             LOG.log(Level.FINE, file + " is neither a directory nor a regular file.");
+        }
+
+        /**
+         * Overrides the 'checkRoles' method to fulfill the requirement of implementing RoleSensitive.
+         *
+         * @param checker The RoleChecker used for access control and security purposes.
+         * @throws SecurityException If there are security-related issues.
+         */
+        @Override
+        public void checkRoles(RoleChecker checker) throws SecurityException {
+            //Nothing is being done here even though a call to RoleChecker#check(…​) is expected.
         }
     }
 
