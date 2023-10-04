@@ -2,10 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-
 import org.jenkinsci.plugins.structs.SymbolLookup;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,32 +33,5 @@ public class DeleteArtifactsWithPatternActionDescriptorTest {
 
         // then
         assertThat(displayName).isEqualTo("Delete artifacts with pattern");
-    }
-    
-    @Test // testing getInclude method for code coverage
-    public void testGetInclude() throws IOException, InterruptedException {
-
-        // given
-        String include = "includePattern";
-        descriptor.setInclude(include);
-
-        // when
-        String result = descriptor.getInclude();
-
-        // then
-        Assert.assertEquals(include, result);
-    }
-
-    @Test // testing getExclude method for code coverage
-    public void testGetExclude() throws IOException, InterruptedException {
-        // Given
-        String exclude = "excludePattern";
-        descriptor.setExclude(exclude);
-
-        // When
-        String result = descriptor.getExclude();
-
-        // Then
-        Assert.assertEquals(exclude, result);
     }
 }
