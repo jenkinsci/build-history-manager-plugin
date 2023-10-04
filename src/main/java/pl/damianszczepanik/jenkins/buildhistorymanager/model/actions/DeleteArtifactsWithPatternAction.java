@@ -65,10 +65,10 @@ public class DeleteArtifactsWithPatternAction extends Action {
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     public static final class Delete implements FileCallable<Void> {
         private static final long serialVersionUID = 1L;
-        private final File archiveRooFile;
+        private final File archiveRootFile;
 
         public Delete(File archiveRootFile) {
-            this.archiveRooFile = archiveRootFile;
+            this.archiveRootFile = archiveRootFile;
         }
 
         @Override 
@@ -98,7 +98,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         boolean hasValidParent(File parent) {
-            return parent != null && parent.getPath().equals(this.archiveRooFile.getPath());
+            return parent != null && parent.equals(this.archiveRootFile);
         }
 
         boolean isValidDirectory(File dir) throws IOException {
@@ -115,7 +115,7 @@ public class DeleteArtifactsWithPatternAction extends Action {
         }
 
         boolean shouldDelete(File directory) {
-            return directory != null && !directory.getPath().equals(this.archiveRooFile.getPath());
+            return directory != null && !directory.equals(this.archiveRootFile);
         }
 
         void deleteDirectory(File directory) {
