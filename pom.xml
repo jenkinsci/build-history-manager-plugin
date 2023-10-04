@@ -4,13 +4,25 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.15</version>
+        <version>4.73</version>
     </parent>
 
     <groupId>pl.damianszczepanik</groupId>
     <artifactId>build-history-manager</artifactId>
     <version>1.7.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.387.x</artifactId>
+                <version>2483.v3b_22f030990a_</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <name>Build History Manager</name>
     <description>
         Jenkins plugin that allows to build complex rules to decide when and which builds should be removed from the
@@ -19,8 +31,7 @@
     <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
 
     <properties>
-        <java.level>8</java.level>
-        <jenkins.version>2.289.3</jenkins.version>
+        <jenkins.version>2.387.3</jenkins.version>
 
         <slf4jVersion>1.7.30</slf4jVersion>
         <asm.version>9.4</asm.version>
@@ -143,9 +154,9 @@
             <plugin>
                 <groupId>org.jenkins-ci.tools</groupId>
                 <artifactId>maven-hpi-plugin</artifactId>
-                <version>3.5</version>
                 <configuration>
-                    <!-- Jenkins test InjectedTest renamed to InjectedIT so it is executed only during integration tests -->
+                    <!-- Jenkins test InjectedTest renamed to InjectedIT,
+                     so it is executed only during integration tests -->
                     <injectedTestName>InjectionIT</injectedTestName>
                 </configuration>
             </plugin>
@@ -162,62 +173,14 @@
         </pluginManagement>
     </build>
 
-    <dependencyManagement>
         <dependencies>
-            <!-- to satisfy:
-            Require upper bound dependencies error -->
             <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-tree</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-analysis</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-util</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
-            <!-- dependency of mockito-core -->
-            <dependency>
-                <groupId>org.objenesis</groupId>
-                <artifactId>objenesis</artifactId>
-                <version>3.3</version>
-            </dependency>
-            <!-- dependency of token-macro -->
-            <dependency>
-                <groupId>net.minidev</groupId>
-                <artifactId>json-smart</artifactId>
-                <version>2.4.9</version>
-            </dependency>
-            <dependency>
-                <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.289.x</artifactId>
-                <version>1500.ve4d05cd32975</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-        <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>token-macro</artifactId>
-            <version>321.vd7cc1f2a_52c8</version>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>structs</artifactId>
-            <version>324.va_f5d6774f3a_d</version>
             <scope>test</scope>
         </dependency>
 

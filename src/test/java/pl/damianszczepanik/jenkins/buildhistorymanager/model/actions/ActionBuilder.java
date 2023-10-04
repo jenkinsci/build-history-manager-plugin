@@ -5,7 +5,6 @@ import java.util.List;
 
 import hudson.model.Descriptor;
 import hudson.model.Run;
-import javax.annotation.Nonnull;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -31,7 +30,6 @@ public class ActionBuilder {
         public Descriptor getDescriptor() {
             return new Descriptor() {
 
-                @Nonnull
                 @Override
                 public String getDisplayName() {
                     return "TestAction";

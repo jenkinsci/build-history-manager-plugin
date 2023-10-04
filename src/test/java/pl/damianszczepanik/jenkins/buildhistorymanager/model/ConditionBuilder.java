@@ -5,7 +5,6 @@ import java.util.List;
 
 import hudson.model.Descriptor;
 import hudson.model.Run;
-import javax.annotation.Nonnull;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
 /**
@@ -25,7 +24,6 @@ public class ConditionBuilder {
         public Descriptor getDescriptor() {
             return new Descriptor() {
 
-                @Nonnull
                 @Override
                 public String getDisplayName() {
                     return this.getClass().getName();
