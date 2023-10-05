@@ -1,9 +1,8 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions;
 
-import org.jenkinsci.Symbol;
-
 import hudson.Extension;
 import hudson.model.Descriptor;
+import org.jenkinsci.Symbol;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteArtifactsMatchingPatternsAction;
 
