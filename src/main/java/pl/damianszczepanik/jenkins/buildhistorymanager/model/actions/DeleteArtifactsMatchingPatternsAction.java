@@ -164,8 +164,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         VirtualFile virtualFile = vRoot.child(path);
         File file = new File(virtualFile.toURI().getPath());
         FilePath filePath = new FilePath(file);
-        File archiveRootFile = new File(vRoot.toURI());
-        Delete deleteInstance = new Delete(archiveRootFile);
+        Delete deleteInstance = new Delete(new File(vRoot.toURI()));
         filePath.act(deleteInstance);
     }
 }
