@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
@@ -55,12 +56,9 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
     }
 
     static boolean isDirectoryEmpty(Path path) throws IOException {
-        if (Files.isDirectory(path)) {
-            try (Stream<Path> entries = Files.list(path)) {
-                return !entries.findFirst().isPresent();
-            }
-        }        
-        return false;
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
+            return !directoryStream.iterator().hasNext();
+        }
     }
 
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
