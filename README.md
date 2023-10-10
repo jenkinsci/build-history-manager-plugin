@@ -215,6 +215,45 @@ pipeline {
 }
 ```
 
+#### Delete build artifacts with pattern
+The following configuration has a single rule that utilizes the `Match every build` condition and deletes specific build artifacts based on Ant-style glob patterns defined in the `Include/Exclude` patterns.
+
+Here's an example using the include pattern `"**"`, exclude pattern `"**/*.log"` to delete all files except log files:
+
+```groovy
+properties(
+    [
+        buildDiscarder(BuildHistoryManager(
+                [
+                    [
+                        actions: [DeleteArtifactsWithPattern(exclude: '**/*.log', include: '**')],
+                        conditions: [MatchEveryBuild()]
+                    ]
+                ]
+            )
+        )
+    ]
+)
+
+node {
+
+        sh '''
+        rm -rf *
+        touch test.xml
+        touch testLog.log
+        touch testTxt.txt
+        mkdir -p testFolder
+        touch testFolder/test1.xml
+        touch testFolder/testLog1.log
+        touch testFolder/testTxt1.txt
+        '''
+        archiveArtifacts artifacts: '**', followSymlinks: false
+}
+```
+
+#### Configuration for delete artifacts with include and exclude patterns
+![feature overview page](./.README/delete-artifacts-with-pattern-configuration.png)
+
 ## Wiki
 Please refer to the [Wiki](https://github.com/jenkinsci/build-history-manager-plugin/wiki)
 for more detailed information.

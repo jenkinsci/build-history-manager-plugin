@@ -1,0 +1,33 @@
+final int buildNumber = Integer.parseInt(env.BUILD_NUMBER, 10)
+properties(
+    [
+        buildDiscarder(BuildHistoryManager(
+                [
+                    [
+                        actions: [DeleteArtifactsWithPattern(exclude: '**/*.log', include: '**')],
+                        conditions: [BuildNumberRange(maxBuildNumber: buildNumber - 2, minBuildNumber: 0)]
+                    ],
+                    [
+                        actions: [DeleteArtifactsWithPattern(exclude: '', include: '**')],
+                        conditions: [BuildNumberRange(maxBuildNumber: buildNumber - 5, minBuildNumber: 0)]
+                    ]
+                ]
+            )
+        )
+    ]
+)
+
+node {
+
+        sh '''
+        rm -rf *
+        touch test.xml
+        touch testLog.log
+        touch testTxt.txt
+        mkdir -p testFolder
+        touch testFolder/test1.xml
+        touch testFolder/testLog1.log
+        touch testFolder/testTxt1.txt
+        '''
+        archiveArtifacts artifacts: '**', followSymlinks: false
+}
