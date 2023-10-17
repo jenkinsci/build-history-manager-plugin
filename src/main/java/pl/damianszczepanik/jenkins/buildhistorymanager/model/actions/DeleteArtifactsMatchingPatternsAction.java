@@ -97,7 +97,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         }
 
         boolean hasValidParent(File parent) {
-            return parent != null && parent.equals(this.archiveRootFile);
+            return this.archiveRootFile.equals(parent);
         }
 
         boolean isValidDirectory(File dir) throws IOException {
