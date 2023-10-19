@@ -4,13 +4,8 @@ properties(
                 [
                     [
                         actions: [],
-                        conditions: [BuildPosition(maxBuildPosition: 15)],
+                        conditions: [BuildPosition(maxBuildPosition: 10)],
                         continueAfterMatch: false
-                    ],
-                    [
-                        actions: [],
-                        conditions: [BuildNumberRange(maxBuildNumber: 5, minBuildNumber: 0)],
-                        continueAfterMatch: false  
                     ],
                     [
                         actions: [DeleteBuild()]
