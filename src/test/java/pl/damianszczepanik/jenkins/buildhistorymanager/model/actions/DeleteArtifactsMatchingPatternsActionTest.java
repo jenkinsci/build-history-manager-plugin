@@ -349,13 +349,26 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertFalse(deleteInstance.shouldDelete(nullDirectory));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test // testing deleteDirectory method for successful directory deletion for code coverage
+    public void testDeleteDirectorySuccess() throws IOException, InterruptedException {
+        File parentDir = new File(archiveRootDir, "parent");
+        File childDir = new File(parentDir, "child");
+        Assert.assertTrue(childDir.mkdirs());
+
+       deleteInstance.deleteDirectory(childDir);
+    }
+
+    @Test // testing deleteDirectory method for failed directory deletion for code coverage
     public void testDeleteDirectoryFailure() throws IOException, InterruptedException {
         File parentDir = new File(archiveRootDir, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
 
-       deleteInstance.deleteDirectory(parentDir);
+        // Mock the behavior of directory.delete() to simulate failure
+        childDir = Mockito.spy(childDir);
+        Mockito.when(childDir.delete()).thenReturn(false);
+
+        deleteInstance.deleteDirectory(childDir);
     }
 
     @Test // testing deleteFileOrLogError method for code coverage
