@@ -99,6 +99,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     public static int countFiles(final File directory) {
         int fileCount = 0;
         File[] files = directory.listFiles();
+        assert files != null;
         for (File file : files) {
             if (file.isFile() && file.exists()) {
                 fileCount++;
@@ -148,7 +149,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         action.perform(mockRun);
 
         File folder = new File(tempFolder.getRoot().getPath());
-        String assertMessage = String.format("All files with folders should have been deleted.");
+        String assertMessage = "All files with folders should have been deleted.";
         Assert.assertTrue(assertMessage, folder.exists());
     }
 
@@ -269,7 +270,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing getIncludePatterns method for code coverage
-    public void testGetIncludePatterns() throws IOException, InterruptedException {
+    public void testGetIncludePatterns() {
         String expectedIncludePatterns = "**";
         DeleteArtifactsMatchingPatternsAction action = new DeleteArtifactsMatchingPatternsAction();
         action.setIncludePatterns(expectedIncludePatterns);
@@ -280,7 +281,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing getExcludePatterns method for code coverage
-    public void testGetExcludePatterns() throws IOException, InterruptedException {
+    public void testGetExcludePatterns() {
         String expectedExcludePatterns = "**/*.log";
         DeleteArtifactsMatchingPatternsAction action = new DeleteArtifactsMatchingPatternsAction();
         action.setExcludePatterns(expectedExcludePatterns);
@@ -291,7 +292,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing isDirectoryEmpty method returns 'False' for code coverage
-    public void testIsDirectoryEmptyFalse() throws IOException, InterruptedException {
+    public void testIsDirectoryEmptyFalse() throws IOException {
         Path nonEmptyDirectory = Files.createTempDirectory("nonEmptyDirectory");
         Files.createFile(nonEmptyDirectory.resolve("file.txt"));
 
@@ -300,7 +301,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing isDirectoryEmpty method returns 'True' for code coverage
-    public void testIsDirectoryEmptyTrue() throws IOException, InterruptedException {
+    public void testIsDirectoryEmptyTrue() throws IOException {
         Path emptyDirectory = Files.createTempDirectory("emptyDirectory");
 
         Assert.assertTrue(DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(emptyDirectory));
@@ -320,14 +321,14 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing checkRoles method for code coverage
-    public void testCheckRolesNoException() throws IOException, InterruptedException {
+    public void testCheckRolesNoException() {
         RoleChecker mockRoleChecker = Mockito.mock(RoleChecker.class);
 
         deleteInstance.checkRoles(mockRoleChecker);
     }
 
     @Test // testing deleteParentDirectories method for code coverage
-    public void testDeleteParentDirectories() throws IOException, InterruptedException {
+    public void testDeleteParentDirectories() {
         File grandparentDir = new File(archiveRootDir, "grandparent");
         File parentDir = new File(grandparentDir, "parent");
         File childDir = new File(parentDir, "child");
@@ -344,13 +345,12 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertTrue(archiveRootDir.exists());
 
         // testing shouldDelete method
-        File nullDirectory = null;
         // Assert that the result is false since directory is null
-        Assert.assertFalse(deleteInstance.shouldDelete(nullDirectory));
+        Assert.assertFalse(deleteInstance.shouldDelete(null));
     }
 
     @Test // testing deleteDirectory method for successful directory deletion for code coverage
-    public void testDeleteDirectorySuccess() throws IOException, InterruptedException {
+    public void testDeleteDirectorySuccess() {
         File parentDir = new File(archiveRootDir, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
@@ -359,7 +359,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing deleteDirectory method for failed directory deletion for code coverage
-    public void testDeleteDirectoryFailure() throws IOException, InterruptedException {
+    public void testDeleteDirectoryFailure() {
         File parentDir = new File(archiveRootDir, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
@@ -372,14 +372,14 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing deleteFileOrLogError method for code coverage
-    public void testDeleteRegularFile() throws IOException, InterruptedException {
+    public void testDeleteRegularFile() throws IOException {
         File parentDir = new File(archiveRootDir, "parent");
         File childDir = new File(parentDir, "child");
-        childDir.mkdirs();
+        Assert.assertTrue(childDir.mkdirs());
 
         // Create a regular text file named "testFile.txt" under the child directory
         File testFile = new File(childDir, "testFile.txt");
-        boolean result = testFile.createNewFile();
+        Assert.assertTrue(testFile.createNewFile());
         Set<File> directories = new HashSet<>();
         deleteInstance.deleteFileOrLogError(testFile, directories);
 
@@ -388,7 +388,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing Log non regular file message for code coverage
-    public void testLogNonRegularFile() throws IOException, InterruptedException {
+    public void testLogNonRegularFile() throws IOException {
         File nonRegularFile = Mockito.mock(File.class);
         Set<File> directories = new HashSet<>();
 
@@ -397,7 +397,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     }
 
     @Test // testing shouldDeleteDirectory method for code coverage
-    public void testShouldDeleteDirectory() throws IOException, InterruptedException {
+    public void testShouldDeleteDirectory() throws IOException {
         // test isValidDirectory_NullDirectory_ReturnsFalse
         Assert.assertFalse(deleteInstance.isValidDirectory(null));
 
