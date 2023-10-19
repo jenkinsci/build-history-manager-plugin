@@ -120,7 +120,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         void deleteDirectory(File directory) {
             boolean deleteSuccess = directory.delete();
             if(!deleteSuccess) {
-                throw new RuntimeException("Deletion of directory failed: " + directory.getAbsolutePath());
+                LOG.log(Level.FINE, "Deletion of directory failed: " + directory.getAbsolutePath());
             }
         }
 
