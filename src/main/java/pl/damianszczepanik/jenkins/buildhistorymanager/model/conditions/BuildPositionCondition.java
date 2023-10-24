@@ -12,7 +12,7 @@ public class BuildPositionCondition extends Condition {
 
     @DataBoundConstructor
     public BuildPositionCondition() {
-      // Jenkins stapler requires to have public constructor with @DataBoundConstructor  
+      // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
     public int getMaxBuildPosition() {
@@ -25,8 +25,8 @@ public class BuildPositionCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
-        // return false;
-        // return run.getNumber() >= minBuildNumber && run.getNumber() <= maxBuildNumber;
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
+        // Compare the buildPosition to maxBuildPosition
+        return buildPosition <= maxBuildPosition;
     } 
 }
