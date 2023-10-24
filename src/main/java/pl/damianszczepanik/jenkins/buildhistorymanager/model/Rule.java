@@ -74,9 +74,10 @@ public class Rule extends AbstractDescribableImpl<Rule> {
      * Checks if passed build matches with all conditions from this rule.
      *
      * @param run build to validate
+     * @param buildPosition The position of the build in the history
      * @return <code>true</code> if all conditions match otherwise <code>false</code>
      */
-    public boolean validateConditions(Run<?, ?> run) {
+    public boolean validateConditions(Run<?, ?> run, int buildPosition) {
         // stop checking if max number of processed builds is reached
         if (matchedTimes == getMatchAtMost()) {
             log(uniquePerformName, String.format("Skipping rule because matched %d times", matchedTimes));
@@ -86,7 +87,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
         // validateConditions condition one by one...
         for (Condition condition : conditions) {
             log(uniquePerformName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
-            boolean conditionMatched = condition.matches(run, configuration);
+            boolean conditionMatched = condition.matches(run, configuration, buildPosition);
             // stop checking rest conditions when at least condition does not match
             if (!conditionMatched) {
                 log(uniquePerformName, String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
