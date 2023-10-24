@@ -99,9 +99,10 @@ public class RuleTest {
         // given
         Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
         Run<?, ?> run = mock(Run.class);
+        int buildPosition = -1;
 
         // when
-        rule.validateConditions(run);
+        rule.validateConditions(run, buildPosition);
 
         // then
         for (Condition condition : rule.getConditions()) {
@@ -115,9 +116,10 @@ public class RuleTest {
         // given
         Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), Collections.emptyList());
         Run<?, ?> run = mock(Run.class);
+        int buildPosition = -1;
 
         // when
-        rule.validateConditions(run);
+        rule.validateConditions(run, buildPosition);
 
         // then
         int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
@@ -147,10 +149,11 @@ public class RuleTest {
         Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
         rule.setMatchAtMost(1);
         Run<?, ?> run = mock(Run.class);
+        int buildPosition = -1;
 
         // when
-        rule.validateConditions(run);
-        rule.validateConditions(run);
+        rule.validateConditions(run, buildPosition);
+        rule.validateConditions(run, buildPosition);
 
         // then
         int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
