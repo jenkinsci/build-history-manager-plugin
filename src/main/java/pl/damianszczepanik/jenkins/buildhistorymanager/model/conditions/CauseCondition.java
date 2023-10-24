@@ -30,7 +30,7 @@ public class CauseCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
         for (Cause cause : run.getCauses()) {
             // use contains() method to avoid problem with class name
             // for causes which are often inner class and name contains $ character
@@ -39,5 +39,12 @@ public class CauseCondition extends Condition {
             }
         }
         return false;
+    }
+
+    // Add an overloaded version of the 'matches' method to set the default value for buildPosition
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+        // Set a default value for buildPosition, e.g., -1
+        int buildPosition = -1;
+        return matches(run, configuration, buildPosition);
     }
 }

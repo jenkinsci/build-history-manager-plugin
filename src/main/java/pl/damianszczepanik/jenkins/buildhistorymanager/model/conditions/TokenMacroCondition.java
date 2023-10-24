@@ -47,7 +47,7 @@ public class TokenMacroCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
 
         try {
             File workspace = run.getRootDir();
@@ -60,5 +60,12 @@ public class TokenMacroCondition extends Condition {
                     template, run.getNumber(), e.getMessage()));
             return false;
         }
+    }
+
+    // Add an overloaded version of the 'matches' method to set the default value for buildPosition
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+        // Set a default value for buildPosition, e.g., -1
+        int buildPosition = -1;
+        return matches(run, configuration, buildPosition);
     }
 }
