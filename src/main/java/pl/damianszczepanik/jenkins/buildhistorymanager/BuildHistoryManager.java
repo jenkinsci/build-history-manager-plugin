@@ -54,20 +54,25 @@ public class BuildHistoryManager extends BuildDiscarder {
         }
 
         Run<?, ?> run = job.getLastCompletedBuild();
+        // Initialize the build position counter
+        int buildPosition = 0;
         // for each completed build...
         while (run != null) {
-            log(uniquePerformName, "Processing build #" + run.getNumber());
+            // Increment the build position counter
+            buildPosition++;
+            // Log build number and position
+            log(uniquePerformName, "Processing build #" + run.getNumber() + " at build position " + buildPosition);
             if (run.isKeepLog()) {
                 log(uniquePerformName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
             } else {
                 for (int i = 0; i < rules.size(); i++) {
                     Rule rule = rules.get(i);
                     log(uniquePerformName, "Processing rule no " + (i + 1));
-                    if (rule.validateConditions(run)) {
+                    if (rule.validateConditions(run, buildPosition)) {
                         log(uniquePerformName, "Processing actions for rule no " + (i + 1));
                         rule.performActions(run);
 
-                        // if other rules should not be proceed, shift to next build
+                        // if other rules should not be proceeded, shift to next build
                         if (!rule.getContinueAfterMatch()) {
                             break;
                         }
