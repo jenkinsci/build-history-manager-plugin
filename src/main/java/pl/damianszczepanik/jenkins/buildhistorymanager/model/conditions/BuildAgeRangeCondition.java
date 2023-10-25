@@ -58,13 +58,6 @@ public class BuildAgeRangeCondition extends Condition {
         return buildTime.compareTo(minDays) <= 0 && buildTime.compareTo(maxDays) >= 0;
     }
 
-    // Add an overloaded version of the 'matches' method to set the default value for buildPosition
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
-        // Set a default value for buildPosition, e.g., -1
-        int buildPosition = -1;
-        return matches(run, configuration, buildPosition);
-    }
-
     protected void clearTime(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);

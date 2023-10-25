@@ -20,11 +20,4 @@ public class MatchEveryBuildCondition extends Condition {
     public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
         return true;
     }
-
-    // Add an overloaded version of the 'matches' method to set the default value for buildPosition
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
-        // Set a default value for buildPosition, e.g., -1
-        int buildPosition = -1;
-        return matches(run, configuration, buildPosition);
-    }
 }
