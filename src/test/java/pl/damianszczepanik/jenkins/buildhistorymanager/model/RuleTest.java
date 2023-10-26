@@ -22,6 +22,8 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  */
 public class RuleTest {
 
+    public static int buildPosition = 0;
+
     @Test
     public void getConditions_ReturnsConditions() {
 
@@ -99,7 +101,6 @@ public class RuleTest {
         // given
         Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
         Run<?, ?> run = mock(Run.class);
-        int buildPosition = -1;
 
         // when
         rule.validateConditions(run, buildPosition);
@@ -116,7 +117,6 @@ public class RuleTest {
         // given
         Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), Collections.emptyList());
         Run<?, ?> run = mock(Run.class);
-        int buildPosition = -1;
 
         // when
         rule.validateConditions(run, buildPosition);
@@ -149,7 +149,6 @@ public class RuleTest {
         Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
         rule.setMatchAtMost(1);
         Run<?, ?> run = mock(Run.class);
-        int buildPosition = -1;
 
         // when
         rule.validateConditions(run, buildPosition);
