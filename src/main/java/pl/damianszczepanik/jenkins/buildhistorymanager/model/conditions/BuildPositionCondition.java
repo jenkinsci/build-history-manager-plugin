@@ -26,7 +26,6 @@ public class BuildPositionCondition extends Condition {
 
     @Override
     public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
-        // Compare the buildPosition to maxBuildPosition
         return buildPosition <= maxBuildPosition;
     } 
 }
