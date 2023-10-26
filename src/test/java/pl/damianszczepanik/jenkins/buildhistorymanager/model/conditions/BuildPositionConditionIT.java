@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition;
@@ -16,7 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import hudson.model.Result;
 import hudson.util.RunList;
 
 public class BuildPositionConditionIT {
@@ -35,24 +33,21 @@ public class BuildPositionConditionIT {
         return pipelineJob;
     }
 
-    private WorkflowRun executeAndWaitForSuccessfulRun(WorkflowJob pipelineJob) throws InterruptedException, ExecutionException {
-        WorkflowRun run = pipelineJob.scheduleBuild2(0).get();
+    private void executeAndWaitForSuccessfulRun(WorkflowJob pipelineJob) throws InterruptedException, ExecutionException {
+        WorkflowRun run = Objects.requireNonNull(pipelineJob.scheduleBuild2(0)).get();
         jenkinsRule.waitForCompletion(run);
-        return run;
     }
 
     @Test
     public void queueMultipleRuns() throws Exception {
         WorkflowJob pipelineJob = createPipelineJobFromScriptFile("buildPositionCondition_KeepLastTenBuildsTest.jf");
-        List<WorkflowRun> arrayList = new ArrayList<>();
         for (int i = 1; i <= 15; i++ ) {
-            WorkflowRun run = executeAndWaitForSuccessfulRun(pipelineJob);
-            arrayList.add(run);
+            executeAndWaitForSuccessfulRun(pipelineJob);
         }
 
         RunList<WorkflowRun> runList = pipelineJob.getBuilds();
         int numOfRuns = 0;
-        for (WorkflowRun run : runList) {
+        for (WorkflowRun ignored : runList) {
             numOfRuns++;
         }        
         Assert.assertEquals(10, numOfRuns);
