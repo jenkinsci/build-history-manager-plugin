@@ -22,7 +22,7 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  */
 public class RuleTest {
 
-    public static int buildPosition = 0;
+    public static final int FIRST_BUILD_POSITION = 0;
 
     @Test
     public void getConditions_ReturnsConditions() {
@@ -103,7 +103,7 @@ public class RuleTest {
         Run<?, ?> run = mock(Run.class);
 
         // when
-        rule.validateConditions(run, buildPosition);
+        rule.validateConditions(run, FIRST_BUILD_POSITION);
 
         // then
         for (Condition condition : rule.getConditions()) {
@@ -119,7 +119,7 @@ public class RuleTest {
         Run<?, ?> run = mock(Run.class);
 
         // when
-        rule.validateConditions(run, buildPosition);
+        rule.validateConditions(run, FIRST_BUILD_POSITION);
 
         // then
         int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
@@ -151,8 +151,8 @@ public class RuleTest {
         Run<?, ?> run = mock(Run.class);
 
         // when
-        rule.validateConditions(run, buildPosition);
-        rule.validateConditions(run, buildPosition);
+        rule.validateConditions(run, FIRST_BUILD_POSITION);
+        rule.validateConditions(run, FIRST_BUILD_POSITION);
 
         // then
         int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
