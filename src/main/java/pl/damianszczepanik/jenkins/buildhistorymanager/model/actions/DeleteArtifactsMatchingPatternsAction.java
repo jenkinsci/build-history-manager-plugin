@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import org.jenkinsci.remoting.RoleChecker;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -88,7 +87,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         }
 
         boolean shouldDeleteDirectory(File dir) throws IOException {
-            if (!isValidDirectory(dir)) {
+            if (!isDirectoryEmpty(dir.toPath())) {
                 return false;
             }
 
@@ -98,10 +97,6 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
 
         boolean hasValidParent(File parent) {
             return this.archiveRootFile.equals(parent);
-        }
-
-        boolean isValidDirectory(File dir) throws IOException {
-            return dir != null && dir.isDirectory() && isDirectoryEmpty(dir.toPath());
         }
 
         void deleteParentDirectories(File directory) {

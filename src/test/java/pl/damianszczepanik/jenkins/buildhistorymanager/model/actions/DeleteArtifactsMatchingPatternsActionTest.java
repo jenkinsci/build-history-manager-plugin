@@ -398,20 +398,6 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
     @Test // testing shouldDeleteDirectory method for code coverage
     public void testShouldDeleteDirectory() throws IOException {
-        // test isValidDirectory_NullDirectory_ReturnsFalse
-        Assert.assertFalse(deleteInstance.isValidDirectory(null));
-
-        // test isValidDirectory_NonDirectory_ReturnsFalse
-        File nonDirectory = new File("nonDirectory.txt");
-        Assert.assertFalse(deleteInstance.isValidDirectory(nonDirectory));
-
-        // test isValidDirectory_NonEmptyDirectory_returnsFalse
-        File nonEmptyDirectory = new File("path/to/nonEmptyDirectory");
-        // Create some files in the directory
-        nonEmptyDirectory.mkdirs();
-        new File(nonEmptyDirectory, "file1.txt").createNewFile();
-        Assert.assertFalse(deleteInstance.isValidDirectory(nonEmptyDirectory));
-
         // test hasValidParent_NullParent_ReturnsFalse
         Assert.assertFalse(deleteInstance.hasValidParent(null));
 
