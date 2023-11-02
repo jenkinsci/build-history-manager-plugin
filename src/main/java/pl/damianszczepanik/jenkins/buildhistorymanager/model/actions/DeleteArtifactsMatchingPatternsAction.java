@@ -23,7 +23,7 @@ import hudson.remoting.VirtualChannel;
 import jenkins.util.VirtualFile;
 
 /**
- * Deletes the artifacts with patterns.
+ * Deletes the artifacts matching patterns.
  */
 public class DeleteArtifactsMatchingPatternsAction extends Action {
     private static final Logger LOG = Logger.getLogger(DeleteArtifactsMatchingPatternsAction.class.getName());
