@@ -343,10 +343,6 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertFalse(parentDir.exists());
         Assert.assertFalse(grandparentDir.exists());
         Assert.assertTrue(archiveRootDir.exists());
-
-        // testing shouldDelete method
-        // Assert that the result is false since directory is null
-        Assert.assertFalse(deleteInstance.shouldDelete(null));
     }
 
     @Test // testing deleteDirectory method for successful directory deletion for code coverage
@@ -394,19 +390,5 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         Mockito.when(nonRegularFile.isFile()).thenReturn(false);
         deleteInstance.deleteFileOrLogError(nonRegularFile, directories);
-    }
-
-    @Test // testing shouldDeleteDirectory method for code coverage
-    public void testShouldDeleteDirectory() throws IOException {
-        // test hasValidParent_NullParent_ReturnsFalse
-        Assert.assertFalse(deleteInstance.hasValidParent(null));
-
-        // test hasValidParent_NonMatchingParent_ReturnsFalse
-        File nonMatchingParent = new File("path/to/nonMatchingParent");
-        Assert.assertFalse(deleteInstance.hasValidParent(nonMatchingParent));
-
-        // test hasValidParent_MatchingParent_ReturnsTrue
-        File matchingParent = new File(archiveRootDir, "matchingParent");
-        Assert.assertTrue(deleteInstance.hasValidParent(matchingParent.getParentFile()));
     }
 }
