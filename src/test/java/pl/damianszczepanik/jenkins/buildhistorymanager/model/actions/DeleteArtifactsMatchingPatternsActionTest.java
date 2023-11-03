@@ -343,6 +343,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertFalse(parentDir.exists());
         Assert.assertFalse(grandparentDir.exists());
         Assert.assertTrue(archiveRootDir.exists());
+
+       // This is the scenario where directory is null for code coverage
+        deleteInstance.deleteParentDirectories(null);
     }
 
     @Test // testing deleteDirectory method for successful directory deletion for code coverage
