@@ -61,7 +61,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
     }
 
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
-    public static final class Delete implements FileCallable<Void> {
+    public static final class DeleteFileCallable implements FileCallable<Void> {
         private static final long serialVersionUID = -7712623306942117400L;
         private final File archiveRootFile;
 
