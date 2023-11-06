@@ -65,7 +65,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         private static final long serialVersionUID = -7712623306942117400L;
         private final File archiveRootFile;
 
-        public Delete(File archiveRootFile) {
+        public DeleteFileCallable(File archiveRootFile) {
             this.archiveRootFile = archiveRootFile;
         }
 
@@ -79,7 +79,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
 
         void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
             for (File dir : directories) {
-                    if (isDirectoryEmpty(dir.toPath()) && hasValidParent(dir.getParentFile())) {
+                if (isDirectoryEmpty(dir.toPath()) && hasValidParent(dir.getParentFile())) {
                     Util.deleteFile(dir);
                     deleteParentDirectories(dir.getParentFile());
                 }
@@ -144,7 +144,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         VirtualFile virtualFile = vRoot.child(path);
         File file = new File(virtualFile.toURI().getPath());
         FilePath filePath = new FilePath(file);
-        Delete deleteInstance = new Delete(new File(vRoot.toURI()));
+        DeleteFileCallable deleteInstance = new DeleteFileCallable(new File(vRoot.toURI()));
         filePath.act(deleteInstance);
     }
 }

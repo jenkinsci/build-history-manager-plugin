@@ -29,7 +29,7 @@ import jenkins.util.VirtualFile;
 @RunWith(MockitoJUnitRunner.class)
 public class DeleteArtifactsMatchingPatternsActionTest {
     private DeleteArtifactsMatchingPatternsAction action;
-    private DeleteArtifactsMatchingPatternsAction.Delete deleteInstance;
+    private DeleteArtifactsMatchingPatternsAction.DeleteFileCallable deleteFileCallableInstance;
     private File archiveRootDir;
     private Run<?, ?> mockRun;
     private ArtifactManager mockArtifactManager;
@@ -64,8 +64,8 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         // Create a temporary directory for code coverage testing
         Path tempDir = Files.createTempDirectory("testDir");
         archiveRootDir = tempDir.resolve("archive").toFile();
-        //Set up Delete instance with the archiveRootDir
-        deleteInstance = new DeleteArtifactsMatchingPatternsAction.Delete(archiveRootDir);
+        //Set up DeleteFileCallable instance with the archiveRootDir
+        deleteFileCallableInstance = new DeleteArtifactsMatchingPatternsAction.DeleteFileCallable(archiveRootDir);
     }
 
     private void assertTempFolderContains(final int expectedNumFiles) {
@@ -324,7 +324,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
     public void testCheckRolesNoException() {
         RoleChecker mockRoleChecker = Mockito.mock(RoleChecker.class);
 
-        deleteInstance.checkRoles(mockRoleChecker);
+        deleteFileCallableInstance.checkRoles(mockRoleChecker);
     }
 
     @Test // testing deleteParentDirectories method for code coverage
@@ -335,7 +335,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertTrue(childDir.mkdirs());
 
         // Call the method
-        deleteInstance.deleteParentDirectories(childDir);
+        deleteFileCallableInstance.deleteParentDirectories(childDir);
 
         // Assert that child, parent and grandparent directories are deleted, but the
         // archive root directory remains
@@ -345,7 +345,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertTrue(archiveRootDir.exists());
 
        // This is the scenario where directory is null for code coverage
-        deleteInstance.deleteParentDirectories(null);
+        deleteFileCallableInstance.deleteParentDirectories(null);
     }
 
     @Test // testing deleteDirectory method for successful directory deletion for code coverage
@@ -354,7 +354,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
 
-       deleteInstance.deleteDirectory(childDir);
+       deleteFileCallableInstance.deleteDirectory(childDir);
     }
 
     @Test // testing deleteDirectory method for failed directory deletion for code coverage
@@ -367,7 +367,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         childDir = Mockito.spy(childDir);
         Mockito.when(childDir.delete()).thenReturn(false);
 
-        deleteInstance.deleteDirectory(childDir);
+        deleteFileCallableInstance.deleteDirectory(childDir);
     }
 
     @Test // testing deleteFileOrLogError method for code coverage
@@ -380,7 +380,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         File testFile = new File(childDir, "testFile.txt");
         Assert.assertTrue(testFile.createNewFile());
         Set<File> directories = new HashSet<>();
-        deleteInstance.deleteFileOrLogError(testFile, directories);
+        deleteFileCallableInstance.deleteFileOrLogError(testFile, directories);
 
         Assert.assertTrue(directories.contains(childDir));
         Assert.assertFalse(testFile.exists());
@@ -392,6 +392,6 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Set<File> directories = new HashSet<>();
 
         Mockito.when(nonRegularFile.isFile()).thenReturn(false);
-        deleteInstance.deleteFileOrLogError(nonRegularFile, directories);
+        deleteFileCallableInstance.deleteFileOrLogError(nonRegularFile, directories);
     }
 }
