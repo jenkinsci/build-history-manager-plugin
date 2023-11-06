@@ -75,7 +75,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
             return null;
         }
 
-        void deleteEmptyDirectoriesAndParents(File directory) throws IOException {
+        void deleteEmptyDirectoryAndParent(File directory) throws IOException {
             if (isDirectoryEmpty(directory.toPath()) && hasValidParent(directory.getParentFile())) {
                 Util.deleteFile(directory);
                 deleteParentDirectories(directory.getParentFile());
@@ -105,8 +105,9 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         void deleteFileOrLogError(File file) throws IOException {
             if (file.isFile()) {
                 LOG.log(Level.FINE, "Deleting " + file.getName());
-                deleteEmptyDirectoriesAndParents(file.getParentFile());
                 Util.deleteFile(file);
+                deleteEmptyDirectoryAndParent(file.getParentFile());
+
                 // Return early when the condition is met
                 return;
             }
