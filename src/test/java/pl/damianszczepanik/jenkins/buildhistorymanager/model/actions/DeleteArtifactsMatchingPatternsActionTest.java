@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.jenkinsci.remoting.RoleChecker;
 import org.junit.Assert;
@@ -379,19 +377,16 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         // Create a regular text file named "testFile.txt" under the child directory
         File testFile = new File(childDir, "testFile.txt");
         Assert.assertTrue(testFile.createNewFile());
-        Set<File> directories = new HashSet<>();
-        deleteFileCallableInstance.deleteFileOrLogError(testFile, directories);
 
-        Assert.assertTrue(directories.contains(childDir));
+        deleteFileCallableInstance.deleteFileOrLogError(testFile);
         Assert.assertFalse(testFile.exists());
     }
 
     @Test // testing Log non regular file message for code coverage
     public void testLogNonRegularFile() throws IOException {
         File nonRegularFile = Mockito.mock(File.class);
-        Set<File> directories = new HashSet<>();
-
         Mockito.when(nonRegularFile.isFile()).thenReturn(false);
-        deleteFileCallableInstance.deleteFileOrLogError(nonRegularFile, directories);
+
+        deleteFileCallableInstance.deleteFileOrLogError(nonRegularFile);
     }
 }

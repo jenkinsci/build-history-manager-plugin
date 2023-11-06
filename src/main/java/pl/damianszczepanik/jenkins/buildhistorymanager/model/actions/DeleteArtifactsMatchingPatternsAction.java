@@ -71,18 +71,14 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
 
         @Override 
         public Void invoke(File file, VirtualChannel channel) throws IOException {
-            Set<File> directories = new HashSet<>();
-            deleteFileOrLogError(file, directories);
-            deleteEmptyDirectoriesAndParents(directories);
+            deleteFileOrLogError(file);
             return null;
         }
 
-        void deleteEmptyDirectoriesAndParents(Set<File> directories) throws IOException {
-            for (File dir : directories) {
-                if (isDirectoryEmpty(dir.toPath()) && hasValidParent(dir.getParentFile())) {
-                    Util.deleteFile(dir);
-                    deleteParentDirectories(dir.getParentFile());
-                }
+        void deleteEmptyDirectoriesAndParents(File directory) throws IOException {
+            if (isDirectoryEmpty(directory.toPath()) && hasValidParent(directory.getParentFile())) {
+                Util.deleteFile(directory);
+                deleteParentDirectories(directory.getParentFile());
             }
         }
 
@@ -106,10 +102,10 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
             }
         }
 
-        void deleteFileOrLogError(File file, Set<File> directories) throws IOException {
+        void deleteFileOrLogError(File file) throws IOException {
             if (file.isFile()) {
                 LOG.log(Level.FINE, "Deleting " + file.getName());
-                directories.add(file.getParentFile());
+                deleteEmptyDirectoriesAndParents(file.getParentFile());
                 Util.deleteFile(file);
                 // Return early when the condition is met
                 return;
