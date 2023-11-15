@@ -68,7 +68,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         }
 
         void deleteEmptyDirectoryAndParent(File directory) throws IOException {
-            if (isDirectoryEmpty(directory.toPath()) && hasValidParent(directory.getParentFile())) {
+            if (isDirectoryEmpty(directory.toPath()) && isArchiveRootDirectory(directory.getParentFile())) {
                 Util.deleteFile(directory);
                 deleteParentDirectories(directory.getParentFile());
             }
@@ -80,16 +80,15 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
             }
         }
 
-        boolean hasValidParent(File parent) {
-            return this.archiveRootDirectory.equals(parent);
+        boolean isArchiveRootDirectory(File directory) {
+            return directory != null && directory.equals(this.archiveRootDirectory);
         }
 
         void deleteParentDirectories(File directory) {
-            File parent = directory;
 
-            while (parent != null && !parent.equals(this.archiveRootDirectory)) {
-                deleteDirectory(parent);
-                parent = parent.getParentFile();
+            while (directory != null && !isArchiveRootDirectory(directory)) {
+                deleteDirectory(directory);
+                directory = directory.getParentFile();
             }
         }
 
