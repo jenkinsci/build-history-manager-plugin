@@ -125,20 +125,20 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
 
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
-        VirtualFile vRoot = run.getArtifactManager().root();
-        Collection<String> files = vRoot.list(includePatterns, excludePatterns, false);
+        VirtualFile virtualRoot = run.getArtifactManager().root();
+        Collection<String> files = virtualRoot.list(includePatterns, excludePatterns, false);
         LOG.log(Level.FINE, "Include Pattern Files: " + files);
 
         for (String path : files) {
-            deleteFileAtPath(vRoot, path);
+            deleteFileAtPath(virtualRoot, path);
         }
     }
 
-    public void deleteFileAtPath(VirtualFile vRoot, String path) throws IOException, InterruptedException {
-        VirtualFile virtualFile = vRoot.child(path);
+    public void deleteFileAtPath(VirtualFile virtualRoot, String path) throws IOException, InterruptedException {
+        VirtualFile virtualFile = virtualRoot.child(path);
         File file = new File(virtualFile.toURI().getPath());
         FilePath filePath = new FilePath(file);
-        DeleteFileCallable deleteFileCallableInstance = new DeleteFileCallable(new File(vRoot.toURI()));
+        DeleteFileCallable deleteFileCallableInstance = new DeleteFileCallable(new File(virtualRoot.toURI()));
         filePath.act(deleteFileCallableInstance);
     }
 }
