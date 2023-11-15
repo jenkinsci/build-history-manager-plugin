@@ -28,7 +28,7 @@ import jenkins.util.VirtualFile;
 public class DeleteArtifactsMatchingPatternsActionTest {
     private DeleteArtifactsMatchingPatternsAction action;
     private DeleteArtifactsMatchingPatternsAction.DeleteFileCallable deleteFileCallableInstance;
-    private File archiveRootDir;
+    private File archiveRootDirectory;
     private Run<?, ?> mockRun;
     private ArtifactManager mockArtifactManager;
 
@@ -61,9 +61,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         // Create a temporary directory for code coverage testing
         Path tempDir = Files.createTempDirectory("testDir");
-        archiveRootDir = tempDir.resolve("archive").toFile();
+        archiveRootDirectory = tempDir.resolve("archive").toFile();
         //Set up DeleteFileCallable instance with the archiveRootDir
-        deleteFileCallableInstance = new DeleteArtifactsMatchingPatternsAction.DeleteFileCallable(archiveRootDir);
+        deleteFileCallableInstance = new DeleteArtifactsMatchingPatternsAction.DeleteFileCallable(archiveRootDirectory);
     }
 
     private void assertTempFolderContains(final int expectedNumFiles) {
@@ -327,7 +327,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
     @Test // testing deleteParentDirectories method for code coverage
     public void testDeleteParentDirectories() {
-        File grandparentDir = new File(archiveRootDir, "grandparent");
+        File grandparentDir = new File(archiveRootDirectory, "grandparent");
         File parentDir = new File(grandparentDir, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
@@ -340,7 +340,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertFalse(childDir.exists());
         Assert.assertFalse(parentDir.exists());
         Assert.assertFalse(grandparentDir.exists());
-        Assert.assertTrue(archiveRootDir.exists());
+        Assert.assertTrue(archiveRootDirectory.exists());
 
        // This is the scenario where directory is null for code coverage
         deleteFileCallableInstance.deleteParentDirectories(null);
@@ -348,7 +348,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
     @Test // testing deleteDirectory method for successful directory deletion for code coverage
     public void testDeleteDirectorySuccess() {
-        File parentDir = new File(archiveRootDir, "parent");
+        File parentDir = new File(archiveRootDirectory, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
 
@@ -357,7 +357,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
     @Test // testing deleteDirectory method for failed directory deletion for code coverage
     public void testDeleteDirectoryFailure() {
-        File parentDir = new File(archiveRootDir, "parent");
+        File parentDir = new File(archiveRootDirectory, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
 
@@ -370,7 +370,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
     @Test // testing deleteFileOrLogError method for code coverage
     public void testDeleteRegularFile() throws IOException {
-        File parentDir = new File(archiveRootDir, "parent");
+        File parentDir = new File(archiveRootDirectory, "parent");
         File childDir = new File(parentDir, "child");
         Assert.assertTrue(childDir.mkdirs());
 
