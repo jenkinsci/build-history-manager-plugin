@@ -294,15 +294,14 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Path nonEmptyDirectory = Files.createTempDirectory("nonEmptyDirectory");
         Files.createFile(nonEmptyDirectory.resolve("file.txt"));
 
-        Assert.assertFalse(DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(nonEmptyDirectory));
+        Assert.assertFalse(deleteFileCallableInstance.isDirectoryEmpty(nonEmptyDirectory));
         Assert.assertTrue(Files.exists(nonEmptyDirectory));
     }
 
     @Test // testing isDirectoryEmpty method returns 'True' for code coverage
     public void testIsDirectoryEmptyTrue() throws IOException {
         Path emptyDirectory = Files.createTempDirectory("emptyDirectory");
-
-        Assert.assertTrue(DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(emptyDirectory));
+        Assert.assertTrue(deleteFileCallableInstance.isDirectoryEmpty(emptyDirectory));
     }
 
     @Test // testing isDirectoryEmpty method for code coverage
@@ -311,10 +310,10 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Path nonExistentDirectory = Paths.get("/tmp/nonExistentDirectory");
 
         if (Files.exists(nonExistentDirectory)) {
-            assertFalse(DeleteArtifactsMatchingPatternsAction.isDirectoryEmpty(nonExistentDirectory));
+            Assert.assertFalse(deleteFileCallableInstance.isDirectoryEmpty(nonExistentDirectory));
         } else {
             // Use assertions to handle the case where the directory doesn't exist
-            assertFalse("Directory does not exist: " + nonExistentDirectory, Files.exists(nonExistentDirectory));
+            Assert.assertFalse("Directory does not exist: " + nonExistentDirectory, Files.exists(nonExistentDirectory));
         }
     }
 

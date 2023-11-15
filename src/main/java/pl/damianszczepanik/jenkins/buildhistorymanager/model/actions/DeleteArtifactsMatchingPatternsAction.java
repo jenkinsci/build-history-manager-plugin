@@ -52,12 +52,6 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         this.excludePatterns = excludePatterns;
     }
 
-    static boolean isDirectoryEmpty(Path path) throws IOException {
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
-            return !directoryStream.iterator().hasNext();
-        }
-    }
-
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     public static final class DeleteFileCallable implements FileCallable<Void> {
         private final File archiveRootDirectory;
@@ -76,6 +70,12 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
             if (isDirectoryEmpty(directory.toPath()) && hasValidParent(directory.getParentFile())) {
                 Util.deleteFile(directory);
                 deleteParentDirectories(directory.getParentFile());
+            }
+        }
+
+        boolean isDirectoryEmpty(Path path) throws IOException {
+            try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
+                return !directoryStream.iterator().hasNext();
             }
         }
 
