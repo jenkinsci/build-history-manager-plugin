@@ -6,8 +6,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,10 +60,10 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
 
     // if 'file' is on a different node, this FileCallable will be transferred to that node and executed there.
     public static final class DeleteFileCallable implements FileCallable<Void> {
-        private final File archiveRootFile;
+        private final File archiveRootDirectory;
 
-        public DeleteFileCallable(File archiveRootFile) {
-            this.archiveRootFile = archiveRootFile;
+        public DeleteFileCallable(File archiveRootDirectory) {
+            this.archiveRootDirectory = archiveRootDirectory;
         }
 
         @Override 
@@ -82,13 +80,13 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         }
 
         boolean hasValidParent(File parent) {
-            return this.archiveRootFile.equals(parent);
+            return this.archiveRootDirectory.equals(parent);
         }
 
         void deleteParentDirectories(File directory) {
             File parent = directory;
 
-            while (parent != null && !parent.equals(this.archiveRootFile)) {
+            while (parent != null && !parent.equals(this.archiveRootDirectory)) {
                 deleteDirectory(parent);
                 parent = parent.getParentFile();
             }
