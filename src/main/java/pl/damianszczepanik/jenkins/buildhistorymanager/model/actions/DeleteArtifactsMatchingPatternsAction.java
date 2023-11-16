@@ -88,7 +88,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         }
 
         boolean isArchiveRootDirectory(File directory) {
-            return directory != null && directory.equals(this.archiveRootDirectory);
+            return this.archiveRootDirectory.equals(directory);
         }
 
         void deleteParentDirectories(File directory) {
