@@ -67,6 +67,13 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
             return null;
         }
 
+        /**
+         * Deletes the specified directory if it is empty and its parent is the archive root directory.
+         * Additionally, deletes the parent directories recursively.
+         *
+         * @param directory The directory to be deleted.
+         * @throws IOException If an I/O error occurs.
+         */
         void deleteEmptyDirectoryAndParent(File directory) throws IOException {
             if (isDirectoryEmpty(directory.toPath()) && isArchiveRootDirectory(directory.getParentFile())) {
                 Util.deleteFile(directory);
