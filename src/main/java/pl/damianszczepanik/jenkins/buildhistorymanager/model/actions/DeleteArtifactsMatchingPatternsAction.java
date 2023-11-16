@@ -85,8 +85,7 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
         }
 
         void deleteParentDirectories(File directory) {
-
-            while (directory != null && !isArchiveRootDirectory(directory)) {
+            while (!isArchiveRootDirectory(directory)) {
                 deleteDirectory(directory);
                 directory = directory.getParentFile();
             }

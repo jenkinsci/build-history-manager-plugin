@@ -62,7 +62,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         // Create a temporary directory for code coverage testing
         Path tempDir = Files.createTempDirectory("testDir");
         archiveRootDirectory = tempDir.resolve("archive").toFile();
-        //Set up DeleteFileCallable instance with the archiveRootDir
+        //Set up DeleteFileCallable instance with the archiveRootDirectory
         deleteFileCallableInstance = new DeleteArtifactsMatchingPatternsAction.DeleteFileCallable(archiveRootDirectory);
     }
 
@@ -340,9 +340,6 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertFalse(parentDir.exists());
         Assert.assertFalse(grandparentDir.exists());
         Assert.assertTrue(archiveRootDirectory.exists());
-
-       // This is the scenario where directory is null for code coverage
-        deleteFileCallableInstance.deleteParentDirectories(null);
     }
 
     @Test // testing deleteDirectory method for successful directory deletion for code coverage
