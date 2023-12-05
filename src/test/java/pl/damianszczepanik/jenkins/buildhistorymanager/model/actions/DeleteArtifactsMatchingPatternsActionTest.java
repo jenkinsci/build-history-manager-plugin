@@ -68,38 +68,37 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         deleteFileCallableInstance = new DeleteArtifactsMatchingPatternsAction.DeleteFileCallable(archiveRootDirectory);
     }
 
-    private void assertTempFolderContains(final int expectedNumFiles) {
+    private void assertTempFolderContainsFileCount(final int expectedNumFiles) {
         final int actualNumFiles = countFiles(tempFolder.getRoot());
         final String assertMessage = String.format("Expected %d files, actual found %d files", expectedNumFiles,
                 actualNumFiles);
         Assert.assertEquals(assertMessage, expectedNumFiles, actualNumFiles);
     }
 
-    // Custom assertFileExists method
-    public void assertFileExists(final String filePath, final String message) {
+    // Custom assertFileExistsInTempFolder method
+    public void assertFileExistsInTempFolder(final String filePath, final String message) {
         final File file = new File(tempFolder.getRoot(), filePath);
         Assert.assertTrue(message, file.exists());
     }
 
-    public void assertFileExists(final String filePath) {
-        assertFileExists(filePath, null);
+    public void assertFileExistsInTempFolder(final String filePath) {
+        assertFileExistsInTempFolder(filePath, null);
     }
 
-    // Custom assertFileNotExists method
-    public void assertFileNotExists(final String filePath, final String message) {
+    // Custom assertFileNotExistsInTempFolder method
+    public void assertFileNotExistsInTempFolder(final String filePath, final String message) {
         final File file = new File(tempFolder.getRoot(), filePath);
         Assert.assertFalse(message, file.exists());
     }
 
-    public void assertFileNotExists(final String filePath) {
-        assertFileNotExists(filePath, null);
+    public void assertFileNotExistsInTempFolder(final String filePath) {
+        assertFileNotExistsInTempFolder(filePath, null);
     }
 
     // Count the number of files in the directory
     public static int countFiles(final File directory) {
         int fileCount = 0;
         File[] files = directory.listFiles();
-        assert files != null;
         for (File file : files) {
             if (file.isFile() && file.exists()) {
                 fileCount++;
@@ -117,8 +116,8 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(6);
-        assertFileExists("testFolder/test1.xml");
+        assertTempFolderContainsFileCount(6);
+        assertFileExistsInTempFolder("testFolder/test1.xml");
     }
 
     @Test // test 2, inc="", exc="**", nothing deleted
@@ -128,7 +127,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(6);
+        assertTempFolderContainsFileCount(6);
     }
 
     @Test // test 3, inc="**", exc="**", nothing deleted
@@ -138,7 +137,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(6);
+        assertTempFolderContainsFileCount(6);
     }
 
     @Test // test 4, inc="**", exc="", everything deleted
@@ -160,9 +159,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(2);
-        assertFileExists("testLog.log");
-        assertFileExists("testFolder/testLog1.log", "Log files should have been excluded.");
+        assertTempFolderContainsFileCount(2);
+        assertFileExistsInTempFolder("testLog.log");
+        assertFileExistsInTempFolder("testFolder/testLog1.log", "Log files should have been excluded.");
     }
 
     @Test // test 5.1 inc="**", exc="**/*.log, **/*.txt" everything except logs and txt
@@ -173,10 +172,10 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(4);
-        assertFileExists("testLog.log");
-        assertFileNotExists("test.xml", "XML files should have been deleted.");
-        assertFileNotExists("testFolder/test1.xml");
+        assertTempFolderContainsFileCount(4);
+        assertFileExistsInTempFolder("testLog.log");
+        assertFileNotExistsInTempFolder("test.xml", "XML files should have been deleted.");
+        assertFileNotExistsInTempFolder("testFolder/test1.xml");
     }
 
     @Test // test 6 inc="*.txt", exc="**/*.log" only text files in the root are deleted
@@ -186,8 +185,8 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(5);
-        assertFileNotExists("testTxt.txt");
+        assertTempFolderContainsFileCount(5);
+        assertFileNotExistsInTempFolder("testTxt.txt");
     }
 
     @Test // test 6.1 inc="*.txt, *.xml", exc="**/*.log" only txt files and xml files in
@@ -198,9 +197,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(4);
-        assertFileNotExists("testTxt.txt");
-        assertFileNotExists("test.xml");
+        assertTempFolderContainsFileCount(4);
+        assertFileNotExistsInTempFolder("testTxt.txt");
+        assertFileNotExistsInTempFolder("test.xml");
     }
 
     @Test // test 6.2 inc="*.txt, **/*.xml", exc="**/*.log" only txt files and xml files
@@ -211,9 +210,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(3);
-        assertFileExists("testLog.log");
-        assertFileNotExists("test.xml");
+        assertTempFolderContainsFileCount(3);
+        assertFileExistsInTempFolder("testLog.log");
+        assertFileNotExistsInTempFolder("test.xml");
     }
 
     @Test // test 7 inc="**/*.txt", exc="**/*.log", all text files are deleted
@@ -223,9 +222,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(4);
-        assertFileExists("testLog.log");
-        assertFileNotExists("testTxt.txt");
+        assertTempFolderContainsFileCount(4);
+        assertFileExistsInTempFolder("testLog.log");
+        assertFileNotExistsInTempFolder("testTxt.txt");
     }
 
     @Test // test 8 inc="**/*.txt", exc="*.txt", all text files but those in the root are
@@ -236,9 +235,9 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
         action.perform(mockRun);
 
-        assertTempFolderContains(5);
-        assertFileExists("testTxt.txt");
-        assertFileNotExists("testFolder/testTxt1.txt");
+        assertTempFolderContainsFileCount(5);
+        assertFileExistsInTempFolder("testTxt.txt");
+        assertFileNotExistsInTempFolder("testFolder/testTxt1.txt");
     }
 
     @Test // test 9, inc="../**", exc=""
@@ -266,7 +265,7 @@ public class DeleteArtifactsMatchingPatternsActionTest {
         Assert.assertTrue(folder.exists());
         Assert.assertTrue(archiveFolder.exists());
         Assert.assertTrue(buildXML.exists());
-        assertFileExists("archive/test1.xml");
+        assertFileExistsInTempFolder("archive/test1.xml");
     }
 
     @Test // testing getIncludePatterns method for code coverage
