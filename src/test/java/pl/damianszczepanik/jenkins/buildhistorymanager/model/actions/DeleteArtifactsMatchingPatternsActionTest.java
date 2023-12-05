@@ -34,6 +34,8 @@ public class DeleteArtifactsMatchingPatternsActionTest {
 
     @BeforeClass
     public static void beforeClass() {
+        // Set system property to configuring Java Util Logging with "logging.properties" file.
+        // Ensures the logging framework reads and applies specific settings.
         System.setProperty("java.util.logging.config.file",
                 ClassLoader.getSystemResource("logging.properties").getPath());
     }
