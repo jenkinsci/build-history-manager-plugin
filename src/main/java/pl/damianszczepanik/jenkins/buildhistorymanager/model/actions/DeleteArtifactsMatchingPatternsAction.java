@@ -107,11 +107,8 @@ public class DeleteArtifactsMatchingPatternsAction extends Action {
 
         void deleteFileOrLogError(File file) throws IOException {
             if (file.isFile()) {
-                LOG.log(Level.FINE, "Deleting " + file.getName());
                 Util.deleteFile(file);
                 deleteEmptyDirectoryAndParent(file.getParentFile());
-
-                // Return early when the condition is met
                 return;
             }
             LOG.log(Level.FINE, file + " is neither a directory nor a regular file.");
