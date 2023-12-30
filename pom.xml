@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <version>4.75</version>
+        <relativePath/>
     </parent>
 
     <groupId>pl.damianszczepanik</groupId>
     <artifactId>build-history-manager</artifactId>
     <version>1.7.2-SNAPSHOT</version>
     <packaging>hpi</packaging>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -23,6 +26,7 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- This name and URL are added by the Jenkins when displaying help.html file -->
     <name>Build History Manager</name>
     <description>
         Jenkins plugin that allows to build complex rules to decide when and which builds should be removed from the
@@ -33,7 +37,6 @@
     <properties>
         <jenkins.version>2.387.3</jenkins.version>
 
-        <slf4jVersion>1.7.30</slf4jVersion>
         <asm.version>9.4</asm.version>
         <powermock.version>2.0.9</powermock.version>
         <!-- releases newer than this do not have Deencapsulation class-->
@@ -41,9 +44,6 @@
 
         <test.integration.pattern>**/*IT.java</test.integration.pattern>
 
-        <sonar.projectKey>damianszczepanik_build-history-manager-plugin</sonar.projectKey>
-        <sonar.organization>damianszczepanik</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <scm>
@@ -53,7 +53,7 @@
         <tag>HEAD</tag>
     </scm>
     <ciManagement>
-        <system>jenkins</system>
+        <system>Jenkins</system>
         <url>https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/</url>
     </ciManagement>
 
@@ -93,8 +93,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -167,17 +167,18 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>3.0.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
-        <dependencies>
-            <dependency>
+    <dependencies>
+        <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>token-macro</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>structs</artifactId>
