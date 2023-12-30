@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.NegativeCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
@@ -72,9 +72,9 @@ public class BuildHistoryManagerTest {
     public void perform_InitializesRule() throws IOException, InterruptedException {
 
         // given
-        Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), null);
+        Rule rule = new Rule(List.of(new NegativeCondition()), null);
         Deencapsulation.setField(rule, "matchedTimes", 1);
-        BuildHistoryManager discarder = new BuildHistoryManager(Arrays.asList(rule));
+        BuildHistoryManager discarder = new BuildHistoryManager(List.of(rule));
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when

@@ -17,7 +17,7 @@ public class DescriptorMocker {
         mockStatic(Jenkins.class);
         Jenkins jenkins = mock(Jenkins.class);
         when(Jenkins.get()).thenReturn(jenkins); // for new Jenkins
-        when(Jenkins.getInstance()).thenReturn(jenkins); // for old Jenkins
+        when(Jenkins.getInstanceOrNull()).thenReturn(jenkins); // for old Jenkins
         when(jenkins.getDescriptorOrDie(ArgumentMatchers.any())).thenReturn(descriptor);
     }
 }
