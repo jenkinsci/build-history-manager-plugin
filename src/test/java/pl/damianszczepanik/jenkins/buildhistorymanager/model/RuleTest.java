@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 import hudson.model.Run;
-import mockit.Deencapsulation;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
@@ -120,7 +120,7 @@ public class RuleTest {
         rule.validateConditions(run);
 
         // then
-        int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
+        int matchedTimes = Whitebox.getInternalState(rule, "matchedTimes");
         assertThat(matchedTimes).isZero();
     }
 
@@ -153,7 +153,7 @@ public class RuleTest {
         rule.validateConditions(run);
 
         // then
-        int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
+        int matchedTimes = Whitebox.getInternalState(rule, "matchedTimes");
         assertThat(matchedTimes).isOne();
 
         for (Condition condition : rule.getConditions()) {

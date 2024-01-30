@@ -17,8 +17,8 @@ import hudson.model.Job;
 import hudson.model.Result;
 import hudson.model.Run;
 import hudson.security.Permission;
-import mockit.Deencapsulation;
 import org.apache.commons.lang.StringUtils;
+import org.powermock.reflect.Whitebox;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -82,7 +82,7 @@ public class RunStub extends Run {
     }
 
     private void setStartTime(long startTime) {
-        Deencapsulation.setField(this, "startTime", startTime);
+        Whitebox.setInternalState(this, "startTime", startTime);
     }
 
     @Override
