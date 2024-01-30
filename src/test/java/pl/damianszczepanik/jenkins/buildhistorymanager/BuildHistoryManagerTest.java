@@ -11,13 +11,13 @@ import java.util.List;
 import hudson.model.AbstractItem;
 import hudson.model.Job;
 import hudson.model.Run;
-import mockit.Deencapsulation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.NegativeCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
@@ -73,7 +73,7 @@ public class BuildHistoryManagerTest {
 
         // given
         Rule rule = new Rule(List.of(new NegativeCondition()), null);
-        Deencapsulation.setField(rule, "matchedTimes", 1);
+        Whitebox.setInternalState(rule, "matchedTimes", 1);
         BuildHistoryManager discarder = new BuildHistoryManager(List.of(rule));
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
@@ -81,7 +81,7 @@ public class BuildHistoryManagerTest {
         discarder.perform(job);
 
         // then
-        int matchedTimes = Deencapsulation.getField(rule, "matchedTimes");
+        int matchedTimes = Whitebox.getInternalState(rule, "matchedTimes");
         assertThat(matchedTimes).isZero();
     }
 
@@ -160,7 +160,7 @@ public class BuildHistoryManagerTest {
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
         RuleConfiguration configuration = new RuleConfiguration();
         configuration.setContinueAfterMatch(false);
-        Deencapsulation.setField(sampleRules.get(0), "configuration", configuration);
+        Whitebox.setInternalState(sampleRules.get(0), "configuration", configuration);
 
         BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
