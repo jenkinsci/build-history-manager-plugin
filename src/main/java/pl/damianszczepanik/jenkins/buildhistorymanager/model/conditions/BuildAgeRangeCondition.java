@@ -41,7 +41,7 @@ public class BuildAgeRangeCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
 
         Calendar buildTime = Calendar.getInstance();
         buildTime.setTimeInMillis(run.getStartTimeInMillis() + run.getDuration());

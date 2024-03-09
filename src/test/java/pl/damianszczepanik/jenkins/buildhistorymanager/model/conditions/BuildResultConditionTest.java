@@ -96,7 +96,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.SUCCESS);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -111,7 +111,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.SUCCESS);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -126,7 +126,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -142,7 +142,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.UNSTABLE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -157,7 +157,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.UNSTABLE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -172,7 +172,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -188,7 +188,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -203,7 +203,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -218,7 +218,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.SUCCESS);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -234,7 +234,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.ABORTED);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -249,7 +249,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.ABORTED);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -264,7 +264,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -280,7 +280,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub();
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -295,7 +295,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub();
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -310,7 +310,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -326,7 +326,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.NOT_BUILT);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -341,7 +341,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.NOT_BUILT);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -356,7 +356,7 @@ public class BuildResultConditionTest {
         Run<?, ?> run = new RunStub(Result.FAILURE);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();

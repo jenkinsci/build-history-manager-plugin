@@ -1,0 +1,20 @@
+properties(
+    [
+        buildDiscarder(BuildHistoryManager(
+                [
+                    [
+                        actions: [],
+                        conditions: [BuildPosition(maxBuildPosition: 10)],
+                        continueAfterMatch: false
+                    ],
+                    [
+                        actions: [DeleteBuild()]
+                    ]
+                ]
+            )
+        )
+    ]
+)
+node {
+
+}

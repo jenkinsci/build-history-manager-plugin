@@ -54,7 +54,7 @@ public class BuildNumberRangeConditionTest {
         condition.setMaxBuildNumber(maxBuildNumberRange);
 
         // when
-        boolean matches = condition.matches(mockRun(minBuildNumberRange - 1), null);
+        boolean matches = condition.matches(mockRun(minBuildNumberRange - 1), null, 0);
 
         // then
         assertThat(matches).isFalse();
@@ -69,7 +69,7 @@ public class BuildNumberRangeConditionTest {
         condition.setMaxBuildNumber(maxBuildNumberRange);
 
         // when
-        boolean matches = condition.matches(mockRun(maxBuildNumberRange + 1), null);
+        boolean matches = condition.matches(mockRun(maxBuildNumberRange + 1), null, 0);
 
         // then
         assertThat(matches).isFalse();
@@ -84,7 +84,7 @@ public class BuildNumberRangeConditionTest {
         condition.setMaxBuildNumber(maxBuildNumberRange);
 
         // when
-        boolean matches = condition.matches(mockRun((minBuildNumberRange + maxBuildNumberRange) / 2), null);
+        boolean matches = condition.matches(mockRun((minBuildNumberRange + maxBuildNumberRange) / 2), null, 0);
 
         // then
         assertThat(matches).isTrue();

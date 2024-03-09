@@ -37,7 +37,7 @@ public class CauseConditionTest {
         Run<?, ?> run = new RunStub(causeClass);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // that
         assertThat(matched).isTrue();
@@ -53,7 +53,7 @@ public class CauseConditionTest {
         Run<?, ?> run = new RunStub(causeClass + "Ever");
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // that
         assertThat(matched).isTrue();
@@ -69,7 +69,7 @@ public class CauseConditionTest {
         Run<?, ?> run = new RunStub("");
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // that
         assertThat(matched).isFalse();
@@ -85,7 +85,7 @@ public class CauseConditionTest {
         Run<?, ?> run = new RunStub("onUniverseDisaster");
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // that
         assertThat(matched).isFalse();
@@ -101,7 +101,7 @@ public class CauseConditionTest {
         Run<?, ?> run = new RunStub(causeClasses);
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // that
         assertThat(matched).isTrue();

@@ -39,7 +39,7 @@ public class BuildNumberRangeCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
         return run.getNumber() >= minBuildNumber && run.getNumber() <= maxBuildNumber;
     }
 }
