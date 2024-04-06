@@ -1,7 +1,7 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.mockito.Mockito.mock;
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.buildSampleConditions;
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder.buildSampleActions;
 
