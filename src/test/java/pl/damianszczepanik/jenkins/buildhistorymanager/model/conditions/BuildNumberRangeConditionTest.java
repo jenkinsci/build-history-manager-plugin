@@ -1,8 +1,8 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import hudson.model.Run;
 import org.junit.Test;

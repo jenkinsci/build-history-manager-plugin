@@ -5,19 +5,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import hudson.model.AbstractItem;
 import hudson.model.Job;
-import jenkins.model.Jenkins;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.jvnet.hudson.test.JenkinsRule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
-import pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions.DeleteBuildActionDescriptor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
-import pl.damianszczepanik.jenkins.buildhistorymanager.utils.DescriptorMocker;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
@@ -25,18 +17,10 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Delete-artifacts-action">documentation</a>
  */
-@PrepareForTest({
-        Jenkins.class,
-        AbstractItem.class  // getFullName()
-})
-@RunWith(PowerMockRunner.class)
-@PowerMockIgnore("javax.xml.*")
 public class DeleteBuildActionIT {
 
-    @Before
-    public void setUp() {
-        new DescriptorMocker(new DeleteBuildActionDescriptor());
-    }
+    @org.junit.Rule
+    public JenkinsRule r = new JenkinsRule();
 
     @Test
     public void testDeletesArtifactsAction() throws IOException, InterruptedException {

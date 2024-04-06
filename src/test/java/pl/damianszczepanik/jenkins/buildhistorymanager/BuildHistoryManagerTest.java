@@ -1,22 +1,17 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import hudson.model.AbstractItem;
 import hudson.model.Job;
 import hudson.model.Run;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.NegativeCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
@@ -27,12 +22,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({
-        Run.class, // isKeepLog()
-        AbstractItem.class  // getFullName()
-})
-@PowerMockIgnore("com.thoughtworks.xstream.converters.extended.DurationConverter")
 public class BuildHistoryManagerTest {
 
     private List<Rule> sampleRules;
