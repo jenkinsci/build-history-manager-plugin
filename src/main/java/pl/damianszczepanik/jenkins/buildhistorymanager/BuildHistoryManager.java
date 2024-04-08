@@ -69,7 +69,7 @@ public class BuildHistoryManager extends BuildDiscarder {
     }
 
     // just to reduce complexity
-    private void processRules(Run run, String uniquePerformName) throws IOException, InterruptedException {
+    private void processRules(Run<?, ?> run, String uniquePerformName) throws IOException, InterruptedException {
         for (int i = 0; i < rules.size(); i++) {
             Rule rule = rules.get(i);
             log(uniquePerformName, "Processing rule no " + (i + 1));
