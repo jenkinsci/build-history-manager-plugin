@@ -60,24 +60,29 @@ public class BuildHistoryManager extends BuildDiscarder {
             if (run.isKeepLog()) {
                 log(uniquePerformName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
             } else {
-                for (int i = 0; i < rules.size(); i++) {
-                    Rule rule = rules.get(i);
-                    log(uniquePerformName, "Processing rule no " + (i + 1));
-                    if (rule.validateConditions(run)) {
-                        log(uniquePerformName, "Processing actions for rule no " + (i + 1));
-                        rule.performActions(run);
-
-                        // if other rules should not be proceed, shift to next build
-                        if (!rule.getContinueAfterMatch()) {
-                            break;
-                        }
-                    }
-                }
+                processRules(run, uniquePerformName);
             }
 
             // validateConditions rules for previous build - completed in case some previous are still building
             run = run.getPreviousCompletedBuild();
             // stop when the iteration reach the oldest build
+        }
+    }
+
+    // just to reduce complexity
+    private void processRules(Run run, String uniquePerformName) throws IOException, InterruptedException {
+        for (int i = 0; i < rules.size(); i++) {
+            Rule rule = rules.get(i);
+            log(uniquePerformName, "Processing rule no " + (i + 1));
+            if (rule.validateConditions(run)) {
+                log(uniquePerformName, "Processing actions for rule no " + (i + 1));
+                rule.performActions(run);
+
+                // if other rules should not be proceed, shift to next build
+                if (!rule.getContinueAfterMatch()) {
+                    break;
+                }
+            }
         }
     }
 
