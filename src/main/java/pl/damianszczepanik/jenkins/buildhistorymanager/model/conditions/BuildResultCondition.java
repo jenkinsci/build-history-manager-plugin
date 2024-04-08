@@ -70,7 +70,7 @@ public class BuildResultCondition extends Condition {
     }
 
     @Override
-    public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+    public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
         Result result = run.getResult();
         if (matchSuccess && result == Result.SUCCESS) {
             return true;

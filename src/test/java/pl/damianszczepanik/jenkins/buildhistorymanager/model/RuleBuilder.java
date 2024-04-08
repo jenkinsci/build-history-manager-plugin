@@ -21,7 +21,7 @@ public class RuleBuilder {
         }
 
         @Override
-        public boolean validateConditions(Run<?, ?> run) {
+        public boolean validateConditions(Run<?, ?> run, int buildPosition) {
             validateConditionsTimes++;
             return validateResult;
         }

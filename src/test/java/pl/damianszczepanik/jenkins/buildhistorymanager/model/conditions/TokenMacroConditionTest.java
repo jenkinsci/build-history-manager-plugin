@@ -53,7 +53,7 @@ public class TokenMacroConditionTest {
         Run run = mockRun();
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isTrue();
@@ -70,7 +70,7 @@ public class TokenMacroConditionTest {
         Run run = mockRun();
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();
@@ -87,7 +87,7 @@ public class TokenMacroConditionTest {
         Run run = mockRun();
 
         // when
-        boolean matched = condition.matches(run, null);
+        boolean matched = condition.matches(run, null, 0);
 
         // then
         assertThat(matched).isFalse();

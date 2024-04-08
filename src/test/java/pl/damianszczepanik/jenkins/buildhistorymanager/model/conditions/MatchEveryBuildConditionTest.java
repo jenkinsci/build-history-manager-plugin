@@ -18,7 +18,7 @@ public class MatchEveryBuildConditionTest {
         MatchEveryBuildCondition condition = new MatchEveryBuildCondition();
 
         // when
-        boolean matches = condition.matches(null, null);
+        boolean matches = condition.matches(null, null, 0);
 
         // then
         assertThat(matches).isTrue();

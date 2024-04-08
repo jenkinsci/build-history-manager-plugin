@@ -54,7 +54,7 @@ public class BuildAgeRangeConditionTest {
         Run<?, ?> run = new RunStub();
 
         // when
-        boolean matches = condition.matches(run, null);
+        boolean matches = condition.matches(run, null, 0);
 
         assertThat(matches).isTrue();
     }
@@ -72,7 +72,7 @@ public class BuildAgeRangeConditionTest {
         Run<?, ?> run = new RunStub(1, buildTimeMinus3Days);
 
         // when
-        boolean matches = condition.matches(run, null);
+        boolean matches = condition.matches(run, null, 0);
 
         assertThat(matches).isFalse();
     }
@@ -90,7 +90,7 @@ public class BuildAgeRangeConditionTest {
         Run<?, ?> run = new RunStub(1, buildTimeMinus3Days);
 
         // when
-        boolean matches = condition.matches(run, null);
+        boolean matches = condition.matches(run, null,0);
 
         assertThat(matches).isFalse();
     }
@@ -107,7 +107,7 @@ public class BuildAgeRangeConditionTest {
         Run<?, ?> run = new RunStub(1, buildTimeMinus3Days);
 
         // when
-        boolean matches = condition.matches(run, null);
+        boolean matches = condition.matches(run, null, 0);
 
         assertThat(matches).isTrue();
     }
@@ -123,7 +123,7 @@ public class BuildAgeRangeConditionTest {
         Run<?, ?> run = new RunStub();
 
         // when
-        boolean matches = condition.matches(run, null);
+        boolean matches = condition.matches(run, null, 0);
 
         assertThat(matches).isFalse();
     }

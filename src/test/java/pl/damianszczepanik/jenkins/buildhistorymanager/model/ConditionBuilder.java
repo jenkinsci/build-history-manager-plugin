@@ -35,7 +35,7 @@ public class ConditionBuilder {
     public static class PositiveCondition extends AbstractSampleCondition {
 
         @Override
-        public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+        public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
             matchesTimes++;
             return true;
         }
@@ -44,7 +44,7 @@ public class ConditionBuilder {
     public static class NegativeCondition extends AbstractSampleCondition {
 
         @Override
-        public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
+        public boolean matches(Run<?, ?> run, RuleConfiguration configuration, int buildPosition) {
             return false;
         }
     }
