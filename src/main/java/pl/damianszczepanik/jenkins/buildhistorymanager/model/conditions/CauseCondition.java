@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
+import hudson.Util;
 import hudson.model.Cause;
 import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -26,7 +27,7 @@ public class CauseCondition extends Condition {
 
     @DataBoundSetter
     public void setCauseClass(String causeClass) {
-        this.causeClass = causeClass;
+        this.causeClass = Util.fixNull(causeClass);
     }
 
     @Override
