@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import hudson.FilePath;
+import hudson.Util;
 import hudson.model.Run;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.tokenmacro.MacroEvaluationException;
@@ -34,8 +35,8 @@ public class TokenMacroCondition extends Condition {
     // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     @DataBoundConstructor
     public TokenMacroCondition(String template, String value) {
-        this.template = template;
-        this.value = value;
+        this.template = Util.fixNull(template);
+        this.value = Util.fixNull(value);
     }
 
     public String getTemplate() {
