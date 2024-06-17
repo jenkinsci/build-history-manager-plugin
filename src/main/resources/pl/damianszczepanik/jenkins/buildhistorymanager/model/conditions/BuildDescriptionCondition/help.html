@@ -1,0 +1,12 @@
+<p><b>Description</b></p>
+<p>Matches builds that description is equal, contains or matches given pattern.</p>
+
+<p><b>Use cases</b></p>
+<p>Helpful when build description contains text that can be used for decision what to do with the build.</p>
+
+<p><b>Warning!</b></p>
+<p>Leaving <i>pattern</i> field empty makes this condition valid for all builds that have undefined or empty build what
+    is default value for new created builds.</p>
+<p>Methods <i>equals</i> and <i>contains</i> expect to have plain text pattern. To define proper regular expression
+    pattern for matching type follow <a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">the
+        guideline</a>.</p>
