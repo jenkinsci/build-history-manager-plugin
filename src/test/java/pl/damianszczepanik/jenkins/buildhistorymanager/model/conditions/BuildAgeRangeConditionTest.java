@@ -56,6 +56,7 @@ public class BuildAgeRangeConditionTest {
         // when
         boolean matches = condition.matches(run, null);
 
+        // then
         assertThat(matches).isTrue();
     }
 
@@ -74,6 +75,7 @@ public class BuildAgeRangeConditionTest {
         // when
         boolean matches = condition.matches(run, null);
 
+        // then
         assertThat(matches).isFalse();
     }
 
@@ -92,6 +94,7 @@ public class BuildAgeRangeConditionTest {
         // when
         boolean matches = condition.matches(run, null);
 
+        // then
         assertThat(matches).isFalse();
     }
 
@@ -109,6 +112,7 @@ public class BuildAgeRangeConditionTest {
         // when
         boolean matches = condition.matches(run, null);
 
+        // then
         assertThat(matches).isTrue();
     }
 
@@ -125,6 +129,7 @@ public class BuildAgeRangeConditionTest {
         // when
         boolean matches = condition.matches(run, null);
 
+        // then
         assertThat(matches).isFalse();
     }
 }
