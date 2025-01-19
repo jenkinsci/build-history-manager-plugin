@@ -20,7 +20,13 @@ jobs:
           java-version: 21
           distribution: adopt
 
-      - name: Build with Maven
+      # requires by org.jenkins-ci.plugins:plugin:5.x
+      # can be deleted when default maven will be upgraded from 3.8.*
+      - uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.9
+
+      - name: Run Sonar scanner
         run: mvn --batch-mode package sonar:sonar -Dsonar.projectKey=damianszczepanik_build-history-manager-plugin -Dsonar.organization=damianszczepanik -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=$SONAR_TOKEN
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

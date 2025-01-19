@@ -22,6 +22,12 @@ jobs:
           java-version: 17
           distribution: adopt
 
+      # requires by org.jenkins-ci.plugins:plugin:5.x
+      # can be deleted when default maven will be upgraded from 3.8.*
+      - uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.9
+
       - name: Generate code coverage
         run: mvn --batch-mode test
 
