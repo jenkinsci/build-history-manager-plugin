@@ -31,4 +31,4 @@ jobs:
       - name: Generate code coverage
         run: mvn --batch-mode test
 
-      - uses: codecov/codecov-action@v3.1.6
+      - uses: codecov/codecov-action@v5.1.2
