@@ -22,7 +22,13 @@ public class DeleteLogFileAction extends Action {
 
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
-        File logFile = run.getLogFile();
+        File logFile;
+        try {
+            logFile = run.getLogFile();
+        } catch (UnsupportedOperationException e) {
+            // ignore
+            return;
+        }
         if (logFile.exists()) {
             Files.delete(logFile.toPath());
         }
