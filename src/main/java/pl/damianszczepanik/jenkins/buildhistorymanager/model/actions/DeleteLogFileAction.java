@@ -30,7 +30,7 @@ public class DeleteLogFileAction extends Action {
             return;
         }
         if (logFile.exists()) {
-            Files.delete(logFile.toPath());
+            logFile.delete();
         }
     }
 }
