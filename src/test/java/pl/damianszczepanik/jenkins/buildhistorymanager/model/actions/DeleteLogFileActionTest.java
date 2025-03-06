@@ -12,11 +12,25 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 public class DeleteLogFileActionTest {
 
     @Test
+    public void perform_OnExistingLogFile_DeletesLogFile() throws IOException, InterruptedException {
+
+        // given
+        Action action = new DeleteLogFileAction();
+        RunStub run = new RunStub(RunStub.LogFileAvailability.PRESENT);
+
+        // when
+        action.perform(run);
+
+        // then
+        run.assertLogFileWasDeleted();
+    }
+    
+    @Test
     public void perform_OnMissingLogFile_SkipDeletion() throws IOException, InterruptedException {
 
         // given
         Action action = new DeleteLogFileAction();
-        RunStub run = new RunStub(false);
+        RunStub run = new RunStub(RunStub.LogFileAvailability.ABSENT);
 
         // when
         action.perform(run);
@@ -30,7 +44,7 @@ public class DeleteLogFileActionTest {
 
         // given
         Action action = new DeleteLogFileAction();
-        RunStub run = new RunStub() {
+        RunStub run = new RunStub(RunStub.LogFileAvailability.PRESENT) {
             @Override
             public File getLogFile() {
                 throw new UnsupportedOperationException("Operation not supported");
@@ -43,18 +57,5 @@ public class DeleteLogFileActionTest {
         // then
         run.assertLogFileIsAvailable();
     }
-
-    @Test
-    public void perform_OnExistingLogFile_DeletesLogFile() throws IOException, InterruptedException {
-
-        // given
-        Action action = new DeleteLogFileAction();
-        RunStub run = new RunStub(true);
-
-        // when
-        action.perform(run);
-
-        // then
-        run.assertLogFileWasDeleted();
-    }
+    
 }
