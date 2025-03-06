@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
-import static org.junit.Assert.assertThrows;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
@@ -17,13 +16,13 @@ public class DeleteLogFileActionTest {
 
         // given
         Action action = new DeleteLogFileAction();
-        RunStub run = new RunStub();
+        RunStub run = new RunStub(false);
 
         // when
         action.perform(run);
 
         // then
-        run.assertLogFileWasNotDeleted();
+        run.assertLogFileIsAvailable();
     }
 
     @Test
@@ -42,7 +41,7 @@ public class DeleteLogFileActionTest {
         action.perform(run);
 
         // then
-        run.assertLogFileWasNotDeleted();
+        run.assertLogFileIsAvailable();
     }
 
     @Test
@@ -50,19 +49,7 @@ public class DeleteLogFileActionTest {
 
         // given
         Action action = new DeleteLogFileAction();
-        RunStub run = new RunStub() {
-            private final File logFile = File.createTempFile("log", ".txt");
-
-            @Override
-            public File getLogFile() {
-                return logFile;
-            }
-
-            @Override
-            public void deleteLogFile() {
-                logFile.delete();
-            }
-        };
+        RunStub run = new RunStub(true);
 
         // when
         action.perform(run);

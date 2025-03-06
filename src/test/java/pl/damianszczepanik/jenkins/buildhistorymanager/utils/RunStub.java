@@ -33,6 +33,11 @@ public class RunStub extends Run {
     private int deleteTimes;
     private int deleteLogFile;
 
+    public RunStub(boolean isLogFilePresent) throws IOException {
+        this();
+        this.isLogFilePresent = isLogFilePresent;
+    }
+    
     public RunStub(int buildNumber) throws IOException {
         this();
         setBuildNumber(buildNumber);
@@ -135,9 +140,10 @@ public class RunStub extends Run {
         assertThat(deleteArtifactsTimes).isZero();
     }
 
-    public void assertLogFileWasNotDeleted() {
-        assertThat(deleteLogFile).isOne();
-    }
+    public void assertLogFileWasDeleted() { assertThat(deleteLogFile).isOne(); }
+    
+    public void assertLogFileIsAvailable() { assertThat(deleteLogFile).isZero(); }
+    
 
     @Override
     public Result getResult() {
