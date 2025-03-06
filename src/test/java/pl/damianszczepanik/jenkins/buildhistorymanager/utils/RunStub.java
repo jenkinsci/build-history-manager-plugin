@@ -142,7 +142,7 @@ public class RunStub extends Run {
         assertThat(deleteArtifactsTimes).isZero();
     }
 
-    public void assertLogFileWasDeleted() { assertThat(logFileState).isEqualTo(LogFileAvailability.ABSENT); }
+    public void assertLogFileIsNotAvailable() { assertThat(logFileState).isEqualTo(LogFileAvailability.ABSENT); }
     
     public void assertLogFileIsAvailable() { assertThat(logFileState).isEqualTo(LogFileAvailability.PRESENT); }
     

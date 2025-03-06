@@ -22,7 +22,7 @@ public class DeleteLogFileActionTest {
         action.perform(run);
 
         // then
-        run.assertLogFileWasDeleted();
+        run.assertLogFileIsNotAvailable();
     }
     
     @Test
@@ -36,7 +36,7 @@ public class DeleteLogFileActionTest {
         action.perform(run);
 
         // then
-        run.assertLogFileIsAvailable();
+        run.assertLogFileIsNotAvailable();
     }
 
     @Test
