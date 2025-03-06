@@ -57,5 +57,27 @@ class DeleteLogFileActionTest {
         // then
         run.assertLogFileIsAvailable();
     }
+
+    @Test
+    public void perform_DeleteLogFileDoesNotWork_IgnoresFailure() throws IOException, InterruptedException {
+
+        // given
+        Action action = new DeleteLogFileAction();
+        RunStub run = new RunStub(RunStub.LogFileAvailability.PRESENT) {
+            @Override
+            public File getLogFile() {
+                File logFile = mock(File.class);
+                when(logFile.exists()).thenReturn(true);
+                when(logFile.delete()).thenReturn(false);
+                return logFile;
+            }
+        };
+
+        // when
+        action.perform(run);
+
+        // then
+        run.assertLogFileIsAvailable();
+    }
     
 }
