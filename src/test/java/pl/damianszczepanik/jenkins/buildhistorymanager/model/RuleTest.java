@@ -6,12 +6,11 @@ import static pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBui
 import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder.buildSampleActions;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.ActionBuilder;
@@ -20,10 +19,10 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class RuleTest {
+class RuleTest {
 
     @Test
-    public void getConditions_ReturnsConditions() {
+    void getConditions_ReturnsConditions() {
 
         // given
         List<Condition> conditions = buildSampleConditions();
@@ -37,7 +36,7 @@ public class RuleTest {
     }
 
     @Test
-    public void getConditions_ReturnsActions() {
+    void getConditions_ReturnsActions() {
 
         // given
         List<Action> actions = buildSampleActions();
@@ -51,7 +50,7 @@ public class RuleTest {
     }
 
     @Test
-    public void getMatchAtMost_ReturnsMatchAtMost() {
+    void getMatchAtMost_ReturnsMatchAtMost() {
 
         // given
         Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
@@ -66,7 +65,7 @@ public class RuleTest {
     }
 
     @Test
-    public void newRule_SetsContinueAfterMatch() {
+    void newRule_SetsContinueAfterMatch() {
 
         // given
         Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
@@ -79,7 +78,7 @@ public class RuleTest {
     }
 
     @Test
-    public void getContinueAfterMatch_ReturnsContinueAfterMatch() {
+    void getContinueAfterMatch_ReturnsContinueAfterMatch() {
 
         // given
         Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
@@ -94,7 +93,7 @@ public class RuleTest {
     }
 
     @Test
-    public void validateConditions_MatchesAllConditions() {
+    void validateConditions_MatchesAllConditions() {
 
         // given
         Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
@@ -110,10 +109,10 @@ public class RuleTest {
     }
 
     @Test
-    public void validateConditions_OnNegativeCondition_DoesNotIncrementMatchedTimes() {
+    void validateConditions_OnNegativeCondition_DoesNotIncrementMatchedTimes() {
 
         // given
-        Rule rule = new Rule(Arrays.asList(new ConditionBuilder.NegativeCondition()), Collections.emptyList());
+        Rule rule = new Rule(List.of(new ConditionBuilder.NegativeCondition()), Collections.emptyList());
         Run<?, ?> run = mock(Run.class);
 
         // when
@@ -125,7 +124,7 @@ public class RuleTest {
     }
 
     @Test
-    public void performActions_PerformsAllActions() throws IOException, InterruptedException {
+    void performActions_PerformsAllActions() throws IOException, InterruptedException {
 
         // given
         Rule rule = new Rule(buildSampleConditions(), buildSampleActions());
@@ -141,7 +140,7 @@ public class RuleTest {
     }
 
     @Test
-    public void validateConditions_PerformsNTimes() throws IOException, InterruptedException {
+    void validateConditions_PerformsNTimes() {
 
         // given
         Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());

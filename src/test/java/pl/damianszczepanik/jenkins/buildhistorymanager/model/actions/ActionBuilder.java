@@ -11,7 +11,7 @@ import hudson.model.Run;
  */
 public class ActionBuilder {
 
-    public static final List<Action> buildSampleActions() {
+    public static List<Action> buildSampleActions() {
         return Arrays.asList(new TestAction(), new TestAction());
     }
 

@@ -10,7 +10,7 @@ public class RuleBuilder {
 
     public static class TestRule extends Rule {
 
-        private boolean validateResult;
+        private final boolean validateResult;
 
         public int validateConditionsTimes;
         public int performActionsTimes;

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +55,7 @@ public class RunStub extends Run {
     public RunStub(String causeClass) throws IOException {
         this();
         this.causes = StringUtils.isEmpty(causeClass)
-                ? Collections.emptyList() : Arrays.asList(new MockCause(causeClass));
+                ? Collections.emptyList() : List.of(new MockCause(causeClass));
     }
 
     public RunStub(String[] causeClass) throws IOException {

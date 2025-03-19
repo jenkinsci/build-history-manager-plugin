@@ -7,15 +7,15 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class TokenMacroConditionTest {
+class TokenMacroConditionTest {
 
     @Test
-    public void getTemplate_ReturnsTemplate() {
+    void getTemplate_ReturnsTemplate() {
 
         // given
         String template = "myTemplate";
@@ -29,7 +29,7 @@ public class TokenMacroConditionTest {
     }
 
     @Test
-    public void getValue_ReturnsValue() {
+    void getValue_ReturnsValue() {
 
         // given
         String value = "myValue";
@@ -43,7 +43,7 @@ public class TokenMacroConditionTest {
     }
 
     @Test
-    public void matches_OnMatchedTemplate_ReturnsTrue() {
+    void matches_OnMatchedTemplate_ReturnsTrue() {
 
         // given
         String template = "myTemplate";
@@ -60,7 +60,7 @@ public class TokenMacroConditionTest {
     }
 
     @Test
-    public void matches_OnMismatchedTemplate_ReturnsFalse() {
+    void matches_OnMismatchedTemplate_ReturnsFalse() {
 
         // given
         String template = "myTemplate";
@@ -77,7 +77,7 @@ public class TokenMacroConditionTest {
     }
 
     @Test
-    public void matches_OnInvalidTemplateSyntax_ReturnsFalse() {
+    void matches_OnInvalidTemplateSyntax_ReturnsFalse() {
 
         // given
         String template = "myTemplate$$";

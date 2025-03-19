@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import hudson.model.Job;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteBuildAction;
@@ -17,13 +18,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Build-number-range-condition">documentation</a>
  */
-public class BuildNumberRangeConditionIT {
+@WithJenkins
+class BuildNumberRangeConditionIT {
 
-    @org.junit.Rule
-    public JenkinsRule r = new JenkinsRule();
-    
     @Test
-    public void testBuildNumberRangeCondition() throws IOException, InterruptedException {
+    void testBuildNumberRangeCondition(JenkinsRule r) throws IOException, InterruptedException {
 
         // given
         RunStub run80 = new RunStub(80);
@@ -50,11 +49,11 @@ public class BuildNumberRangeConditionIT {
         BuildNumberRangeCondition condition1 = new BuildNumberRangeCondition();
         condition1.setMinBuildNumber(73);
         condition1.setMaxBuildNumber(75);
-        Rule rule1 = new Rule(Arrays.asList(condition1), Arrays.asList(new DeleteBuildAction()));
+        Rule rule1 = new Rule(List.of(condition1), List.of(new DeleteBuildAction()));
 
         BuildNumberRangeCondition condition2 = new BuildNumberRangeCondition();
         condition2.setMaxBuildNumber(70);
-        Rule rule2 = new Rule(Arrays.asList(condition2), Arrays.asList(new DeleteBuildAction()));
+        Rule rule2 = new Rule(List.of(condition2), List.of(new DeleteBuildAction()));
 
         List<Rule> rules = Arrays.asList(rule1, rule2);
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(rules);

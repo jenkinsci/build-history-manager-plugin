@@ -5,16 +5,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildAgeRangeConditionTest {
+class BuildAgeRangeConditionTest {
 
     @Test
-    public void setMinAgeNumber_SetsMinBuildNumber() {
+    void setMinAgeNumber_SetsMinBuildNumber() {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
@@ -29,7 +29,7 @@ public class BuildAgeRangeConditionTest {
     }
 
     @Test
-    public void setMaxAgeNumber_SetsMinBuildNumber() {
+    void setMaxAgeNumber_SetsMinBuildNumber() {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
@@ -44,7 +44,7 @@ public class BuildAgeRangeConditionTest {
     }
 
     @Test
-    public void matches_OnTodayBuild_ReturnsTrue() throws IOException {
+    void matches_OnTodayBuild_ReturnsTrue() throws IOException {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
@@ -61,7 +61,7 @@ public class BuildAgeRangeConditionTest {
     }
 
     @Test
-    public void matches_OnBuildTimeBelowMax_ReturnsFalse() throws IOException {
+    void matches_OnBuildTimeBelowMax_ReturnsFalse() throws IOException {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
@@ -80,7 +80,7 @@ public class BuildAgeRangeConditionTest {
     }
 
     @Test
-    public void matches_OnBuildTimeAboveMin_ReturnsFalse() throws IOException {
+    void matches_OnBuildTimeAboveMin_ReturnsFalse() throws IOException {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
@@ -99,7 +99,7 @@ public class BuildAgeRangeConditionTest {
     }
 
     @Test
-    public void matches_OnBuildTimeInRange_ReturnsTrue() throws IOException {
+    void matches_OnBuildTimeInRange_ReturnsTrue() throws IOException {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
@@ -117,7 +117,7 @@ public class BuildAgeRangeConditionTest {
     }
 
     @Test
-    public void matches_OnInvalidRange_ReturnsFalse() throws IOException {
+    void matches_OnInvalidRange_ReturnsFalse() throws IOException {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();

@@ -12,11 +12,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  */
 public class ConditionBuilder {
 
-    public static final List<Condition> buildSampleConditions() {
+    public static List<Condition> buildSampleConditions() {
         return Arrays.asList(new PositiveCondition(), new PositiveCondition());
     }
 
-    public static abstract class AbstractSampleCondition extends Condition {
+    public abstract static class AbstractSampleCondition extends Condition {
 
         public int matchesTimes;
 

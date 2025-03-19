@@ -2,17 +2,15 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class MatchEveryBuildConditionTest {
+class MatchEveryBuildConditionTest {
 
     @Test
-    public void matches_ReturnsTrue() throws IOException, InterruptedException {
+    void matches_ReturnsTrue() {
 
         // given
         MatchEveryBuildCondition condition = new MatchEveryBuildCondition();
