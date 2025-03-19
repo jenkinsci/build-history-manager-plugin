@@ -4,15 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import hudson.model.Descriptor;
 import hudson.util.FormValidation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class RuleDescriptorTest {
+class RuleDescriptorTest {
 
     @Test
-    public void getDisplayName_ReturnsDescriptorName() {
+    void getDisplayName_ReturnsDescriptorName() {
 
         // given
         Descriptor descriptor = new RuleDescriptor();
@@ -25,7 +25,7 @@ public class RuleDescriptorTest {
     }
 
     @Test
-    public void doCheckMatchAtMost_OnValidNumber_ReturnsOK() {
+    void doCheckMatchAtMost_OnValidNumber_ReturnsOK() {
 
         // given
         RuleDescriptor descriptor = new RuleDescriptor();
@@ -38,7 +38,7 @@ public class RuleDescriptorTest {
     }
 
     @Test
-    public void doCheckMatchAtMost_OnInvalidNumber_ReturnsError() {
+    void doCheckMatchAtMost_OnInvalidNumber_ReturnsError() {
 
         // given
         RuleDescriptor descriptor = new RuleDescriptor();
@@ -51,7 +51,7 @@ public class RuleDescriptorTest {
     }
 
     @Test
-    public void doCheckMatchAtMost_OnOutOfRangeNumber_ReturnsError() {
+    void doCheckMatchAtMost_OnOutOfRangeNumber_ReturnsError() {
 
         // given
         RuleDescriptor descriptor = new RuleDescriptor();

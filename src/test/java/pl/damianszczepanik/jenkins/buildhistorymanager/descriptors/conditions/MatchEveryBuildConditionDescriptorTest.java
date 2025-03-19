@@ -5,19 +5,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
 import org.jenkinsci.plugins.structs.SymbolLookup;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class MatchEveryBuildConditionDescriptorTest {
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class MatchEveryBuildConditionDescriptorTest {
 
     @Test
-    public void getDisplayName_ReturnsDescriptorName() {
+    void getDisplayName_ReturnsDescriptorName(JenkinsRule j) {
 
         // given
         Descriptor descriptor = SymbolLookup.get().findDescriptor(AbstractDescribableImpl.class, "MatchEveryBuild");

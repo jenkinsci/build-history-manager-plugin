@@ -5,17 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.BuildDescriptionCondition.MatchingMethodType;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildDescriptionConditionTest {
+class BuildDescriptionConditionTest {
 
     @Test
-    public void setPattern_SetsPattern() {
+    void setPattern_SetsPattern() {
 
         // given
         BuildDescriptionCondition condition = new BuildDescriptionCondition();
@@ -30,7 +30,7 @@ public class BuildDescriptionConditionTest {
     }
 
     @Test
-    public void setMatchingMethod_SetsMatchingMethod() {
+    void setMatchingMethod_SetsMatchingMethod() {
 
         // given
         BuildDescriptionCondition condition = new BuildDescriptionCondition();
@@ -49,7 +49,7 @@ public class BuildDescriptionConditionTest {
     }
 
     @Test
-    public void matches_OnEqualDescription_ReturnsTrue() throws IOException {
+    void matches_OnEqualDescription_ReturnsTrue() throws IOException {
 
         // given
         BuildDescriptionCondition condition = new BuildDescriptionCondition();
@@ -68,7 +68,7 @@ public class BuildDescriptionConditionTest {
     }
 
     @Test
-    public void matches_OnLongerDescription_ReturnsTrue() throws IOException {
+    void matches_OnLongerDescription_ReturnsTrue() throws IOException {
 
         // given
         BuildDescriptionCondition condition = new BuildDescriptionCondition();
@@ -87,7 +87,7 @@ public class BuildDescriptionConditionTest {
     }
 
     @Test
-    public void matches_OnMatchedDescription_ReturnsTrue() throws IOException {
+    void matches_OnMatchedDescription_ReturnsTrue() throws IOException {
 
         // given
         BuildDescriptionCondition condition = new BuildDescriptionCondition();
@@ -106,7 +106,7 @@ public class BuildDescriptionConditionTest {
     }
 
     @Test
-    public void matches_OnNullDescription_ReturnsFalse() throws IOException {
+    void matches_OnNullDescription_ReturnsFalse() throws IOException {
 
         // given
         BuildDescriptionCondition condition = new BuildDescriptionCondition();

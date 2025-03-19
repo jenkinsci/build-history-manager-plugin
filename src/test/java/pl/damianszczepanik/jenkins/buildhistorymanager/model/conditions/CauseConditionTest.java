@@ -5,16 +5,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class CauseConditionTest {
+class CauseConditionTest {
 
     @Test
-    public void setCause_Sets_Cause() {
+    void setCause_Sets_Cause() {
 
         // given
         CauseCondition condition = new CauseCondition();
@@ -28,7 +28,7 @@ public class CauseConditionTest {
     }
 
     @Test
-    public void match_OnSameCause_ReturnsTrue() throws IOException {
+    void match_OnSameCause_ReturnsTrue() throws IOException {
 
         // given
         final String causeClass = "onUniverseDiscovery";
@@ -44,7 +44,7 @@ public class CauseConditionTest {
     }
 
     @Test
-    public void match_OnSubStringCause_ReturnsTrue() throws IOException {
+    void match_OnSubStringCause_ReturnsTrue() throws IOException {
 
         // given
         final String causeClass = "onUniverseDiscovery";
@@ -60,7 +60,7 @@ public class CauseConditionTest {
     }
 
     @Test
-    public void match_OnEmptyCause_ReturnsFalse() throws IOException {
+    void match_OnEmptyCause_ReturnsFalse() throws IOException {
 
         // given
         final String causeClass = "onUniverseDiscovery";
@@ -76,7 +76,7 @@ public class CauseConditionTest {
     }
 
     @Test
-    public void match_OnMismatchedCause_ReturnsFalse() throws IOException {
+    void match_OnMismatchedCause_ReturnsFalse() throws IOException {
 
         // given
         final String causeClass = "onUniverseDiscovery";
@@ -92,7 +92,7 @@ public class CauseConditionTest {
     }
 
     @Test
-    public void match_OnMultiplyCause_ReturnsTrue() throws IOException {
+    void match_OnMultiplyCause_ReturnsTrue() throws IOException {
 
         // given
         final String[] causeClasses = {"one", "two"};

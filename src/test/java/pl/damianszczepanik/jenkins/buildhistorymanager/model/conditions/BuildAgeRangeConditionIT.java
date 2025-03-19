@@ -1,13 +1,13 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import hudson.model.Job;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteArtifactsAction;
@@ -18,13 +18,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Build-age-range-condition">documentation</a>
  */
-public class BuildAgeRangeConditionIT {
-
-    @org.junit.Rule
-    public JenkinsRule r = new JenkinsRule();
+@WithJenkins
+class BuildAgeRangeConditionIT {
 
     @Test
-    public void testBuildNumberRangeCondition() throws IOException, InterruptedException {
+    void testBuildNumberRangeCondition(JenkinsRule r) throws IOException, InterruptedException {
 
         // given
         Calendar midnight = createMidnight();
@@ -52,10 +50,10 @@ public class BuildAgeRangeConditionIT {
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
         condition.setMinDaysAge(1);
         condition.setMaxDaysAge(2);
-        Rule rule = new Rule(Arrays.asList(condition), Arrays.asList(new DeleteArtifactsAction()));
+        Rule rule = new Rule(List.of(condition), List.of(new DeleteArtifactsAction()));
 
 
-        List<Rule> rules = Arrays.asList(rule);
+        List<Rule> rules = List.of(rule);
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(rules);
         Job job = JobBuilder.buildSampleJob(run80);
 
@@ -70,7 +68,7 @@ public class BuildAgeRangeConditionIT {
         run71.assertArtifactsAreAvailable();
     }
 
-    private Calendar createMidnight() {
+    private static Calendar createMidnight() {
         Calendar midnight = Calendar.getInstance();
         midnight.set(Calendar.HOUR_OF_DAY, 0);
         midnight.set(Calendar.MINUTE, 0);
