@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import hudson.model.Job;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
@@ -17,13 +18,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Delete-artifacts-action">documentation</a>
  */
-public class DeleteBuildActionIT {
-
-    @org.junit.Rule
-    public JenkinsRule r = new JenkinsRule();
+@WithJenkins
+class DeleteBuildActionIT {
 
     @Test
-    public void testDeletesArtifactsAction() throws IOException, InterruptedException {
+    void testDeletesArtifactsAction(JenkinsRule r) throws IOException, InterruptedException {
 
         // given
         RunStub run23 = new RunStub(23);

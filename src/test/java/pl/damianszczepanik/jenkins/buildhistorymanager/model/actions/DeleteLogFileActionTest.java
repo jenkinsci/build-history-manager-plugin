@@ -2,16 +2,16 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class DeleteLogFileActionTest {
+class DeleteLogFileActionTest {
 
     @Test
-    public void perform_OnMissingLogFile_SkipDeletion() throws IOException, InterruptedException {
+    void perform_OnMissingLogFile_SkipDeletion() throws IOException, InterruptedException {
 
         // given
         Action action = new DeleteLogFileAction();

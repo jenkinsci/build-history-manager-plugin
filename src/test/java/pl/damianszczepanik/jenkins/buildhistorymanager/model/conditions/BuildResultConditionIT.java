@@ -7,8 +7,9 @@ import java.util.List;
 
 import hudson.model.Job;
 import hudson.model.Result;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.DeleteBuildAction;
@@ -19,13 +20,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki/Build-result-condition">documentation</a>
  */
-public class BuildResultConditionIT {
-    
-    @org.junit.Rule
-    public JenkinsRule r = new JenkinsRule();
+@WithJenkins
+class BuildResultConditionIT {
 
     @Test
-    public void testBuildResultCondition() throws IOException, InterruptedException {
+    void testBuildResultCondition(JenkinsRule r) throws IOException, InterruptedException {
 
         // given
         RunStub run56 = new RunStub(56, Result.SUCCESS);

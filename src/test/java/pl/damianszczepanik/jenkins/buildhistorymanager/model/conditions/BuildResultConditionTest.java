@@ -6,16 +6,16 @@ import java.io.IOException;
 
 import hudson.model.Result;
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildResultConditionTest {
+class BuildResultConditionTest {
 
     @Test
-    public void setMatchSuccess_Sets_MatchSuccess() {
+    void setMatchSuccess_Sets_MatchSuccess() {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -30,7 +30,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void setMatchUnstable_Sets_MatchUnstable() {
+    void setMatchUnstable_Sets_MatchUnstable() {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -45,7 +45,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void setMatchFailure_Sets_MatchFailure() {
+    void setMatchFailure_Sets_MatchFailure() {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -60,7 +60,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void setMatchAborted_Sets_MatchAborted() {
+    void setMatchAborted_Sets_MatchAborted() {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -74,7 +74,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void setMatchNotBuilt_Sets_NotBuilt() {
+    void setMatchNotBuilt_Sets_NotBuilt() {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -88,7 +88,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchSuccessAndResultSuccess_ReturnsTrue() throws IOException {
+    void match_OnMatchSuccessAndResultSuccess_ReturnsTrue() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -103,7 +103,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnNotMatchSuccessAndResultSuccess_ReturnsFalse() throws IOException {
+    void match_OnNotMatchSuccessAndResultSuccess_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -118,7 +118,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchSuccessAndResultNotSuccess_ReturnsFalse() throws IOException {
+    void match_OnMatchSuccessAndResultNotSuccess_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -134,7 +134,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void match_OnMatchUnstableAndResultUnstable_ReturnsTrue() throws IOException {
+    void match_OnMatchUnstableAndResultUnstable_ReturnsTrue() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -149,7 +149,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnNotMatchUnstableAndResultUnstable_ReturnsFalse() throws IOException {
+    void match_OnNotMatchUnstableAndResultUnstable_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -164,7 +164,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchUnstableAndResultNotUnstable_ReturnsFalse() throws IOException {
+    void match_OnMatchUnstableAndResultNotUnstable_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -180,7 +180,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void match_OnMatchFailureAndResultFailure_ReturnsTrue() throws IOException {
+    void match_OnMatchFailureAndResultFailure_ReturnsTrue() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -195,7 +195,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnNotMatchFailureAndResultFailure_ReturnsFalse() throws IOException {
+    void match_OnNotMatchFailureAndResultFailure_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -210,7 +210,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchFailureAndResultNotFailure_ReturnsFalse() throws IOException {
+    void match_OnMatchFailureAndResultNotFailure_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -226,7 +226,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void match_OnMatchAbortedAndResultAborted_ReturnsTrue() throws IOException {
+    void match_OnMatchAbortedAndResultAborted_ReturnsTrue() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -241,7 +241,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnNotMatchAbortedAndResultAborted_ReturnsFalse() throws IOException {
+    void match_OnNotMatchAbortedAndResultAborted_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -256,7 +256,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchAbortedAndResultNotAborted_ReturnsFalse() throws IOException {
+    void match_OnMatchAbortedAndResultNotAborted_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -272,7 +272,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void match_OnMatchNotBuiltAndResultNull_ReturnsTrue() throws IOException {
+    void match_OnMatchNotBuiltAndResultNull_ReturnsTrue() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -287,7 +287,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnNotMatchNotBuiltAndResultNull_ReturnsFalse() throws IOException {
+    void match_OnNotMatchNotBuiltAndResultNull_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -302,7 +302,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchNotBuiltAndResultNotNull_ReturnsFalse() throws IOException {
+    void match_OnMatchNotBuiltAndResultNotNull_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -318,7 +318,7 @@ public class BuildResultConditionTest {
 
 
     @Test
-    public void match_OnMatchNotBuiltAndResultNotBuilt_ReturnsTrue() throws IOException {
+    void match_OnMatchNotBuiltAndResultNotBuilt_ReturnsTrue() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -333,7 +333,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnNotMatchNotBuiltAndResultNotBuilt_ReturnsFalse() throws IOException {
+    void match_OnNotMatchNotBuiltAndResultNotBuilt_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();
@@ -348,7 +348,7 @@ public class BuildResultConditionTest {
     }
 
     @Test
-    public void match_OnMatchNotBuiltAndResultNotNotBuilt_ReturnsFalse() throws IOException {
+    void match_OnMatchNotBuiltAndResultNotNotBuilt_ReturnsFalse() throws IOException {
 
         // given
         BuildResultCondition condition = new BuildResultCondition();

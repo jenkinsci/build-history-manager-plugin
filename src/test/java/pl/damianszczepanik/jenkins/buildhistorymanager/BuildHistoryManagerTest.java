@@ -10,8 +10,8 @@ import java.util.List;
 
 import hudson.model.Job;
 import hudson.model.Run;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.NegativeCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
@@ -22,17 +22,17 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildHistoryManagerTest {
+class BuildHistoryManagerTest {
 
     private List<Rule> sampleRules;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(false), new RuleBuilder.TestRule(false));
     }
 
     @Test
-    public void BuildHistoryManagerTest_OnEmptyRules_SavesEmptyRule() {
+    void BuildHistoryManagerTest_OnEmptyRules_SavesEmptyRule() {
 
         // given
         BuildHistoryManager discarder = new BuildHistoryManager(null);
@@ -45,7 +45,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void getRules_ReturnsRules() {
+    void getRules_ReturnsRules() {
 
         // given
         BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
@@ -58,7 +58,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void perform_InitializesRule() throws IOException, InterruptedException {
+    void perform_InitializesRule() throws IOException, InterruptedException {
 
         // given
         Rule rule = new Rule(List.of(new NegativeCondition()), null);
@@ -75,7 +75,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void perform_validatesEachRules() throws IOException, InterruptedException {
+    void perform_validatesEachRules() throws IOException, InterruptedException {
 
         // given
         BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
@@ -91,7 +91,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void perform_OnKeptBuild_SkipsValidate() throws IOException, InterruptedException {
+    void perform_OnKeptBuild_SkipsValidate() throws IOException, InterruptedException {
 
         // given
         BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
@@ -109,7 +109,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void perform_OnNegativeCondition_ValidatesEachRules() throws IOException, InterruptedException {
+    void perform_OnNegativeCondition_ValidatesEachRules() throws IOException, InterruptedException {
 
         // given
         BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
@@ -125,7 +125,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void perform_OnPositiveCondition_ValidatesEachRules() throws IOException, InterruptedException {
+    void perform_OnPositiveCondition_ValidatesEachRules() throws IOException, InterruptedException {
 
         // given
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
@@ -143,7 +143,7 @@ public class BuildHistoryManagerTest {
     }
 
     @Test
-    public void perform_OnNotContinueAfterMatch_ValidatesOnlyFirstRules() throws IOException, InterruptedException {
+    void perform_OnNotContinueAfterMatch_ValidatesOnlyFirstRules() throws IOException, InterruptedException {
 
         // given
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));

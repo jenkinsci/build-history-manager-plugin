@@ -6,21 +6,19 @@ import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
 import hudson.util.ListBoxModel;
 import org.jenkinsci.plugins.structs.SymbolLookup;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.BuildDescriptionCondition.MatchingMethodType;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildDescriptionDescriptorTest {
-
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class BuildDescriptionDescriptorTest {
 
     @Test
-    public void doFillMatchingMethodItems_ReturnsMethodItems() {
+    void doFillMatchingMethodItems_ReturnsMethodItems(JenkinsRule j) {
 
         // given
         BuildDescriptionDescriptor descriptor = (BuildDescriptionDescriptor)
@@ -38,7 +36,7 @@ public class BuildDescriptionDescriptorTest {
     }
 
     @Test
-    public void getDisplayName_ReturnsDescriptorName() {
+    void getDisplayName_ReturnsDescriptorName(JenkinsRule j) {
 
         // given
         Descriptor descriptor = SymbolLookup.get().findDescriptor(AbstractDescribableImpl.class, "BuildDescription");

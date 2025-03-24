@@ -2,15 +2,15 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class RoleConfigurationTest {
+class RoleConfigurationTest {
 
     @Test
-    public void RoleConfiguration_SetsDefaultValues() {
+    void RoleConfiguration_SetsDefaultValues() {
 
         // given & when
         RuleConfiguration configuration = new RuleConfiguration();
@@ -21,7 +21,7 @@ public class RoleConfigurationTest {
     }
 
     @Test
-    public void setContinueAfterMatch_SetsContinueAfterMatch() {
+    void setContinueAfterMatch_SetsContinueAfterMatch() {
 
         // given
         RuleConfiguration configuration = new RuleConfiguration();
@@ -35,7 +35,7 @@ public class RoleConfigurationTest {
     }
 
     @Test
-    public void setMatchAtMost_SetsMatchAtMost() {
+    void setMatchAtMost_SetsMatchAtMost() {
 
         // given
         RuleConfiguration configuration = new RuleConfiguration();

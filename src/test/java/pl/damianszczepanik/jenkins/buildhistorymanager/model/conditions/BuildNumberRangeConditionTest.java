@@ -5,18 +5,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import hudson.model.Run;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-public class BuildNumberRangeConditionTest {
+class BuildNumberRangeConditionTest {
 
     private final int minBuildNumberRange = 10;
     private final int maxBuildNumberRange = 20;
 
     @Test
-    public void setMinBuildNumber_SetsMinBuildNumber() {
+    void setMinBuildNumber_SetsMinBuildNumber() {
 
         // given
         BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
@@ -31,7 +31,7 @@ public class BuildNumberRangeConditionTest {
     }
 
     @Test
-    public void setMaxBuildNumber_SetsMinBuildNumber() {
+    void setMaxBuildNumber_SetsMinBuildNumber() {
 
         // given
         BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
@@ -46,7 +46,7 @@ public class BuildNumberRangeConditionTest {
     }
 
     @Test
-    public void matches_ForSmallerBuildNumber_ReturnsFalse() {
+    void matches_ForSmallerBuildNumber_ReturnsFalse() {
 
         // given
         BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
@@ -61,7 +61,7 @@ public class BuildNumberRangeConditionTest {
     }
 
     @Test
-    public void matches_ForGreaterBuildNumber_ReturnsFalse() {
+    void matches_ForGreaterBuildNumber_ReturnsFalse() {
 
         // given
         BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
@@ -76,7 +76,7 @@ public class BuildNumberRangeConditionTest {
     }
 
     @Test
-    public void matches_ForValidBuildNumber_ReturnsTrue() {
+    void matches_ForValidBuildNumber_ReturnsTrue() {
 
         // given
         BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
