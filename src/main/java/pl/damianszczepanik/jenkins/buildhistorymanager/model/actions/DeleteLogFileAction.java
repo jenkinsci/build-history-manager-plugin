@@ -28,7 +28,8 @@ public class DeleteLogFileAction extends Action {
         try {
             logFile = run.getLogFile();
         } catch (UnsupportedOperationException e) {
-            log(run.getParent().getFullDisplayName(), "accessing log as file is unsupported");
+            log(run.getParent().getFullDisplayName(), 
+                    "The `Delete log file` action is deprecated for your jenkins instance! Reconfigure your build's buildDiscarder and remove the action.");
             return;
         }
         if (logFile.exists()) {
