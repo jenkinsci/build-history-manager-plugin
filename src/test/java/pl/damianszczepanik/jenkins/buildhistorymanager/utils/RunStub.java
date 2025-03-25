@@ -23,15 +23,21 @@ import org.powermock.reflect.Whitebox;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class RunStub extends Run {
-
+    public enum LogFileAvailability {
+        PRESENT, ABSENT
+    }
     private Result result;
-    private boolean isLogFilePresent;
+    private LogFileAvailability logFileState = LogFileAvailability.PRESENT;
     private List<Cause> causes;
 
     private int deleteArtifactsTimes;
     private int deleteTimes;
-    private int deleteLogFile;
 
+    public RunStub(LogFileAvailability logFileState) throws IOException {
+        this();
+        this.logFileState = logFileState;
+    }
+    
     public RunStub(int buildNumber) throws IOException {
         this();
         setBuildNumber(buildNumber);
@@ -97,8 +103,8 @@ public class RunStub extends Run {
     @Override
     public File getLogFile() {
         File logFile = mock(File.class);
-        when(logFile.exists()).thenReturn(isLogFilePresent);
-        when(logFile.delete()).thenReturn(deleteLogFile(isLogFilePresent));
+        when(logFile.exists()).thenReturn(logFileState == LogFileAvailability.PRESENT);
+        when(logFile.delete()).thenReturn(deleteLogFile());
 
         return logFile;
     }
@@ -113,9 +119,10 @@ public class RunStub extends Run {
     public void checkPermission(Permission permission) {
     }
 
-    private boolean deleteLogFile(boolean isLogFilePresent) {
-        deleteLogFile++;
-        return isLogFilePresent;
+    private boolean deleteLogFile() {
+        boolean result = logFileState == LogFileAvailability.PRESENT;
+        logFileState = LogFileAvailability.ABSENT;
+        return result;
     }
 
     public void assertBuildWasDeleted() {
@@ -134,9 +141,10 @@ public class RunStub extends Run {
         assertThat(deleteArtifactsTimes).isZero();
     }
 
-    public void assertLogFileWasNotDeleted() {
-        assertThat(deleteLogFile).isOne();
-    }
+    public void assertLogFileIsNotAvailable() { assertThat(logFileState).isEqualTo(LogFileAvailability.ABSENT); }
+    
+    public void assertLogFileIsAvailable() { assertThat(logFileState).isEqualTo(LogFileAvailability.PRESENT); }
+    
 
     @Override
     public Result getResult() {
