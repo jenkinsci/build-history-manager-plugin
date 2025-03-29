@@ -2,12 +2,23 @@
 <p>The rule will stop being processed after a certain number of matched builds.
     Once this condition is met, only the other rules will continue to be processed.</p>
 
-<p><b>Use cases</b></p>
-<p>This feature provides the option to control the number of builds the rule can process. It may save a significant amount of time when the build history is long.</p>
+<p>Internally and in the documentation, this value is called <code>matchAtMost</code>.</p>
+
+<p>There are some special values:</p>
 <ul>
-    <li>If the value is set to <code>-1</code>, there is no limitation, all builds will be evaluated.</li>
-    <li>If the value is set to <code>0</code>, no builds will be evaluated. This disables the rule as it will not apply to any build.</li>
-    <li>If the value is set to <code>1..n</code>, once the value is reached, the rule is effectively disabled and is no longer applied.</li>
+   <li>If <code>matchAtMost = -1</code>, there is no limitation; all builds will be evaluated.</li>
+   <li>If <code>matchAtMost = 0</code>, no builds will be evaluated. This disables the rule, as it will not apply to any build.</li>
+   <li>If <code>matchAtMost > 0</code>, this rule will only be applied <code>matchAtMost</code> times 
+     in each build history manager process (in each loop over builds after a build).</li>
 </ul>
+
+<p><b>Use cases</b></p>
+<p>This feature provides the option to control the number of builds the rule can process.
+    If used with specific actions it can save a significant amount of time when the build history is long.</p>
+
+<p>This feature also provides the option to skip a number of builds while processing builds. 
+    To skip 5 builds, you should create a rule with the "Match every build" condition and no action, then set <code>matchAtMost = 5</code>.
+    This will effectively skip 5 builds in each build history manager process. It’s equivalent to saying <code>buildToCheck = lastBuildNo - 5</code>.</p>
+
 <p><b>Warning!</b></p>
 <p>If the <code>matchAtMost</code> value is set to zero, the rule is effectively disabled. This is useful if the user wants to disable a rule while keeping its other configuration values.</p>
