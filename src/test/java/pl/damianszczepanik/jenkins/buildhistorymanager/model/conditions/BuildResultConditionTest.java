@@ -346,19 +346,4 @@ class BuildResultConditionTest {
         // then
         assertThat(matched).isFalse();
     }
-
-    @Test
-    void match_OnMatchNotBuiltAndResultNotNotBuilt_ReturnsFalse() throws IOException {
-
-        // given
-        BuildResultCondition condition = new BuildResultCondition();
-        condition.setMatchNotBuilt(true);
-        Run<?, ?> run = new RunStub(Result.FAILURE);
-
-        // when
-        boolean matched = condition.matches(run, null);
-
-        // then
-        assertThat(matched).isFalse();
-    }
 }

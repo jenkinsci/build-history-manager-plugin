@@ -27,7 +27,7 @@ class DeleteLogFileActionTest {
         // then
         run.assertLogFileIsNotAvailable();
     }
-    
+
     @Test
     void perform_OnMissingLogFile_SkipDeletion() throws IOException, InterruptedException {
 
@@ -62,7 +62,7 @@ class DeleteLogFileActionTest {
     }
 
     @Test
-    public void perform_DeleteLogFileDoesNotWork_IgnoresFailure() throws IOException, InterruptedException {
+    void perform_DeleteLogFileDoesNotWork_IgnoresFailure() throws IOException, InterruptedException {
 
         // given
         Action action = new DeleteLogFileAction();
@@ -82,5 +82,5 @@ class DeleteLogFileActionTest {
         // then
         run.assertLogFileIsAvailable();
     }
-    
+
 }
