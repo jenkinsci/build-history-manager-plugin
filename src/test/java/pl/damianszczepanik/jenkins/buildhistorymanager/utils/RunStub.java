@@ -26,6 +26,7 @@ public class RunStub extends Run {
     public enum LogFileAvailability {
         PRESENT, ABSENT
     }
+
     private Result result;
     private LogFileAvailability logFileState = LogFileAvailability.PRESENT;
     private List<Cause> causes;
@@ -37,7 +38,7 @@ public class RunStub extends Run {
         this();
         this.logFileState = logFileState;
     }
-    
+
     public RunStub(int buildNumber) throws IOException {
         this();
         setBuildNumber(buildNumber);
@@ -66,11 +67,10 @@ public class RunStub extends Run {
 
     public RunStub(String[] causeClass) throws IOException {
         this();
-        List<Cause> causes = new ArrayList<>();
+        causes = new ArrayList<>();
         for (String cause : causeClass) {
             causes.add(new MockCause(cause));
         }
-        this.causes = causes;
     }
 
     public RunStub() throws IOException {
@@ -120,9 +120,9 @@ public class RunStub extends Run {
     }
 
     private boolean deleteLogFile() {
-        boolean result = logFileState == LogFileAvailability.PRESENT;
+        boolean deleteResult = logFileState == LogFileAvailability.PRESENT;
         logFileState = LogFileAvailability.ABSENT;
-        return result;
+        return deleteResult;
     }
 
     public void assertBuildWasDeleted() {
@@ -141,10 +141,14 @@ public class RunStub extends Run {
         assertThat(deleteArtifactsTimes).isZero();
     }
 
-    public void assertLogFileIsNotAvailable() { assertThat(logFileState).isEqualTo(LogFileAvailability.ABSENT); }
-    
-    public void assertLogFileIsAvailable() { assertThat(logFileState).isEqualTo(LogFileAvailability.PRESENT); }
-    
+    public void assertLogFileIsNotAvailable() {
+        assertThat(logFileState).isEqualTo(LogFileAvailability.ABSENT);
+    }
+
+    public void assertLogFileIsAvailable() {
+        assertThat(logFileState).isEqualTo(LogFileAvailability.PRESENT);
+    }
+
 
     @Override
     public Result getResult() {
