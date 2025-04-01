@@ -2,6 +2,8 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import hudson.model.Run;
@@ -33,13 +35,11 @@ public class DeleteLogFileAction extends Action {
             return;
         }
         if (logFile.exists()) {
-            if(!logFile.delete()) {
-                log(run.getParent().getFullDisplayName(), "Cannot delete log file");
-            }
+            Files.delete(logFile.toPath());
         }
     }
 
     private static void log(String jobName, String message) {
-        LOG.fine(String.format("[%s] %s", jobName, message));
+        LOG.log(Level.FINE, () -> String.format("[%s] %s", jobName, message));
     }
 }

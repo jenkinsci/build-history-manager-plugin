@@ -2,7 +2,6 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +10,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.Cause;
 import hudson.model.Job;
 import hudson.model.Result;
@@ -23,20 +23,16 @@ import org.powermock.reflect.Whitebox;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class RunStub extends Run {
-    public enum LogFileAvailability {
-        PRESENT, ABSENT
-    }
-
     private Result result;
-    private LogFileAvailability logFileState = LogFileAvailability.PRESENT;
+    private File logFile = null;
     private List<Cause> causes;
 
     private int deleteArtifactsTimes;
     private int deleteTimes;
 
-    public RunStub(LogFileAvailability logFileState) throws IOException {
+    public RunStub(File logFile) throws IOException {
         this();
-        this.logFileState = logFileState;
+        this.logFile = logFile;
     }
 
     public RunStub(int buildNumber) throws IOException {
@@ -101,12 +97,9 @@ public class RunStub extends Run {
     }
 
     @Override
-    public File getLogFile() {
-        File logFile = mock(File.class);
-        when(logFile.exists()).thenReturn(logFileState == LogFileAvailability.PRESENT);
-        when(logFile.delete()).thenReturn(deleteLogFile());
-
-        return logFile;
+    @Deprecated
+    public @NonNull File getLogFile() {
+        return logFile != null ? logFile : mock(File.class);
     }
 
     // skips serialization which is quite problematic
@@ -117,12 +110,6 @@ public class RunStub extends Run {
     // skips security checking which is quite problematic
     @Override
     public void checkPermission(Permission permission) {
-    }
-
-    private boolean deleteLogFile() {
-        boolean deleteResult = logFileState == LogFileAvailability.PRESENT;
-        logFileState = LogFileAvailability.ABSENT;
-        return deleteResult;
     }
 
     public void assertBuildWasDeleted() {
@@ -141,15 +128,6 @@ public class RunStub extends Run {
         assertThat(deleteArtifactsTimes).isZero();
     }
 
-    public void assertLogFileIsNotAvailable() {
-        assertThat(logFileState).isEqualTo(LogFileAvailability.ABSENT);
-    }
-
-    public void assertLogFileIsAvailable() {
-        assertThat(logFileState).isEqualTo(LogFileAvailability.PRESENT);
-    }
-
-
     @Override
     public Result getResult() {
         return result;
@@ -161,7 +139,7 @@ public class RunStub extends Run {
     }
 
     @Override
-    public List<Cause> getCauses() {
+    public @NonNull List<Cause> getCauses() {
         return causes;
     }
 

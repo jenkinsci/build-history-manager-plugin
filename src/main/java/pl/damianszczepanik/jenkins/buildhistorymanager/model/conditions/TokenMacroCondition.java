@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import hudson.FilePath;
@@ -53,11 +54,11 @@ public class TokenMacroCondition extends Condition {
         try {
             File workspace = run.getRootDir();
             String evaluatedMacro = TokenMacro.expandAll(run, new FilePath(workspace), null, template);
-            LOG.info(String.format("Evaluated macro '%s' to '%s'", template, evaluatedMacro));
+            LOG.log(Level.INFO, () -> String.format("Evaluated macro '%s' to '%s'", template, evaluatedMacro));
             return StringUtils.defaultString(value).equals(evaluatedMacro);
 
         } catch (InterruptedException | IOException | MacroEvaluationException e) {
-            LOG.warning(String.format("Exception when processing template '%s' for build #%d: %s",
+            LOG.log(Level.WARNING, () ->String.format("Exception when processing template '%s' for build #%d: %s",
                     template, run.getNumber(), e.getMessage()));
             return false;
         }
