@@ -14,11 +14,20 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 public class BuildDescriptionCondition extends Condition {
 
     /**
-     * Matches method for the pattern
+     * Matches method for the pattern.
      */
     public enum MatchingMethodType {
+        /**
+         * Description is equal to matched string.
+         */
         EQUALS,
+        /**
+         * Description contains matched string.
+         */
         CONTAINS,
+        /**
+         * Description matches string.
+         */
         MATCHES;
     }
 

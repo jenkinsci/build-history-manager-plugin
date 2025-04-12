@@ -13,7 +13,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 
 /**
- * Custom implementation of {@link BuildDiscarder}
+ * Custom implementation of {@link BuildDiscarder}.
  *
  * @author Damian Szczepanik (damianszczepanik@github)
  * @see hudson.tasks.LogRotator
