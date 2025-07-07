@@ -6,7 +6,7 @@
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <version>5.18</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <groupId>pl.damianszczepanik</groupId>
@@ -39,7 +39,7 @@
     <url>https://github.com/jenkinsci/build-history-manager-plugin</url>
 
     <properties>
-        <revision>1.12.1</revision>
+        <revision>1.13.0</revision>
         <changelist>-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/build-history-manager-plugin</gitHubRepo>
         <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
