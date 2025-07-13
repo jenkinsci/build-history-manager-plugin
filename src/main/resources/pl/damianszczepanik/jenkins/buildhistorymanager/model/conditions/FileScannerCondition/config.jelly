@@ -1,0 +1,14 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+
+    <f:entry title="Single include patterns" field="includePattern">
+        <f:textbox/>
+    </f:entry>
+    <f:entry title="Single exclude patterns" field="excludePattern">
+        <f:textbox/>
+    </f:entry>
+    <f:entry title="Pattern is matched in a case sensitive way"
+             field="caseSensitive">
+        <f:checkbox default="true"/>
+    </f:entry>
+</j:jelly>
