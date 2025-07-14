@@ -29,6 +29,7 @@ public class RunStub extends Run {
 
     private int deleteArtifactsTimes;
     private int deleteTimes;
+    private File rootDir = new File("target");
 
     public RunStub(File logFile) throws IOException {
         this();
@@ -78,6 +79,10 @@ public class RunStub extends Run {
         this.number = buildNumber;
     }
 
+    public File getRootDir() {
+        return rootDir;
+    }
+
     public void setPreviousBuild(Run previousBuild) {
         this.previousBuild = previousBuild;
     }
@@ -98,7 +103,8 @@ public class RunStub extends Run {
 
     @Override
     @Deprecated
-    public @NonNull File getLogFile() {
+    public @NonNull
+    File getLogFile() {
         return logFile != null ? logFile : mock(File.class);
     }
 
@@ -139,7 +145,8 @@ public class RunStub extends Run {
     }
 
     @Override
-    public @NonNull List<Cause> getCauses() {
+    public @NonNull
+    List<Cause> getCauses() {
         return causes;
     }
 

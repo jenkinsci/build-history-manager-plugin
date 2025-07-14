@@ -1,0 +1,16 @@
+<p><b>Description</b></p>
+<p>Evaluates if file exists in the workspace. This implementation uses <a
+        href="https://ant.apache.org/manual/api/org/apache/tools/ant/DirectoryScanner.html">DirectoryScanner</a> class.
+</p>
+
+<p><b>Use cases</b></p>
+<ul>
+    <li>check if artifacts are published - check <code>./artifacts/*</code></li>
+    <li>check if job contains git repository - check <code>.git/*</code>
+    <li>check if html report was published with <a href="https://plugins.jenkins.io/htmlpublisher/">
+        HTML Publisher</a> plugin (pattern depends on configuration)
+    </li>
+</ul>
+
+<p><b>Warning!</b></p>
+<p>If configuration is not very specific or workspace has many files than scanning the files may take time.</p>
