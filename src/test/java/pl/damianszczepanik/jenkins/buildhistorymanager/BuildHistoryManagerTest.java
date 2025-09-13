@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import hudson.model.Job;
 import hudson.model.Run;
@@ -29,6 +31,10 @@ class BuildHistoryManagerTest {
     @BeforeEach
     void setUp() {
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(false), new RuleBuilder.TestRule(false));
+
+        Logger logger = Logger.getLogger(BuildHistoryManager.class.getName());
+        logger.setLevel(Level.ALL);
+        Whitebox.setInternalState(BuildHistoryManager.class, "LOG", logger);
     }
 
     @Test

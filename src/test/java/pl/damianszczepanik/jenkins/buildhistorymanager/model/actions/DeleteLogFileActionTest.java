@@ -11,16 +11,27 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 class DeleteLogFileActionTest {
+
+    @BeforeEach
+    void setUp() {
+        Logger logger = Logger.getLogger(DeleteLogFileAction.class.getName());
+        logger.setLevel(Level.ALL);
+        Whitebox.setInternalState(DeleteLogFileAction.class, "LOG", logger);
+    }
 
     @Test
     void perform_OnExistingLogFile_DeletesLogFile() throws IOException, InterruptedException {
@@ -29,11 +40,11 @@ class DeleteLogFileActionTest {
         Path logFilePath = mock(Path.class);
         when(logFile.exists()).thenReturn(true);
         when(logFile.toPath()).thenReturn(logFilePath);
-        
+
         Action action = new DeleteLogFileAction();
         RunStub run = new RunStub(logFile);
 
-        
+
         try (MockedStatic<Files> mockFiles = mockStatic(Files.class)) {
             // when
             action.perform(run);
@@ -50,13 +61,13 @@ class DeleteLogFileActionTest {
         Path logFilePath = mock(Path.class);
         when(logFile.exists()).thenReturn(false);
         when(logFile.toPath()).thenReturn(logFilePath);
-        
+
         Action action = new DeleteLogFileAction();
         RunStub run = new RunStub(logFile);
 
         try (MockedStatic<Files> mockFiles = mockStatic(Files.class)) {
             // when
-            action.perform(run); 
+            action.perform(run);
             // then
             mockFiles.verify(() -> Files.delete(logFilePath), times(0));
         }
@@ -92,10 +103,10 @@ class DeleteLogFileActionTest {
         File logFile = mock(File.class);
         when(logFile.exists()).thenReturn(true);
         when(logFile.toPath()).thenReturn(logFilePath);
-        
+
         Action action = new DeleteLogFileAction();
         RunStub run = new RunStub(logFile);
-                
+
         try (MockedStatic<Files> mockFiles = mockStatic(Files.class)) {
             mockFiles.when(() -> Files.delete(logFilePath)).thenThrow(new IOException("File deletion failed"));
 

@@ -58,7 +58,7 @@ public class TokenMacroCondition extends Condition {
             return StringUtils.defaultString(value).equals(evaluatedMacro);
 
         } catch (InterruptedException | IOException | MacroEvaluationException e) {
-            LOG.log(Level.WARNING, () ->String.format("Exception when processing template '%s' for build #%d: %s",
+            LOG.log(Level.WARNING, () -> String.format("Exception when processing template '%s' for build #%d: %s",
                     template, run.getNumber(), e.getMessage()));
             return false;
         }

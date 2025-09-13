@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-class RoleConfigurationTest {
+class RuleConfigurationTest {
 
     @Test
     void RoleConfiguration_SetsDefaultValues() {

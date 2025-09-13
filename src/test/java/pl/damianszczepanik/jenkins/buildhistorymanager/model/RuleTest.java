@@ -8,8 +8,11 @@ import static pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Acti
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import hudson.model.Run;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
@@ -20,6 +23,13 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 class RuleTest {
+
+    @BeforeEach
+    void setUp() {
+        Logger logger = Logger.getLogger(Rule.class.getName());
+        logger.setLevel(Level.ALL);
+        Whitebox.setInternalState(Rule.class, "LOG", logger);
+    }
 
     @Test
     void getConditions_ReturnsConditions() {
