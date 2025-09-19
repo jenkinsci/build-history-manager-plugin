@@ -13,6 +13,7 @@ import java.util.List;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.Cause;
 import hudson.model.Job;
+import hudson.model.ParameterValue;
 import hudson.model.Result;
 import hudson.model.Run;
 import hudson.security.Permission;
@@ -24,8 +25,9 @@ import org.powermock.reflect.Whitebox;
  */
 public class RunStub extends Run {
     private Result result;
-    private File logFile = null;
+    private File logFile;
     private List<Cause> causes;
+    private List<ParameterValue> parameterValues = List.of();
 
     private int deleteArtifactsTimes;
     private int deleteTimes;
@@ -89,6 +91,15 @@ public class RunStub extends Run {
 
     private void setStartTime(long startTime) {
         Whitebox.setInternalState(this, "startTime", startTime);
+    }
+
+    public void setParameterValues(String paramName, String paramValue) {
+        parameterValues = List.of(new ParameterValueStub(paramName, paramValue));
+    }
+
+    @Override
+    public List<ParameterValue> getParameterValues() {
+        return parameterValues;
     }
 
     @Override

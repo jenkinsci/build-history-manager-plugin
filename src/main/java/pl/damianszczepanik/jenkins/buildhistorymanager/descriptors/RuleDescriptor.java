@@ -32,7 +32,7 @@ public class RuleDescriptor extends Descriptor<Rule> {
         try {
             int intValue = Integer.parseInt(value);
             if (intValue < -1) {
-                return FormValidation.error(Messages.role_notValidMatchAtMost());
+                return FormValidation.error(Messages.rule_notValidMatchAtMost());
             }
         } catch (NumberFormatException e) {
             return FormValidation.error(Messages.notInteger());
