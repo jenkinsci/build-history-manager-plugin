@@ -26,9 +26,9 @@ public class BuildDescriptionDescriptor extends Descriptor<Condition> {
     public ListBoxModel doFillMatchingMethodItems() {
         return new ListBoxModel(
                 // default option should be listed first
-                new ListBoxModel.Option(Messages.matchingMethodType_EQUALS(), MatchingMethodType.EQUALS.name()),
-                new ListBoxModel.Option(Messages.matchingMethodType_CONTAINS(), MatchingMethodType.CONTAINS.name()),
-                new ListBoxModel.Option(Messages.matchingMethodType_MATCHES(), MatchingMethodType.MATCHES.name())
+                new ListBoxModel.Option(Messages.buildDescription_matchingMethodType_EQUALS(), MatchingMethodType.EQUALS.name()),
+                new ListBoxModel.Option(Messages.buildDescription_matchingMethodType_CONTAINS(), MatchingMethodType.CONTAINS.name()),
+                new ListBoxModel.Option(Messages.buildDescription_matchingMethodType_MATCHES(), MatchingMethodType.MATCHES.name())
         );
     }
 
