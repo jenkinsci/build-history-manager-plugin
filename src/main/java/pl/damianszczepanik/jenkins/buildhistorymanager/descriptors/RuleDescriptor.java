@@ -4,6 +4,7 @@ import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.FormValidation;
 import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.verb.POST;
 import pl.damianszczepanik.jenkins.buildhistorymanager.Messages;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 
@@ -24,10 +25,12 @@ public class RuleDescriptor extends Descriptor<Rule> {
         return "Rule";
     }
 
+    @POST
     public FormValidation doCheckMatchAtMost(@QueryParameter String matchAtMost) {
         return isValidInteger(matchAtMost);
     }
 
+    @POST
     private static FormValidation isValidInteger(String value) {
         try {
             int intValue = Integer.parseInt(value);
