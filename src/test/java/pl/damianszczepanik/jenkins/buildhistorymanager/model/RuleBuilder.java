@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.Descriptor;
 import hudson.model.Run;
 
@@ -36,6 +37,7 @@ public class RuleBuilder {
             return new Descriptor() {
 
                 @Override
+                @NonNull
                 public String getDisplayName() {
                     return "TestRule";
                 }

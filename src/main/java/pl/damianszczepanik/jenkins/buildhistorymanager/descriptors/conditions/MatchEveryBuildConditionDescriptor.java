@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.conditions;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Descriptor;
 import org.jenkinsci.Symbol;
@@ -20,6 +21,7 @@ public class MatchEveryBuildConditionDescriptor extends Descriptor<Condition> {
     }
 
     @Override
+    @NonNull
     public String getDisplayName() {
         return "Match every build";
     }
