@@ -5,6 +5,7 @@ import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.ListBoxModel;
 import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.verb.POST;
 import pl.damianszczepanik.jenkins.buildhistorymanager.Messages;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.BuildDescriptionCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.BuildDescriptionCondition.MatchingMethodType;
@@ -24,6 +25,7 @@ public class BuildDescriptionDescriptor extends Descriptor<Condition> {
     }
 
     // names must refer to the field name
+    @POST
     public ListBoxModel doFillMatchingMethodItems() {
         return new ListBoxModel(
                 // default option should be listed first
