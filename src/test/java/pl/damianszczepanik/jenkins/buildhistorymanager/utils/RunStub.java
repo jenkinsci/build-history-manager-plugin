@@ -19,6 +19,7 @@ import hudson.model.Run;
 import hudson.security.Permission;
 import org.apache.commons.lang.StringUtils;
 import org.powermock.reflect.Whitebox;
+// nop
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
