@@ -3,6 +3,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.Descriptor;
 import hudson.model.Run;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
@@ -25,6 +26,7 @@ public class ConditionBuilder {
             return new Descriptor() {
 
                 @Override
+                @NonNull
                 public String getDisplayName() {
                     return this.getClass().getName();
                 }

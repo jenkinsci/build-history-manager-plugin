@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.FormValidation;
@@ -21,6 +22,7 @@ public class RuleDescriptor extends Descriptor<Rule> {
     }
 
     @Override
+    @NonNull
     public String getDisplayName() {
         return "Rule";
     }

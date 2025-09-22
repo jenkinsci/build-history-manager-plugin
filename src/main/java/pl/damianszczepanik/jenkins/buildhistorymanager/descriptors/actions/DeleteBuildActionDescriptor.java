@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors.actions;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Descriptor;
 import org.jenkinsci.Symbol;
@@ -20,6 +21,7 @@ public class DeleteBuildActionDescriptor extends Descriptor<Action> {
     }
 
     @Override
+    @NonNull
     public String getDisplayName() {
         return "Delete build";
     }

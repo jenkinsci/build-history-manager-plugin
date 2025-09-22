@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.descriptors;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import jenkins.model.BuildDiscarderDescriptor;
 import org.jenkinsci.Symbol;
@@ -19,6 +20,7 @@ public final class BuildHistoryManagerDescriptor extends BuildDiscarderDescripto
     }
 
     @Override
+    @NonNull
     public String getDisplayName() {
         return "Build History Manager";
     }
