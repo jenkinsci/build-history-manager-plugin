@@ -52,13 +52,13 @@ public class BuildParameterCondition extends Condition {
     public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
         if (StringUtils.isEmpty(parameterName)) {
             // should not happen for valid configuration
-            LOG.log(Level.WARNING, () -> String.format("Parameter name is empty for job %s",
+            LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
                     parameterName, run.getDisplayName()));
             return false;
         }
         if (StringUtils.isEmpty(parameterValue)) {
             // should not happen for valid configuration
-            LOG.log(Level.WARNING, () -> String.format("Parameter value is empty for job %s",
+            LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
                     parameterName, run.getDisplayName()));
             return false;
         }
@@ -80,13 +80,13 @@ public class BuildParameterCondition extends Condition {
     }
 
     ParameterValue getParameter(Run<?, ?> run) {
-        Optional<ParameterValue> parameterValue = run.getParameterValues().stream()
+        Optional<ParameterValue> paramValue = run.getParameterValues().stream()
                 .filter(param -> param.getName().equals(parameterName)).findFirst();
 
-        if (parameterValue.isEmpty()) {
+        if (paramValue.isEmpty()) {
             return null;
         } else {
-            return parameterValue.get();
+            return paramValue.get();
         }
     }
 }
