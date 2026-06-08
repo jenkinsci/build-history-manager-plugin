@@ -1,4 +1,4 @@
-[![Build Status](https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/job/master/badge/icon)](https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/job/master/)
+[![Build Status](https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fbuild-history-manager-plugin%2Fmaster)](https://ci.jenkins.io/job/Plugins/job/build-history-manager-plugin/job/master/)
 [![Appveyor status](https://ci.appveyor.com/api/projects/status/cjto87m99168m6ea/branch/master?svg=true)](https://ci.appveyor.com/project/damianszczepanik/build-history-manager-plugin/branch/master)
 
 [![Coverage Status](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jenkinsci/build-history-manager-plugin)
