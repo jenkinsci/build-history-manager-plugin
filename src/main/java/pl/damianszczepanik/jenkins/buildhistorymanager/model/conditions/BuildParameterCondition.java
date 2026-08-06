@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import hudson.Util;
 import hudson.model.ParameterValue;
 import hudson.model.Run;
-import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
@@ -50,13 +49,13 @@ public class BuildParameterCondition extends Condition {
 
     @Override
     public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
-        if (StringUtils.isEmpty(parameterName)) {
+        if (Util.fixEmpty(parameterName) == null) {
             // should not happen for valid configuration
             LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
                     parameterName, run.getDisplayName()));
             return false;
         }
-        if (StringUtils.isEmpty(parameterValue)) {
+        if (Util.fixEmpty(parameterValue) == null) {
             // should not happen for valid configuration
             LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
                     parameterName, run.getDisplayName()));
