@@ -3,7 +3,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.actions;
 import java.io.IOException;
 
 import hudson.model.Run;
-import org.apache.commons.lang.StringUtils;
+import hudson.Util;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
@@ -25,7 +25,7 @@ public class ChangeBuildDescriptionAction extends Action {
     @Override
     public void perform(Run<?, ?> run) throws IOException, InterruptedException {
         // null-safe concatenation
-        String description = StringUtils.defaultString(run.getDescription());
+        String description = Util.fixNull(run.getDescription());
 
         // do not append if already updated
         if (!description.startsWith(PRE_DESCRIPTION)) {

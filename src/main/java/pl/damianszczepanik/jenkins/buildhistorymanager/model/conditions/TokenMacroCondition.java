@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import hudson.FilePath;
 import hudson.Util;
 import hudson.model.Run;
-import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.tokenmacro.MacroEvaluationException;
 import org.jenkinsci.plugins.tokenmacro.TokenMacro;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -55,7 +54,7 @@ public class TokenMacroCondition extends Condition {
             File workspace = run.getRootDir();
             String evaluatedMacro = TokenMacro.expandAll(run, new FilePath(workspace), null, template);
             LOG.log(Level.INFO, () -> String.format("Evaluated macro '%s' to '%s'", template, evaluatedMacro));
-            return StringUtils.defaultString(value).equals(evaluatedMacro);
+            return Util.fixNull(value).equals(evaluatedMacro);
 
         } catch (InterruptedException | IOException | MacroEvaluationException e) {
             LOG.log(Level.WARNING, () -> String.format("Exception when processing template '%s' for build #%d: %s",

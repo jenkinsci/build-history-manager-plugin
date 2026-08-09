@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Descriptor;
 import hudson.util.FormValidation;
-import org.apache.commons.lang.StringUtils;
+import hudson.Util;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.verb.POST;
@@ -43,7 +43,7 @@ public class BuildParameterDescriptor extends Descriptor<Condition> {
 
     @POST
     private static FormValidation isNotBlank(String value) {
-        if (StringUtils.isNotBlank(value)) {
+        if (Util.fixEmptyAndTrim(value) != null) {
             return FormValidation.ok();
         }
         return FormValidation.error(Messages.isEmpty());

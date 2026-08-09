@@ -17,7 +17,7 @@ import hudson.model.ParameterValue;
 import hudson.model.Result;
 import hudson.model.Run;
 import hudson.security.Permission;
-import org.apache.commons.lang.StringUtils;
+import hudson.Util;
 import org.powermock.reflect.Whitebox;
 
 /**
@@ -60,7 +60,7 @@ public class RunStub extends Run {
 
     public RunStub(String causeClass) throws IOException {
         this();
-        this.causes = StringUtils.isEmpty(causeClass)
+        this.causes = Util.fixEmpty(causeClass) == null
                 ? Collections.emptyList() : List.of(new MockCause(causeClass));
     }
 
