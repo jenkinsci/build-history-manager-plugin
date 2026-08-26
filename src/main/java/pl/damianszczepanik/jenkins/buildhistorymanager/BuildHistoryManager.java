@@ -1,6 +1,7 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import hudson.model.Job;
 import hudson.model.Run;
 import jenkins.model.BuildDiscarder;
 import org.kohsuke.stapler.DataBoundConstructor;
+import pl.damianszczepanik.jenkins.buildhistorymanager.control.RuleValidator;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 
 /**
@@ -48,9 +50,10 @@ public class BuildHistoryManager extends BuildDiscarder {
         String uniquePerformName = job.getFullName();
         log(uniquePerformName, "Start evaluating build history for build " + job.getFullName());
 
+        List<RuleValidator> ruleValidators = new ArrayList<>();
         // reset counters of matched builds
         for (Rule rule : rules) {
-            rule.initialize(uniquePerformName);
+            ruleValidators.add(new RuleValidator(rule, uniquePerformName));
         }
 
         Run<?, ?> run = job.getLastCompletedBuild();
@@ -60,7 +63,7 @@ public class BuildHistoryManager extends BuildDiscarder {
             if (run.isKeepLog()) {
                 log(uniquePerformName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
             } else {
-                processRules(run, uniquePerformName);
+                processRules(ruleValidators, run, uniquePerformName);
             }
 
             // validateConditions rules for previous build - completed in case some previous are still building
@@ -70,16 +73,16 @@ public class BuildHistoryManager extends BuildDiscarder {
     }
 
     // just to reduce complexity
-    private void processRules(Run<?, ?> run, String uniquePerformName) throws IOException, InterruptedException {
-        for (int i = 0; i < rules.size(); i++) {
-            Rule rule = rules.get(i);
-            log(uniquePerformName, "Processing rule no " + (i + 1));
-            if (rule.validateConditions(run)) {
-                log(uniquePerformName, "Processing actions for rule no " + (i + 1));
-                rule.performActions(run);
+    private void processRules(List<RuleValidator> ruleValidators, Run<?, ?> run, String jobName) throws IOException, InterruptedException {
+        for (int i = 0; i < ruleValidators.size(); i++) {
+            RuleValidator ruleValidator = ruleValidators.get(i);
+            log(jobName, "Processing rule no " + (i + 1));
+            if (ruleValidator.validateConditions(run)) {
+                log(jobName, "Processing actions for rule no " + (i + 1));
+                ruleValidator.getRule().performActions(run);
 
                 // if other rules should not be proceed, shift to next build
-                if (!rule.getContinueAfterMatch()) {
+                if (!ruleValidator.getRule().getContinueAfterMatch()) {
                     break;
                 }
             }

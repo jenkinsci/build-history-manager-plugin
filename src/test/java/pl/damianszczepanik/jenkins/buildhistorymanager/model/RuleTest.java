@@ -110,27 +110,12 @@ class RuleTest {
         Run<?, ?> run = mock(Run.class);
 
         // when
-        rule.validateConditions(run);
+        rule.matchesConditions(run);
 
         // then
         for (Condition condition : rule.getConditions()) {
             assertThat(((ConditionBuilder.AbstractSampleCondition) condition).matchesTimes).isOne();
         }
-    }
-
-    @Test
-    void validateConditions_OnNegativeCondition_DoesNotIncrementMatchedTimes() {
-
-        // given
-        Rule rule = new Rule(List.of(new ConditionBuilder.NegativeCondition()), Collections.emptyList());
-        Run<?, ?> run = mock(Run.class);
-
-        // when
-        rule.validateConditions(run);
-
-        // then
-        int matchedTimes = Whitebox.getInternalState(rule, "matchedTimes");
-        assertThat(matchedTimes).isZero();
     }
 
     @Test
@@ -147,27 +132,5 @@ class RuleTest {
         for (Action action : rule.getActions()) {
             assertThat(((ActionBuilder.TestAction) action).performTimes).isOne();
         }
-    }
-
-    @Test
-    void validateConditions_PerformsNTimes() {
-
-        // given
-        Rule rule = new Rule(buildSampleConditions(), Collections.emptyList());
-        rule.setMatchAtMost(1);
-        Run<?, ?> run = mock(Run.class);
-
-        // when
-        rule.validateConditions(run);
-        rule.validateConditions(run);
-
-        // then
-        int matchedTimes = Whitebox.getInternalState(rule, "matchedTimes");
-        assertThat(matchedTimes).isOne();
-
-        for (Condition condition : rule.getConditions()) {
-            assertThat(((ConditionBuilder.AbstractSampleCondition) condition).matchesTimes).isOne();
-        }
-
     }
 }

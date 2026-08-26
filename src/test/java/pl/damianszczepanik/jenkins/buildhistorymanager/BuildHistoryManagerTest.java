@@ -15,7 +15,6 @@ import hudson.model.Run;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.powermock.reflect.Whitebox;
-import pl.damianszczepanik.jenkins.buildhistorymanager.model.ConditionBuilder.NegativeCondition;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
@@ -61,23 +60,6 @@ class BuildHistoryManagerTest {
 
         // then
         assertThat(rules).containsAll(sampleRules);
-    }
-
-    @Test
-    void perform_InitializesRule() throws IOException, InterruptedException {
-
-        // given
-        Rule rule = new Rule(List.of(new NegativeCondition()), null);
-        Whitebox.setInternalState(rule, "matchedTimes", 1);
-        BuildHistoryManager discarder = new BuildHistoryManager(List.of(rule));
-        Job<?, ?> job = JobBuilder.buildSampleJob();
-
-        // when
-        discarder.perform(job);
-
-        // then
-        int matchedTimes = Whitebox.getInternalState(rule, "matchedTimes");
-        assertThat(matchedTimes).isZero();
     }
 
     @Test
