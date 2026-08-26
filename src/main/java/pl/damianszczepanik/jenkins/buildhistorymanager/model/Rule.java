@@ -28,8 +28,6 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     private String uniquePerformName;
 
-    private int matchedTimes;
-
     @DataBoundConstructor
     public Rule(List<Condition> conditions, List<Action> actions) {
         this.conditions = Util.fixNull(conditions);
@@ -62,12 +60,8 @@ public class Rule extends AbstractDescribableImpl<Rule> {
         return configuration.isContinueAfterMatch();
     }
 
-    /**
-     * Resets local counters and variables before processing conditions and actions.
-     */
-    public void initialize(String uniquePerformName) {
+    public void setJobName(String uniquePerformName) {
         this.uniquePerformName = uniquePerformName;
-        matchedTimes = 0;
     }
 
     /**
@@ -76,13 +70,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
      * @param run build to validate
      * @return <code>true</code> if all conditions match otherwise <code>false</code>
      */
-    public boolean validateConditions(Run<?, ?> run) {
-        // stop checking if max number of processed builds is reached
-        if (matchedTimes == getMatchAtMost()) {
-            log(uniquePerformName, String.format("Skipping rule because matched %d times", matchedTimes));
-            return false;
-        }
-
+    public boolean matchesConditions(Run<?, ?> run) {
         // validateConditions condition one by one...
         for (Condition condition : conditions) {
             log(uniquePerformName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
@@ -94,7 +82,6 @@ public class Rule extends AbstractDescribableImpl<Rule> {
             }
         }
 
-        matchedTimes++;
         return true;
     }
 

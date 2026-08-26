@@ -22,7 +22,7 @@ public class RuleBuilder {
         }
 
         @Override
-        public boolean validateConditions(Run<?, ?> run) {
+        public boolean matchesConditions(Run<?, ?> run) {
             validateConditionsTimes++;
             return validateResult;
         }
