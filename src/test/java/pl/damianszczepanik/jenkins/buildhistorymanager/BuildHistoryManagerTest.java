@@ -40,10 +40,10 @@ class BuildHistoryManagerTest {
     void BuildHistoryManagerTest_OnEmptyRules_SavesEmptyRule() {
 
         // given
-        BuildHistoryManager discarder = new BuildHistoryManager(null);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(null);
 
         // when
-        List<Rule> rules = discarder.getRules();
+        List<Rule> rules = buildHistoryManager.getRules();
 
         // then
         assertThat(rules).isEmpty();
@@ -53,10 +53,10 @@ class BuildHistoryManagerTest {
     void getRules_ReturnsRules() {
 
         // given
-        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
 
         // when
-        List<Rule> rules = discarder.getRules();
+        List<Rule> rules = buildHistoryManager.getRules();
 
         // then
         assertThat(rules).containsAll(sampleRules);
@@ -66,11 +66,11 @@ class BuildHistoryManagerTest {
     void perform_validatesEachRules() throws IOException, InterruptedException {
 
         // given
-        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
-        discarder.perform(job);
+        buildHistoryManager.perform(job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -82,13 +82,13 @@ class BuildHistoryManagerTest {
     void perform_OnKeptBuild_SkipsValidate() throws IOException, InterruptedException {
 
         // given
-        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
         Run keptRun = mock(Run.class);
         when(keptRun.isKeepLog()).thenReturn(true);
         Job<?, ?> job = JobBuilder.buildSampleJob(keptRun);
 
         // when
-        discarder.perform(job);
+        buildHistoryManager.perform(job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -100,11 +100,11 @@ class BuildHistoryManagerTest {
     void perform_OnNegativeCondition_ValidatesEachRules() throws IOException, InterruptedException {
 
         // given
-        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
-        discarder.perform(job);
+        buildHistoryManager.perform(job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -118,11 +118,11 @@ class BuildHistoryManagerTest {
         // given
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
 
-        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
-        discarder.perform(job);
+        buildHistoryManager.perform(job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -139,11 +139,11 @@ class BuildHistoryManagerTest {
         configuration.setContinueAfterMatch(false);
         Whitebox.setInternalState(sampleRules.get(0), "configuration", configuration);
 
-        BuildHistoryManager discarder = new BuildHistoryManager(sampleRules);
+        BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
         Job<?, ?> job = JobBuilder.buildSampleJob();
 
         // when
-        discarder.perform(job);
+        buildHistoryManager.perform(job);
 
         // then
         assertThat(((RuleBuilder.TestRule) sampleRules.get(0)).validateConditionsTimes).isOne();

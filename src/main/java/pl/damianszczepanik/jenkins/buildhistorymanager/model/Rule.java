@@ -26,7 +26,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     private final RuleConfiguration configuration = new RuleConfiguration();
 
-    private String uniquePerformName;
+    private String jobName;
 
     @DataBoundConstructor
     public Rule(List<Condition> conditions, List<Action> actions) {
@@ -60,8 +60,8 @@ public class Rule extends AbstractDescribableImpl<Rule> {
         return configuration.isContinueAfterMatch();
     }
 
-    public void setJobName(String uniquePerformName) {
-        this.uniquePerformName = uniquePerformName;
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
     }
 
     /**
@@ -73,11 +73,11 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     public boolean matchesConditions(Run<?, ?> run) {
         // validateConditions condition one by one...
         for (Condition condition : conditions) {
-            log(uniquePerformName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
+            log(jobName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
             boolean conditionMatched = condition.matches(run, configuration);
             // stop checking rest conditions when at least condition does not match
             if (!conditionMatched) {
-                log(uniquePerformName, String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
+                log(jobName, String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
                 return false;
             }
         }
@@ -87,7 +87,7 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     public void performActions(Run<?, ?> run) throws IOException, InterruptedException {
         for (Action action : actions) {
-            log(uniquePerformName, String.format("Processing action '%s' for build #%d",
+            log(jobName, String.format("Processing action '%s' for build #%d",
                     action.getDescriptor().getDisplayName(), run.getNumber()));
             action.perform(run);
         }
