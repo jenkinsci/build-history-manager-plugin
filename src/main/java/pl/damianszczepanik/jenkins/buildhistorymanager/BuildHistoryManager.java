@@ -47,23 +47,23 @@ public class BuildHistoryManager extends BuildDiscarder {
      */
     @Override
     public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
-        String uniquePerformName = job.getFullName();
-        log(uniquePerformName, "Start evaluating build history for build " + job.getFullName());
+        String jobName = job.getFullName();
+        log(jobName, "Start evaluating build history for build " + job.getFullName());
 
         List<RuleValidator> ruleValidators = new ArrayList<>();
         // reset counters of matched builds
         for (Rule rule : rules) {
-            ruleValidators.add(new RuleValidator(rule, uniquePerformName));
+            ruleValidators.add(new RuleValidator(rule, jobName));
         }
 
         Run<?, ?> run = job.getLastCompletedBuild();
         // for each completed build...
         while (run != null) {
-            log(uniquePerformName, "Processing build #" + run.getNumber());
+            log(jobName, "Processing build #" + run.getNumber());
             if (run.isKeepLog()) {
-                log(uniquePerformName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
+                log(jobName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
             } else {
-                processRules(ruleValidators, run, uniquePerformName);
+                processRules(ruleValidators, run, jobName);
             }
 
             // validateConditions rules for previous build - completed in case some previous are still building
