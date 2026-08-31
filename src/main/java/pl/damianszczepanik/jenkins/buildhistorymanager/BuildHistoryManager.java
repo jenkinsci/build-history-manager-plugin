@@ -10,6 +10,7 @@ import hudson.Util;
 import hudson.model.Job;
 import hudson.model.Run;
 import jenkins.model.BuildDiscarder;
+import jenkins.model.GlobalConfiguration;
 import org.kohsuke.stapler.DataBoundConstructor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.control.RuleValidator;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
@@ -47,9 +48,15 @@ public class BuildHistoryManager extends BuildDiscarder {
      */
     @Override
     public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
+        GlobalLevelConfiguration globalConfiguration = GlobalConfiguration.all().get(GlobalLevelConfiguration.class);
+
         String jobName = job.getFullName();
         log(jobName, "Start evaluating build history for build " + job.getFullName());
-
+        if (globalConfiguration == null) {
+            log(jobName, String.format("Found none global rule and %d job rules", rules.size()));
+        } else {
+            log(jobName, String.format("Found %d global rules and %d job rules", globalConfiguration.getRules().size(), rules.size()));
+        }
         List<RuleValidator> ruleValidators = new ArrayList<>();
         // reset counters of matched builds
         for (Rule rule : rules) {

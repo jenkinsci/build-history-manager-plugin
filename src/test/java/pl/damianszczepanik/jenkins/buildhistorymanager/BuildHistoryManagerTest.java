@@ -2,6 +2,7 @@ package pl.damianszczepanik.jenkins.buildhistorymanager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -12,12 +13,15 @@ import java.util.logging.Logger;
 
 import hudson.model.Job;
 import hudson.model.Run;
+import jenkins.model.GlobalConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.powermock.reflect.Whitebox;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleBuilder;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
+import pl.damianszczepanik.jenkins.buildhistorymanager.utils.ExtensionListStub;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 
 /**
@@ -67,10 +71,10 @@ class BuildHistoryManagerTest {
 
         // given
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
+        Job job = JobBuilder.buildSampleJob();
 
         // when
-        buildHistoryManager.perform(job);
+        performWithMockedGlobalLevelConfiguration(buildHistoryManager, job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -85,10 +89,9 @@ class BuildHistoryManagerTest {
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
         Run keptRun = mock(Run.class);
         when(keptRun.isKeepLog()).thenReturn(true);
-        Job<?, ?> job = JobBuilder.buildSampleJob(keptRun);
+        Job job = JobBuilder.buildSampleJob(keptRun);
 
-        // when
-        buildHistoryManager.perform(job);
+        performWithMockedGlobalLevelConfiguration(buildHistoryManager, job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -101,10 +104,10 @@ class BuildHistoryManagerTest {
 
         // given
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
+        Job job = JobBuilder.buildSampleJob();
 
         // when
-        buildHistoryManager.perform(job);
+        performWithMockedGlobalLevelConfiguration(buildHistoryManager, job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -119,10 +122,10 @@ class BuildHistoryManagerTest {
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(true), new RuleBuilder.TestRule(true));
 
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
+        Job job = JobBuilder.buildSampleJob();
 
         // when
-        buildHistoryManager.perform(job);
+        performWithMockedGlobalLevelConfiguration(buildHistoryManager, job);
 
         // then
         for (Rule rule : sampleRules) {
@@ -140,13 +143,21 @@ class BuildHistoryManagerTest {
         Whitebox.setInternalState(sampleRules.get(0), "configuration", configuration);
 
         BuildHistoryManager buildHistoryManager = new BuildHistoryManager(sampleRules);
-        Job<?, ?> job = JobBuilder.buildSampleJob();
+        Job job = JobBuilder.buildSampleJob();
 
         // when
-        buildHistoryManager.perform(job);
+        performWithMockedGlobalLevelConfiguration(buildHistoryManager, job);
 
         // then
         assertThat(((RuleBuilder.TestRule) sampleRules.get(0)).validateConditionsTimes).isOne();
         assertThat(((RuleBuilder.TestRule) sampleRules.get(1)).validateConditionsTimes).isZero();
+    }
+
+    private void performWithMockedGlobalLevelConfiguration(BuildHistoryManager buildHistoryManager, Job job) throws IOException, InterruptedException {
+        try (MockedStatic<GlobalConfiguration> globalConfig = mockStatic(GlobalConfiguration.class)) {
+            globalConfig.when(() -> GlobalConfiguration.all()).thenReturn(new ExtensionListStub());
+
+            buildHistoryManager.perform(job);
+        }
     }
 }
