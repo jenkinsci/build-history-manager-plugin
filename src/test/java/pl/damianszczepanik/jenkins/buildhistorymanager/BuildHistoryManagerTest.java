@@ -27,17 +27,21 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.JobBuilder;
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
  */
-class BuildHistoryManagerTest {
+public class BuildHistoryManagerTest {
 
     private List<Rule> sampleRules;
+
+    public static void setUpLogger() {
+        Logger logger = Logger.getLogger(BuildHistoryManager.class.getName());
+        logger.setLevel(Level.ALL);
+        Whitebox.setInternalState(BuildHistoryManager.class, "LOG", logger);
+    }
 
     @BeforeEach
     void setUp() {
         sampleRules = Arrays.asList(new RuleBuilder.TestRule(false), new RuleBuilder.TestRule(false));
 
-        Logger logger = Logger.getLogger(BuildHistoryManager.class.getName());
-        logger.setLevel(Level.ALL);
-        Whitebox.setInternalState(BuildHistoryManager.class, "LOG", logger);
+        setUpLogger();
     }
 
     @Test

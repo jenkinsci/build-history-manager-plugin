@@ -2,7 +2,6 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
 import java.util.Optional;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import hudson.Util;
@@ -10,6 +9,7 @@ import hudson.model.ParameterValue;
 import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
+import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 
 /**
@@ -18,8 +18,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class BuildParameterCondition extends Condition {
-
-    private static final Logger LOG = Logger.getLogger(BuildParameterCondition.class.getName());
 
     private String parameterName;
     private String parameterValue;
@@ -51,20 +49,20 @@ public class BuildParameterCondition extends Condition {
     public boolean matches(Run<?, ?> run, RuleConfiguration configuration) {
         if (Util.fixEmpty(parameterName) == null) {
             // should not happen for valid configuration
-            LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
+            BuildHistoryManager.LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
                     parameterName, run.getDisplayName()));
             return false;
         }
         if (Util.fixEmpty(parameterValue) == null) {
             // should not happen for valid configuration
-            LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
+            BuildHistoryManager.LOG.log(Level.WARNING, () -> String.format("Parameter %s is empty for job %s",
                     parameterName, run.getDisplayName()));
             return false;
         }
         ParameterValue parameter = getParameter(run);
         if (parameter == null) {
             // this build does not have defined expected parameter
-            LOG.log(Level.WARNING, () -> String.format("Parameter %s is not present for job %s",
+            BuildHistoryManager.LOG.log(Level.WARNING, () -> String.format("Parameter %s is not present for job %s",
                     parameterName, run.getDisplayName()));
             return false;
         } else {

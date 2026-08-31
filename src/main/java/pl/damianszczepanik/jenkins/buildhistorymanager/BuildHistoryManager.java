@@ -23,7 +23,10 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
  */
 public class BuildHistoryManager extends BuildDiscarder {
 
-    private static final Logger LOG = Logger.getLogger(BuildHistoryManager.class.getName());
+    /**
+     * Logger used by all plugin classes.
+     */
+    public static final Logger LOG = Logger.getLogger(BuildHistoryManager.class.getName());
 
     private final List<Rule> rules;
 
@@ -51,11 +54,11 @@ public class BuildHistoryManager extends BuildDiscarder {
         GlobalLevelConfiguration globalConfiguration = GlobalConfiguration.all().get(GlobalLevelConfiguration.class);
 
         String jobName = job.getFullName();
-        log(jobName, "Start evaluating build history for build " + job.getFullName());
+        logMessage(jobName, "Start evaluating build history for build " + job.getFullName());
         if (globalConfiguration == null) {
-            log(jobName, String.format("Found none global rule and %d job rules", rules.size()));
+            logMessage(jobName, String.format("Found none global rule and %d job rules", rules.size()));
         } else {
-            log(jobName, String.format("Found %d global rules and %d job rules", globalConfiguration.getRules().size(), rules.size()));
+            logMessage(jobName, String.format("Found %d global rules and %d job rules", globalConfiguration.getRules().size(), rules.size()));
         }
         List<RuleValidator> ruleValidators = new ArrayList<>();
         // reset counters of matched builds
@@ -66,9 +69,9 @@ public class BuildHistoryManager extends BuildDiscarder {
         Run<?, ?> run = job.getLastCompletedBuild();
         // for each completed build...
         while (run != null) {
-            log(jobName, "Processing build #" + run.getNumber());
+            logMessage(jobName, "Processing build #" + run.getNumber());
             if (run.isKeepLog()) {
-                log(jobName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
+                logMessage(jobName, "Build #" + run.getNumber() + " is marked as keep forever -> skip processing");
             } else {
                 processRules(ruleValidators, run, jobName);
             }
@@ -83,9 +86,9 @@ public class BuildHistoryManager extends BuildDiscarder {
     private void processRules(List<RuleValidator> ruleValidators, Run<?, ?> run, String jobName) throws IOException, InterruptedException {
         for (int i = 0; i < ruleValidators.size(); i++) {
             RuleValidator ruleValidator = ruleValidators.get(i);
-            log(jobName, "Processing rule no " + (i + 1));
+            logMessage(jobName, "Processing rule no " + (i + 1));
             if (ruleValidator.validateConditions(run)) {
-                log(jobName, "Processing actions for rule no " + (i + 1));
+                logMessage(jobName, "Processing actions for rule no " + (i + 1));
                 ruleValidator.getRule().performActions(run);
 
                 // if other rules should not be proceed, shift to next build
@@ -96,7 +99,7 @@ public class BuildHistoryManager extends BuildDiscarder {
         }
     }
 
-    private static void log(String jobName, String message) {
+    public static void logMessage(String jobName, String message) {
         LOG.log(Level.FINE, () -> String.format("[%s] %s", jobName, message));
     }
 }

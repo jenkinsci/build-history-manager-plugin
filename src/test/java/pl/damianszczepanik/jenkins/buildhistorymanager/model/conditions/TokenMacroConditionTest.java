@@ -5,13 +5,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import hudson.model.Run;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.powermock.reflect.Whitebox;
+import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManagerTest;
 
 /**
  * @author Damian Szczepanik (damianszczepanik@github)
@@ -20,9 +18,7 @@ class TokenMacroConditionTest {
 
     @BeforeEach
     void setUp() {
-        Logger logger = Logger.getLogger(TokenMacroCondition.class.getName());
-        logger.setLevel(Level.ALL);
-        Whitebox.setInternalState(TokenMacroCondition.class, "LOG", logger);
+        BuildHistoryManagerTest.setUpLogger();
     }
 
     @Test

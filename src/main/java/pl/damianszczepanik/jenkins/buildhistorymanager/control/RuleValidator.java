@@ -1,8 +1,5 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.control;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import hudson.model.Run;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
@@ -13,8 +10,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class RuleValidator {
-
-    private static final Logger LOG = Logger.getLogger(BuildHistoryManager.class.getName());
 
     private final Rule rule;
 
@@ -39,7 +34,7 @@ public class RuleValidator {
     public boolean validateConditions(Run<?, ?> run) {
         // stop checking if max number of processed builds is reached
         if (matchedTimes == rule.getMatchAtMost()) {
-            log(jobName, String.format("Skipping rule because matched %d times", matchedTimes));
+            BuildHistoryManager.logMessage(jobName, String.format("Skipping rule because matched %d times", matchedTimes));
             return false;
         }
 
@@ -48,9 +43,5 @@ public class RuleValidator {
             matchedTimes++;
         }
         return matched;
-    }
-
-    private static void log(String jobName, String message) {
-        LOG.log(Level.FINE, () -> String.format("[%s] %s", jobName, message));
     }
 }

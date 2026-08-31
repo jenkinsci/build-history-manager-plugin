@@ -2,14 +2,13 @@ package pl.damianszczepanik.jenkins.buildhistorymanager.model;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import hudson.Util;
 import hudson.model.AbstractDescribableImpl;
 import hudson.model.Run;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
+import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.actions.Action;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Condition;
 
@@ -17,8 +16,6 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions.Conditio
  * @author Damian Szczepanik (damianszczepanik@github)
  */
 public class Rule extends AbstractDescribableImpl<Rule> {
-
-    private static final Logger LOG = Logger.getLogger(Rule.class.getName());
 
     private final List<Condition> conditions;
 
@@ -73,11 +70,11 @@ public class Rule extends AbstractDescribableImpl<Rule> {
     public boolean matchesConditions(Run<?, ?> run) {
         // validateConditions condition one by one...
         for (Condition condition : conditions) {
-            log(jobName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
+            BuildHistoryManager.logMessage(jobName, String.format("Processing condition '%s'", condition.getDescriptor().getDisplayName()));
             boolean conditionMatched = condition.matches(run, configuration);
             // stop checking rest conditions when at least condition does not match
             if (!conditionMatched) {
-                log(jobName, String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
+                BuildHistoryManager.logMessage(jobName, String.format("Condition '%s' does not match", condition.getDescriptor().getDisplayName()));
                 return false;
             }
         }
@@ -87,13 +84,9 @@ public class Rule extends AbstractDescribableImpl<Rule> {
 
     public void performActions(Run<?, ?> run) throws IOException, InterruptedException {
         for (Action action : actions) {
-            log(jobName, String.format("Processing action '%s' for build #%d",
+            BuildHistoryManager.logMessage(jobName, String.format("Processing action '%s' for build #%d",
                     action.getDescriptor().getDisplayName(), run.getNumber()));
             action.perform(run);
         }
-    }
-
-    private static void log(String jobName, String message) {
-        LOG.log(Level.FINE, () -> String.format("[%s] %s", jobName, message));
     }
 }
