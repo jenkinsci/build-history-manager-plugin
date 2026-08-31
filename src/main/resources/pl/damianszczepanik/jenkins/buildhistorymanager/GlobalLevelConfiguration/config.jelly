@@ -1,0 +1,16 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:section title="Build History Manager">
+
+        <f:entry field="precedenceMode" title="Precedence mode for execution">
+            <f:select/>
+        </f:entry>
+
+        <f:advanced>
+            <f:entry field="rules">
+                <f:repeatableProperty field="rules" minimum="0" add="Add global rule"/>
+            </f:entry>
+        </f:advanced>
+
+    </f:section>
+</j:jelly>
