@@ -2,7 +2,8 @@
 <div>
     Allows to build complex rules to decide which builds should be deleted from the
     history. Build number, age, result (status) and many more rules can be used as a factor.
+    Rules can be managed at the job level and globally by the organization.
     Visit
     <a href="https://github.com/jenkinsci/build-history-manager-plugin/wiki">wiki</a>
-    to check list of available features.
+    to check all available features.
 </div>
