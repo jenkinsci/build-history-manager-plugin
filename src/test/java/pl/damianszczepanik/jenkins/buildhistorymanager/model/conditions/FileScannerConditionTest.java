@@ -29,13 +29,12 @@ class FileScannerConditionTest {
         // given
         FileScannerCondition condition = new FileScannerCondition();
         String pattern = "include*Pattern";
-        condition.setIncludePattern(pattern);
 
         // when
-        String returnedPattern = condition.getIncludePattern();
+        condition.setIncludePattern(pattern);
 
         // then
-        assertThat(returnedPattern).isEqualTo(pattern);
+        assertThat(condition.getIncludePattern()).isEqualTo(pattern);
     }
 
     @Test
@@ -44,13 +43,43 @@ class FileScannerConditionTest {
         // given
         FileScannerCondition condition = new FileScannerCondition();
         String pattern = "exclude?Pattern";
+
+        // when
+        condition.setExcludePattern(pattern);
+
+        // then
+        assertThat(condition.getExcludePattern()).isEqualTo(pattern);
+    }
+
+
+    @Test
+    void setIncludePattern_IgnoresNullValue() {
+
+        // given
+        FileScannerCondition condition = new FileScannerCondition();
+        String pattern = "includeNotNullPattern";
+        condition.setIncludePattern(pattern);
+
+        // when
+        condition.setIncludePattern(null);
+
+        // then
+        assertThat(condition.getIncludePattern()).isEqualTo(pattern);
+    }
+
+    @Test
+    void setExcludePattern_IgnoresNullValue() {
+
+        // given
+        FileScannerCondition condition = new FileScannerCondition();
+        String pattern = "excludeNotNullPattern";
         condition.setExcludePattern(pattern);
 
         // when
-        String returnedPattern = condition.getExcludePattern();
+        condition.setExcludePattern(null);
 
         // then
-        assertThat(returnedPattern).isEqualTo(pattern);
+        assertThat(condition.getExcludePattern()).isEqualTo(pattern);
     }
 
     @Test

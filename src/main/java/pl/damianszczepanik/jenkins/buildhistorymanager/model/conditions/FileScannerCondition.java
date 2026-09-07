@@ -1,5 +1,6 @@
 package pl.damianszczepanik.jenkins.buildhistorymanager.model.conditions;
 
+import hudson.Util;
 import hudson.model.Run;
 import org.apache.tools.ant.DirectoryScanner;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -29,7 +30,7 @@ public class FileScannerCondition extends Condition {
 
     @DataBoundSetter
     public void setIncludePattern(String includePattern) {
-        this.includePattern = includePattern;
+        this.includePattern = Util.fixNull(includePattern, this.includePattern);
     }
 
     public String getExcludePattern() {
@@ -38,7 +39,7 @@ public class FileScannerCondition extends Condition {
 
     @DataBoundSetter
     public void setExcludePattern(String excludePattern) {
-        this.excludePattern = excludePattern;
+        this.excludePattern = Util.fixNull(excludePattern, this.excludePattern);
     }
 
     public boolean isCaseSensitive() {

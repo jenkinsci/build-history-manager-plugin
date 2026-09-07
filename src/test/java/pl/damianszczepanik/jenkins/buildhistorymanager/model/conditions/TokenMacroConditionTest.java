@@ -26,7 +26,8 @@ class TokenMacroConditionTest {
 
         // given
         String template = "myTemplate";
-        TokenMacroCondition condition = new TokenMacroCondition(template, null);
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setTemplate(template);
 
         // when
         String returnedTemplate = condition.getTemplate();
@@ -40,7 +41,8 @@ class TokenMacroConditionTest {
 
         // given
         String value = "myValue";
-        TokenMacroCondition condition = new TokenMacroCondition(null, value);
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setValue(value);
 
         // when
         String returnedValue = condition.getValue();
@@ -49,13 +51,46 @@ class TokenMacroConditionTest {
         assertThat(returnedValue).isEqualTo(value);
     }
 
+
+    @Test
+    void setTemplate_IgnoresNullValue() {
+
+        // given
+        String template = "myNotNullTemplate";
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setTemplate(template);
+
+        // when
+        condition.setTemplate(null);
+
+        // then
+        assertThat(condition.getTemplate()).isEqualTo(template);
+    }
+
+    @Test
+    void setValue_IgnoresNullValue() {
+
+        // given
+        String value = "myNotNullValue";
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setValue(value);
+
+        // when
+        condition.setValue(null);
+
+        // then
+        assertThat(condition.getValue()).isEqualTo(value);
+    }
+
     @Test
     void matches_OnMatchedTemplate_ReturnsTrue() {
 
         // given
         String template = "myTemplate";
         String value = template;
-        TokenMacroCondition condition = new TokenMacroCondition(template, value);
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setTemplate(template);
+        condition.setValue(value);
 
         Run run = mockRun();
 
@@ -72,7 +107,9 @@ class TokenMacroConditionTest {
         // given
         String template = "myTemplate";
         String value = "myValue";
-        TokenMacroCondition condition = new TokenMacroCondition(template, value);
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setTemplate(template);
+        condition.setValue(value);
 
         Run run = mockRun();
 
@@ -89,7 +126,9 @@ class TokenMacroConditionTest {
         // given
         String template = "myTemplate$$";
         String value = "myValue";
-        TokenMacroCondition condition = new TokenMacroCondition(template, value);
+        TokenMacroCondition condition = new TokenMacroCondition();
+        condition.setTemplate(template);
+        condition.setValue(value);
 
         Run run = mockRun();
 
