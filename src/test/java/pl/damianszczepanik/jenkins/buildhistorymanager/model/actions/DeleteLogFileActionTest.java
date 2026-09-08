@@ -11,14 +11,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import org.powermock.reflect.Whitebox;
+import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManagerTest;
 import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
 
 /**
@@ -28,9 +26,7 @@ class DeleteLogFileActionTest {
 
     @BeforeEach
     void setUp() {
-        Logger logger = Logger.getLogger(DeleteLogFileAction.class.getName());
-        logger.setLevel(Level.ALL);
-        Whitebox.setInternalState(DeleteLogFileAction.class, "LOG", logger);
+        BuildHistoryManagerTest.setUpLogger();
     }
 
     @Test

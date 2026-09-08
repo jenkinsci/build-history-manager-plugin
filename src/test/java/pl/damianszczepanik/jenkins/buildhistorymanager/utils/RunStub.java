@@ -11,13 +11,13 @@ import java.util.Date;
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import hudson.Util;
 import hudson.model.Cause;
 import hudson.model.Job;
 import hudson.model.ParameterValue;
 import hudson.model.Result;
 import hudson.model.Run;
 import hudson.security.Permission;
-import hudson.Util;
 import org.powermock.reflect.Whitebox;
 
 /**
@@ -120,14 +120,14 @@ public class RunStub extends Run {
         return logFile != null ? logFile : mock(File.class);
     }
 
-    // skips serialization which is quite problematic
     @Override
     public synchronized void save() {
+        // skips serialization which is quite problematic
     }
 
-    // skips security checking which is quite problematic
     @Override
     public void checkPermission(Permission permission) {
+        // skips security checking which is quite problematic
     }
 
     public void assertBuildWasDeleted() {
