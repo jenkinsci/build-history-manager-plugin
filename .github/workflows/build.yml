@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-java@v5.6.0
         with:
           java-version: ${{ matrix.java }}
-          distribution: adopt
+          distribution: temurin
 
       # requires by org.jenkins-ci.plugins:plugin:5.x
       # can be deleted when default maven will be upgraded from 3.8.*
