@@ -10,6 +10,7 @@ import hudson.model.Run;
 import org.jenkinsci.plugins.tokenmacro.MacroEvaluationException;
 import org.jenkinsci.plugins.tokenmacro.TokenMacro;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 import pl.damianszczepanik.jenkins.buildhistorymanager.BuildHistoryManager;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.RuleConfiguration;
 
@@ -32,17 +33,26 @@ public class TokenMacroCondition extends Condition {
 
     // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     @DataBoundConstructor
-    public TokenMacroCondition(String template, String value) {
-        this.template = Util.fixNull(template);
-        this.value = Util.fixNull(value);
+    public TokenMacroCondition() {
+        // Jenkins stapler requires to have public constructor with @DataBoundConstructor
     }
 
     public String getTemplate() {
         return template;
     }
 
+    @DataBoundSetter
+    public void setTemplate(String template) {
+        this.template = Util.fixNull(template, this.template);
+    }
+
     public String getValue() {
         return value;
+    }
+
+    @DataBoundSetter
+    public void setValue(String value) {
+        this.value = Util.fixNull(value, this.value);
     }
 
     @Override

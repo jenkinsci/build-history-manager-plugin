@@ -26,7 +26,9 @@ public class BuildNumberRangeCondition extends Condition {
 
     @DataBoundSetter
     public void setMinBuildNumber(int minBuildNumber) {
-        this.minBuildNumber = minBuildNumber;
+        if (minBuildNumber > 0) {
+            this.minBuildNumber = minBuildNumber;
+        }
     }
 
     public int getMaxBuildNumber() {
@@ -35,7 +37,9 @@ public class BuildNumberRangeCondition extends Condition {
 
     @DataBoundSetter
     public void setMaxBuildNumber(int maxBuildNumber) {
-        this.maxBuildNumber = maxBuildNumber;
+        if (maxBuildNumber > 0) {
+            this.maxBuildNumber = maxBuildNumber;
+        }
     }
 
     @Override

@@ -28,7 +28,9 @@ public class BuildAgeRangeCondition extends Condition {
 
     @DataBoundSetter
     public void setMinDaysAge(int minDaysAge) {
-        this.minDaysAge = minDaysAge;
+        if (minDaysAge >= 0) {
+            this.minDaysAge = minDaysAge;
+        }
     }
 
     public int getMaxDaysAge() {
@@ -37,7 +39,9 @@ public class BuildAgeRangeCondition extends Condition {
 
     @DataBoundSetter
     public void setMaxDaysAge(int maxDaysAge) {
-        this.maxDaysAge = maxDaysAge;
+        if (maxDaysAge >= 0) {
+            this.maxDaysAge = maxDaysAge;
+        }
     }
 
     @Override
