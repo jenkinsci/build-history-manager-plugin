@@ -10,9 +10,10 @@ import hudson.Util;
 import hudson.model.Job;
 import hudson.model.Run;
 import jenkins.model.BuildDiscarder;
-import jenkins.model.GlobalConfiguration;
 import org.kohsuke.stapler.DataBoundConstructor;
 import pl.damianszczepanik.jenkins.buildhistorymanager.control.RuleValidator;
+import pl.damianszczepanik.jenkins.buildhistorymanager.control.RulesSelector;
+import pl.damianszczepanik.jenkins.buildhistorymanager.model.PrecedenceMode;
 import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
 
 /**
@@ -51,18 +52,20 @@ public class BuildHistoryManager extends BuildDiscarder {
      */
     @Override
     public synchronized void perform(Job<?, ?> job) throws IOException, InterruptedException {
-        GlobalLevelConfiguration globalConfiguration = GlobalConfiguration.all().get(GlobalLevelConfiguration.class);
+        GlobalLevelConfiguration globalConfiguration = GlobalLevelConfiguration.get();
 
         String jobName = job.getFullName();
         logMessage(jobName, "Start evaluating build history for build " + job.getFullName());
-        if (globalConfiguration == null) {
-            logMessage(jobName, String.format("Found none global rule and %d job rules", rules.size()));
-        } else {
-            logMessage(jobName, String.format("Found %d global rules and %d job rules", globalConfiguration.getRules().size(), rules.size()));
-        }
+        logMessage(jobName, String.format("Found %d global rules and %d job rules", globalConfiguration.getRules().size(), rules.size()));
+
+        RulesSelector rulesSelector = new RulesSelector(PrecedenceMode.valueOf(globalConfiguration.getPrecedenceMode()));
+        rulesSelector.setGlobalRules(globalConfiguration.getRules());
+        rulesSelector.setJobRules(this.rules);
+        List<Rule> rulesToExecute = rulesSelector.selectRolesToExecute();
+
         List<RuleValidator> ruleValidators = new ArrayList<>();
         // reset counters of matched builds
-        for (Rule rule : rules) {
+        for (Rule rule : rulesToExecute) {
             ruleValidators.add(new RuleValidator(rule, jobName));
         }
 

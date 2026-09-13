@@ -72,4 +72,8 @@ public class GlobalLevelConfiguration extends GlobalConfiguration {
                 new ListBoxModel.Option(Messages.configuration_precedenceMode_JOB_THEN_GLOBAL(), PrecedenceMode.JOB_THEN_GLOBAL.name())
         );
     }
+
+    public static GlobalLevelConfiguration get() {
+        return GlobalConfiguration.all().get(GlobalLevelConfiguration.class);
+    }
 }
