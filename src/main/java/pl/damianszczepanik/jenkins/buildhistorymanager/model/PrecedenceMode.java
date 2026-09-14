@@ -22,5 +22,5 @@ public enum PrecedenceMode {
     /**
      * Use job level configuration, then global configuration.
      */
-    JOB_THEN_GLOBAL
+    JOB_THEN_GLOBAL;
 }

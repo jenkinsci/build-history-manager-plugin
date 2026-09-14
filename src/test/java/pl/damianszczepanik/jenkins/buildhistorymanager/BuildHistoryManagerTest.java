@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import hudson.ExtensionList;
 import hudson.model.Job;
 import hudson.model.Run;
 import jenkins.model.GlobalConfiguration;
@@ -158,8 +159,9 @@ public class BuildHistoryManagerTest {
     }
 
     private void performWithMockedGlobalLevelConfiguration(BuildHistoryManager buildHistoryManager, Job job) throws IOException, InterruptedException {
+        ExtensionList extensionList = new ExtensionListStub();
         try (MockedStatic<GlobalConfiguration> globalConfig = mockStatic(GlobalConfiguration.class)) {
-            globalConfig.when(() -> GlobalConfiguration.all()).thenReturn(new ExtensionListStub());
+            globalConfig.when(() -> GlobalConfiguration.all()).thenReturn(extensionList);
 
             buildHistoryManager.perform(job);
         }
