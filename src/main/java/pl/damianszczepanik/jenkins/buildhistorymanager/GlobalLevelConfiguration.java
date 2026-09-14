@@ -32,17 +32,6 @@ public class GlobalLevelConfiguration extends GlobalConfiguration {
         super.load();
     }
 
-    @Override
-    public boolean configure(StaplerRequest2 req, JSONObject formData) throws FormException {
-        // list must be bind additionally because when the list is cleared
-        // then setRules() method is not invoked and previous values persists incorrectly
-        rules = req.bindJSONToList(Rule.class, formData.get("rules"));
-        req.bindJSON(this, formData);
-        save();
-
-        return super.configure(req, formData);
-    }
-
     @DataBoundSetter
     public void setRules(List<Rule> rules) {
         this.rules = Util.fixNull(rules);
@@ -59,6 +48,17 @@ public class GlobalLevelConfiguration extends GlobalConfiguration {
 
     public String getPrecedenceMode() {
         return precedenceMode.name();
+    }
+
+    @Override
+    public boolean configure(StaplerRequest2 req, JSONObject formData) throws FormException {
+        // list must be bind additionally because when the list is cleared
+        // then setRules() method is not invoked and previous values persists incorrectly
+        rules = req.bindJSONToList(Rule.class, formData.get("rules"));
+        req.bindJSON(this, formData);
+        save();
+
+        return super.configure(req, formData);
     }
 
     // names must refer to the field name
