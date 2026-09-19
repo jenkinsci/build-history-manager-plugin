@@ -10,41 +10,51 @@
 [![Version](https://img.shields.io/jenkins/plugin/v/build-history-manager)](https://github.com/jenkinsci/build-history-manager-plugin/releases)
 
 # Build History Manager Plugin
-This is a [Jenkins](https://jenkins.io/) plugin that allows the building of simple but powerful rules
-to define which builds should be removed from the history and which ones should be preserved.
 
-The rules use conditionals to filter (select) completed builds from the build history and actions to operate on the builds selected by the conditionals.
+This [Jenkins](https://jenkins.io/) plugin enables you to create simple yet powerful rules to control build retention
+and cleanup. Rules use conditionals to filter completed builds from your history and actions to retain or delete the
+selected builds.
+
+Rules evaluate completed builds using conditionals to filter the build history, then trigger actions on the matching
+builds.
 
 ## Rules
 
-Users can add Build History Manager rules to Jenkins jobs. The rules are composed of three types of objects:
+Users can add Build History Manager rules to each Jenkins jobs. The rules are composed of following object:
 
-1. Built-in conditions that control the applications of rules to builds,
-2. Optional [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java)s that are ANDed together to filter (select) builds,
-3. Optional [Action](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java)s that are applied to builds when all their rule's conditions are met.
+1. Built-in Conditions: Control whether
+   a [Rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) applies to a given build.
+2. [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java)s
+   evaluate combined criteria (using logical AND) to filter and select builds.
+3. [Action](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java)s execute on
+   matching builds when all rule conditions are satisfied.
 
 ### Built-in conditions
 
-The plugin has three built-in conditions that control the flow of operations. Users cannot remove these conditions.
-The first one is built-in to the plugin for all rules, and the other two are configurable on a per-rule basis.
+The plugin uses three mandatory built-in conditions to control execution flow. One condition is applied to all rules by
+the plugin, while the other two are configurable on a per-rule basis.
 
 The built-in conditions are:
 
-1. A global check for the "Keep this build forever" state, and when it returns true, rules are not applied to the build.
-   This currently cannot be controlled nor configured by the user.
-2. A per-rule `matchAtMost` counter (`Process this rule at most (times)` in the UI) that limits the number of times a rule can be applied
-   (default is `-1`, meaning there is no limit).
-3. A per-rule `continueAfterMatch` boolean (`Proceed to the next rule if the conditions of this rule are met` in the UI)
-   that causes the plugin to apply the next rule to the same build after the current rule has been applied
-   (default is `true`, meaning to continue to apply rules to the build being processed).
+1. __Keep Forever Check__: Checks the "Keep this build forever" attribute for the build. If enabled, rules are not
+   applied to it, protecting it from automated plugin actions.
+2. `matchAtMost` Counter: Limits the maximum number of times a rule can be applied ("Process this rule at most (times)"
+   in the UI). The default is -1 (unlimited).
+3. `continueAfterMatch` Flag: Determines whether evaluation proceeds to the next rule for the current build once this
+   rule matches ("Proceed to the next rule if the conditions of this rule are met" in the UI). The default is true.
+
+### Global configuration
+
+The plugin supports a global configuration that enables DevOps teams and administrators to manage retention policies at
+the top-level directory. This approach allows a single configuration to be applied uniformly across all Jenkins jobs.
+
+![global overview page](./.README/global-configuration.png)
 
 ### Optional Conditions
 
-Users can add a list of [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java)s to each rule,
-in any order they need.
-The conditions are checked in the order they are defined.
-
-The conditions are:
+Users can add
+multiple [Condition](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/Condition.java)s
+to a rule in any order. Conditions are evaluated sequentially in the order they are defined. The conditions are:
 
 - [Build age range](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/BuildAgeRangeCondition.java)
 - [Build cause](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/CauseCondition.java)
@@ -53,84 +63,79 @@ The conditions are:
 - [Match every build](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/MatchEveryBuildCondition.java)
 - [Token Macro](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/conditions/TokenMacroCondition.java)
 
-Providing the built-in conditions allow, the optional condition checks have the following effects:
+Assuming the built-in conditions pass, optional conditions evaluate as follows:
 
-1. As soon as one of the conditions does not match, the plugin ignores the rule's Actions.
-2. When all the conditions of the rule are met, the plugin applies the rule's Actions.
-3. When no optional conditions are specified, the plugin automatically applies the rule's Actions.
+1. If any condition fails: The rule's actions are skipped.
+2. If all conditions pass: The rule's actions are executed on the build.
+3. If no conditions are defined: The rule's actions are executed automatically.
 
 ### Optional Actions
-
-Users can add a list of [Action](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/Action.java)s to each rule,
-in any order they need.
-The actions are applied in the order they are defined.
-
-The actions are:
 
 - [Change build description](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/ChangeBuildDescriptionAction.java)
 - [Delete artifacts](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/DeleteArtifactsAction.java)
 - [Delete build](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/DeleteBuildAction.java)
-- [Delete log file](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/DeleteLogFileAction.java) 
+- [Delete log file](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/DeleteLogFileAction.java)
 
-If the first action is to delete the build, the other actions will still be applied but have no real effect.
+Delete actions should be placed last in the list. While preceding actions will still execute if a delete action comes
+first, any subsequent actions will be rendered ineffective.
 
 ## Operation
 
-The plugin starts by initializing the internal match counters for each rule to zero.
+The plugin iterates through completed builds from most recent to oldest. For each build, it evaluates the rules
+sequentially from top to bottom until execution stops or all rules have been processed.
 
-The plugin then loops through all the completed builds in the build history, starting from the most recent,
-and processes each build with possibly every rule (depending on the conditions) by looping through the rule list
-once for each completed build.
+The plugin evaluates builds using the following execution loop:
 
-1. For each completed build, the following happens:
-    1. If the build is marked as keep forever, the build is ignored and the loop moves on to the next completed build.
-    2. For each rule, the following happens to the current build:
-        1. If the "rule match counter" equals the `matchAtMost` value,
-           stop processing the current rule and move on to the next rule (next iteration of "for each rule")
-        2. If there are no optional conditions, or if all the optional conditions are matched, the following happens:
-            1. The rule counter is incremented by one.
-            2. All the actions are performed.
-            3. If `continueAfterMatch` is `true`,
-               the next rule is applied to the same build, and goes to the next iteration of the "for each rule" loop.
-            4. If `continueAfterMatch` is `false`,
-               the plugin stops applying rules to this build, and goes to the next iteration of the "for each completed build" loop.
-        3. If one or more optional conditions are not met,
-           the build continues to the next rule (next iteration of the "for each rule" loop).
+1. __Traverse Builds__: Iterate through completed builds from newest to oldest.
+   __Keep Forever Check__: If the build is marked "Keep this build forever", skip it entirely and proceed to the next
+   build.
+2. __Evaluate Rules__: For each eligible build, process rules sequentially top-to-bottom:
+    1. __Limit Check__: If the rule's match counter equals matchAtMost, skip to the next rule.
+    2. __Condition Check__: Evaluate optional conditions (if any).
+        1. If all conditions match (or none are specified):
+            1. Increment the rule's match counter by 1.
+            2. Execute all configured actions in order.
+            3. If continueAfterMatch is true: Proceed to evaluate the next rule on this same build.
+            4. If continueAfterMatch is false: Stop evaluating rules for this build and jump to the next completed
+               build.
+        2. If any condition fails: Skip actions and proceed to evaluate the next rule on this build.
 
 __Notes__:
 
-1. If the `matchAtMost` value is set to zero, the rule is effectively disabled.
-   This is useful if the user wants to disable a rule while keeping its other configuration values.
-2. Once the `matchAtMost` value is reached, the rule is effectively disabled and is no longer applied.
-3. It may not make sense to continue to apply rules after a build is deleted, but the plugin handles this case gracefully.
-4. Having no condition is a way to unconditionally apply actions to builds, for example to delete all the builds. Use it wisely.
-5. Having no action is a way to ignore builds and keep them in the build history.
+1. Disabling Rules (`matchAtMost` = 0): Setting matchAtMost to 0 effectively disables a rule without deleting its
+   configuration. Once a rule reaches its defined limit, it is skipped in all future evaluations.
+2. Unconditional Execution (No Conditions): Defining a rule with no conditions will automatically execute its actions on
+   every processed build (e.g., to purge all historical builds). Use with caution. 3.Safe No-Op Handling (No Actions):
+   Defining a rule with no actions acts as a filter to ignore specific builds and protect them from subsequent rules.
+4. Post-Deletion Handling: While continuing rule evaluation after a build has been deleted is usually unnecessary, the
+   plugin handles this safely without throwing errors.
 
 ## Use cases
-By using conditions and actions, it becomes straightforward to achieve a number of scenarios, including:
-- Delete [unstable](https://javadoc.jenkins.io/hudson/model/Result.html#UNSTABLE)
-  or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED)
-  builds from the build history if they do not provide any value.
-- Keep only the last builds depending on their [result](https://javadoc.jenkins.io/hudson/model/Result.html),
-  so the history contains the most recent builds with the specified result(s): aborted, unstable, not built, failure, or success.
-- Keep builds only from `master` branch if the project builds all branches including feature branches
-- Remove any builds with a [build number](https://javadoc.jenkins-ci.org/hudson/model/Run.html#getNumber--)
-  lower than the specified value to easily discard all old builds at once.
+
+- __Purge Low-Value Runs__: Automatically
+  delete  [unstable](https://javadoc.jenkins.io/hudson/model/Result.html#UNSTABLE)
+  or [aborted](https://javadoc.jenkins.io/hudson/model/Result.html#ABORTED) builds that no longer provide value.
+- __Result-Based Retention__: Retain only the most recent `N` builds for specific build statuses (e.g., Keep the last 3
+  Aborted, Unstable, Failure, or Success builds).
+- __Branch-Specific Policies__: Limit long-term build retention exclusively to the master branch when job pipelines
+  build both main and feature branches.
+- __Bulk Legacy Cleanup__: Discard all legacy builds with
+  a[build number](https://javadoc.jenkins-ci.org/hudson/model/Run.html#getNumber--) below a specific threshold in a
+  single operation.
 
 ## Examples
 
 ### Keep 5 most recent builds, delete the rest
 
-The following configuration allows to save the last 5 builds, while deleting the rest of the build history:
+The following configuration retains the 5 most recent builds while deleting all older build history:
 
-![feature overview page](./.README/configuration.png)
+![feature overview page](./.README/job-configuration.png)
 
-### Retain most recent broken build
+### Retain most recent failed build
 
-The following configuration has two rules.
-The first rule ensures that the latest build with a `failure` [result](https://javadoc.jenkins-ci.org/hudson/model/Result.html)
-is not deleted. The second rule deletes all builds which are not `success`.
-In other words, it keeps the most recent broken build and all stable builds.
+The following configuration retains the most recent broken build and all stable builds. The first rule protects the
+latest build with a Failure [result](https://javadoc.jenkins-ci.org/hudson/model/Result.html) from deletion, while the
+second rule purges all remaining builds that did not succeed.
 
 ```groovy
 pipeline {
@@ -138,19 +143,19 @@ pipeline {
 
     options {
         buildDiscarder(BuildHistoryManager([
-            [
-                conditions: [
-                    BuildResult(matchFailure: true)
+                [
+                        conditions        : [
+                                BuildResult(matchFailure: true)
+                        ],
+                        matchAtMost       : 1,
+                        continueAfterMatch: false
                 ],
-                matchAtMost: 1,
-                continueAfterMatch: false
-            ],
-            [
-                conditions: [
-                    BuildResult(matchNotBuilt: true, matchAborted: true, matchFailure: true, matchUnstable: true)
-                ],
-                actions: [DeleteBuild()]
-            ]
+                [
+                        conditions: [
+                                BuildResult(matchNotBuilt: true, matchAborted: true, matchFailure: true, matchUnstable: true)
+                        ],
+                        actions   : [DeleteBuild()]
+                ]
         ]))
     }
 
@@ -164,14 +169,11 @@ pipeline {
 }
 ```
 
-### Remove builds based on a parameter
+### Remove builds based on a job parameter
 
-The following configuration has three rules.
-The first rule uses the token macro condition to test the value of a parameter.
-It removes builds where the string value of `ENABLE_HISTORY` is "false".
-The second rule preserves the most recent 24 builds that do not match the first rule.
-The third rule deletes the remaining build.
-Consequently, these three rules work together to preserve the last 24 builds where `ENABLE_HISTORY` is true.
+The following configuration uses three rules to preserve the last 24 builds where `ENABLE_HISTORY` is set to "true". The
+first rule uses a Token Macro Condition to identify and remove builds where `ENABLE_HISTORY` equals "false". The second
+rule protects the 24 most recent remaining builds, and the third rule purges any builds beyond that threshold.
 
 ```groovy
 pipeline {
@@ -179,28 +181,28 @@ pipeline {
 
     options {
         buildDiscarder(BuildHistoryManager([
-            [
-                conditions: [
-                    TokenMacro(template: '"${ENABLE_HISTORY}"', value: '"false"')
+                [
+                        conditions        : [
+                                TokenMacro(template: '"${ENABLE_HISTORY}"', value: '"false"')
+                        ],
+                        actions           : [DeleteBuild()],
+                        continueAfterMatch: false
                 ],
-                actions: [DeleteBuild()],
-                continueAfterMatch: false
-            ],
-            [
-                matchAtMost: 24,
-                continueAfterMatch: false
-            ],
-            [
-                actions: [DeleteBuild()]
-            ]
+                [
+                        matchAtMost       : 24,
+                        continueAfterMatch: false
+                ],
+                [
+                        actions: [DeleteBuild()]
+                ]
         ]))
     }
 
     parameters {
         booleanParam(
-            name: 'ENABLE_HISTORY',
-            defaultValue: true,
-            description: 'Check to preserve build.'
+                name: 'ENABLE_HISTORY',
+                defaultValue: true,
+                description: 'Check to preserve build.'
         )
     }
 
@@ -215,49 +217,61 @@ pipeline {
 ```
 
 ## Wiki
-Please refer to the [Wiki](https://github.com/jenkinsci/build-history-manager-plugin/wiki)
-for more detailed information.
-Additionally, make sure to review the provided guidance on
-[avoiding issues](https://github.com/jenkinsci/build-history-manager-plugin/wiki/Building-good-rules)
-while creating rules.
 
-It is possible to create complex rules with multiple conditions and actions.
-Each [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java)
-can define multiple conditions and actions.
-The plugin entry point is the [BuildHistoryManager](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/BuildHistoryManager.java) class,
-which extends from the Jenkins core [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html) class.
-The [Rule.perform()](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java)
-method serves as the core function responsible for processing conditions and actions.
+Refer to the [Wiki](https://github.com/jenkinsci/build-history-manager-plugin/wiki) for more detailed information and
+advanced configurations. Additionally, review the Rule Creation Guidance to
+help [avoid common](https://github.com/jenkinsci/build-history-manager-plugin/wiki/Building-good-rules) pitfalls and
+unexpected behavior when designing retention policies.
+
+The Build History Manager plugin allows you to define complex rules containing multiple conditions and actions
+per [rule](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java). The plugin integrates
+directly with Jenkins core via
+the [BuildHistoryManager](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/BuildHistoryManager.java)
+class, which extends [BuildDiscarder](https://javadoc.jenkins.io/jenkins/model/BuildDiscarder.html). At the execution
+layer, the  [Rule.perform()](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/Rule.java) method
+acts as the primary engine for evaluating rule conditions and dispatching corresponding actions.
 
 ## Troubleshooting
-The plugin is called by the Jenkins core when the build is completed.
-It is not tied to any particular run such as the last completed run, which could potentially be deleted by certain actions.
-To assist with troubleshooting and analysis, the plugin logs helpful messages to the [Jenkins logs](https://www.jenkins.io/doc/book/system-administration/viewing-logs/).
+
+The plugin is called by the Jenkins core when the build is completed. It is not tied to any particular run such as the
+last completed run, which could potentially be deleted by certain actions. To assist with troubleshooting and analysis,
+the plugin logs helpful messages to
+the [Jenkins logs](https://www.jenkins.io/doc/book/system-administration/viewing-logs/).
 
 ## Test & debug
+
 For debugging purposes, you can use the
-[ChangeBuildDescriptionAction](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/ChangeBuildDescriptionAction.java) action.
-This action allows you to update the build description,
-making it convenient to test and debug conditions before applying actual deletions as actions.
+[ChangeBuildDescriptionAction](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/ChangeBuildDescriptionAction.java)
+action. This action allows you to update the build description, making it convenient to test and debug conditions before
+applying actual deletions as actions.
+
+Use
+the [ChangeBuildDescriptionAction](./src/main/java/pl/damianszczepanik/jenkins/buildhistorymanager/model/actions/ChangeBuildDescriptionAction.java)
+to safely test and debug your rules. This action updates the build description, letting you verify that conditions match
+the intended builds before applying deletion actions.
 
 ## Code quality
-Once you have developed a new feature or improvement,
-it is essential to conduct thorough testing by implementing multiple
-[unit](https://en.wikipedia.org/wiki/Unit_testing) or [integration](https://en.wikipedia.org/wiki/Integration_testing) tests.
-This ensures the reliability and functionality of the implemented changes. 
+
+When developed a new feature or improvement, it is essential to conduct thorough testing by implementing multiple
+[unit](https://en.wikipedia.org/wiki/Unit_testing) or [integration](https://en.wikipedia.org/wiki/Integration_testing)
+tests. This ensures the reliability and functionality of the implemented changes.
 
 ![codecov.io](https://codecov.io/gh/jenkinsci/build-history-manager-plugin/branch/master/graphs/tree.svg)
 
 ## Release notes
-Please refer to the [release notes](https://github.com/jenkinsci/build-history-manager-plugin/releases)
-for the changelog and specific details about the changes made in each version.
+
+Check [release notes](https://github.com/jenkinsci/build-history-manager-plugin/releases).
 
 ## Contribution
-If you come across an issue, you can contribute by either sending a pull request to resolve it or filing a bug report.
-This applies similarly if you come across a missing `Action` or `Condition`.
-In addition, it is important to remember the following steps:
+
+If you discover an issue or need a missing `action` or `condition`, we welcome your contributions. You can help improve
+the plugin by filing a detailed bug report or submitting a pull request with your proposed fix or enhancement. When
+contributing code, please remember to include comprehensive tests and update relevant documentation to support your
+changes.
 
 - Conduct tests on your local Jenkins instance to ensure the changes work as expected.
-- Include new unit tests following the [given -> when -> then](https://pl.wikipedia.org/wiki/Behavior-driven_development) approach to verify the behavior of the changes.
+- Include new unit tests following
+  the [given -> when -> then](https://pl.wikipedia.org/wiki/Behavior-driven_development) approach to verify the behavior
+  of the changes.
 - Remember to perform integration tests to ensure the changes integrate smoothly with the overall system.
 - Update the wiki documentation to reflect the changes made.
