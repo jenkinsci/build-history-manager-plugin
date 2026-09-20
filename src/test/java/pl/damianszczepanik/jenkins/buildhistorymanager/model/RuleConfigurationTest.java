@@ -47,4 +47,19 @@ class RuleConfigurationTest {
         // then
         assertThat(configuration.getMatchAtMost()).isEqualTo(matchAtMost);
     }
+
+    @Test
+    void setMatchAtMost_ForInvalidMatchAtMost_DoesNotChangeMatchAtMost() {
+
+        // given
+        RuleConfiguration configuration = new RuleConfiguration();
+        int matchAtMost = 34;
+        configuration.setMatchAtMost(matchAtMost);
+
+        // when
+        configuration.setMatchAtMost(RuleConfiguration.MATCH_UNLIMITED - 1);
+
+        // then
+        assertThat(configuration.getMatchAtMost()).isEqualTo(matchAtMost);
+    }
 }
