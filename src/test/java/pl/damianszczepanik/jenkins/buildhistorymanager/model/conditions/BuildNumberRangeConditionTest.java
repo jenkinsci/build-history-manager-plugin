@@ -31,7 +31,22 @@ class BuildNumberRangeConditionTest {
     }
 
     @Test
-    void setMaxBuildNumber_SetsMinBuildNumber() {
+    void setMinBuildNumber_ForInvalidBuildNumber_DoesNotChangeMinBuildNumber() {
+
+        // given
+        BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
+        final int invalidBuildNumber = -1;
+        condition.setMinBuildNumber(minBuildNumberRange);
+
+        // when
+        condition.setMinBuildNumber(invalidBuildNumber);
+
+        // then
+        assertThat(condition.getMinBuildNumber()).isEqualTo(minBuildNumberRange);
+    }
+
+    @Test
+    void setMaxBuildNumber_SetsManBuildNumber() {
 
         // given
         BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
@@ -43,6 +58,21 @@ class BuildNumberRangeConditionTest {
 
         // then
         assertThat(returnedMaxBuildNumber).isEqualTo(maxBuildNumber);
+    }
+    
+    @Test
+    void setMaxBuildNumber_ForInvalidBuildNumber_DoesNotChangeMaxBuildNumber() {
+
+        // given
+        BuildNumberRangeCondition condition = new BuildNumberRangeCondition();
+        final int invalidBuildNumber = -1;
+        condition.setMaxBuildNumber(maxBuildNumberRange);
+
+        // when
+        condition.setMaxBuildNumber(invalidBuildNumber);
+
+        // then
+        assertThat(condition.getMaxBuildNumber()).isEqualTo(maxBuildNumberRange);
     }
 
     @Test

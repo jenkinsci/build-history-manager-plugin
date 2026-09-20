@@ -13,12 +13,14 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.utils.RunStub;
  */
 class BuildAgeRangeConditionTest {
 
+    private final int minBuildAge = 123654;
+    private final int maxBuildAge = minBuildAge + 10;
+
     @Test
-    void setMinAgeNumber_SetsMinBuildNumber() {
+    void getMinDaysAge_GetsMinDaysAge() {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
-        final int minBuildAge = 123654;
         condition.setMinDaysAge(minBuildAge);
 
         // when
@@ -29,11 +31,24 @@ class BuildAgeRangeConditionTest {
     }
 
     @Test
-    void setMaxAgeNumber_SetsMinBuildNumber() {
+    void getMinDaysAge__ForInvalidMinDaysAge_DoesNotChangeMinDaysAge() {
 
         // given
         BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
-        final int maxBuildAge = 123654;
+        condition.setMinDaysAge(minBuildAge);
+
+        // when
+        condition.setMinDaysAge(-1);
+
+        // then
+        assertThat(condition.getMinDaysAge()).isEqualTo(minBuildAge);
+    }
+
+    @Test
+    void getMaxDaysAge_GetsMaxDaysAge() {
+
+        // given
+        BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
         condition.setMaxDaysAge(maxBuildAge);
 
         // when
@@ -41,6 +56,20 @@ class BuildAgeRangeConditionTest {
 
         // then
         assertThat(returnedMaxBuildAge).isEqualTo(maxBuildAge);
+    }
+
+    @Test
+    void getMaxDaysAge__ForInvalidMaxDaysAge_DoesNotChangeMaxDaysAge() {
+
+        // given
+        BuildAgeRangeCondition condition = new BuildAgeRangeCondition();
+        condition.setMaxDaysAge(maxBuildAge);
+
+        // when
+        condition.setMaxDaysAge(-1);
+
+        // then
+        assertThat(condition.getMaxDaysAge()).isEqualTo(maxBuildAge);
     }
 
     @Test

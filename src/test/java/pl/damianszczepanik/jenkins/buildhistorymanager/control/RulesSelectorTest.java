@@ -13,11 +13,11 @@ import pl.damianszczepanik.jenkins.buildhistorymanager.model.Rule;
  */
 class RulesSelectorTest {
 
-    private final static Rule GLOBAL_FIRST = new NamedRule("GLOBAL_FIRST");
-    private final static Rule GLOBAL_SECOND = new NamedRule("GLOBAL_SECOND");
+    private static final Rule GLOBAL_FIRST = new NamedRule("GLOBAL_FIRST");
+    private static final Rule GLOBAL_SECOND = new NamedRule("GLOBAL_SECOND");
 
-    private final static Rule JOB_FIRST = new NamedRule("JOB_FIRST");
-    private final static Rule JOB_SECOND = new NamedRule("JOB_SECOND");
+    private static final Rule JOB_FIRST = new NamedRule("JOB_FIRST");
+    private static final Rule JOB_SECOND = new NamedRule("JOB_SECOND");
 
     @Test
     void selectRolesToExecute_ForJOB_ONLY_ReturnsOnlyJobRules() {

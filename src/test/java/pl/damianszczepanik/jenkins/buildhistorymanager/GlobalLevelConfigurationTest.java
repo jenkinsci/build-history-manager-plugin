@@ -41,7 +41,7 @@ class GlobalLevelConfigurationTest {
         configuration.setRules(null);
 
         // then
-        assertThat(configuration.getRules()).hasSize(0);
+        assertThat(configuration.getRules()).isEmpty();
     }
 
     @Test
@@ -54,7 +54,7 @@ class GlobalLevelConfigurationTest {
         List<Rule> rules = configuration.getRules();
 
         // then
-        assertThat(rules).hasSize(0);
+        assertThat(rules).isEmpty();
     }
 
     @Test
