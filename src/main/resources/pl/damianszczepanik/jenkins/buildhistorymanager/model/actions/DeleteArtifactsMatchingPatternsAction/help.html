@@ -1,0 +1,16 @@
+<p><b>Description</b></p>
+<p>Deletes build artifacts that match the Ant-style glob patterns provided.</p>
+<p><b>Include Patterns</b></p>
+<p>The include pattern is a comma-separated list of Ant-style globs that follows a specific format.
+    The path separator for this format is the forward slash (/) and an empty string is used in the include pattern to indicate that there are no matches.
+    If the goal is to match everything except for certain files (defined as "Exclude Patterns"), then the recommended approach is to use the value <code>**</code> here and call out exclusions below.</p>
+<p><b>Exclude Patterns</b></p>
+<p>The exclude pattern is an optional input that should be in the same format as the include pattern.</p>
+<p><b>Use cases</b></p>
+<p>To delete artifacts with a specific file extension, for example use the include pattern "**/*.log" to delete all the log files.</p>
+<p>To keep artifacts with a specific file extension, for example use the exclude pattern "**/*.log" to delete everything except the log files.</p>
+
+<p><b>Warning!</b></p>
+<p>It is important to note that this feature should be used with caution as it can be permanently
+    delete artifacts that may be important for later reference or analysis. It is recommended that users
+    carefully review the pattern and build history before executing the deletion.</p>
