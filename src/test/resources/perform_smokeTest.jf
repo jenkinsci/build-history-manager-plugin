@@ -1,0 +1,25 @@
+properties(
+    [
+        buildDiscarder(BuildHistoryManager(
+                [
+                    [
+                        actions: [DeleteArtifactsMatchingPatterns(excludePatterns: '**/*.log', includePatterns: '**')],
+                        conditions: [MatchEveryBuild()]
+                    ]
+                ]
+            )
+        )
+    ]
+)
+
+node {
+        writeFile file: 'test.xml', text: 'empty'
+        writeFile file: 'testLog.log', text: 'empty'
+        writeFile file: 'testTxt.txt', text: 'empty'
+        dir('testFolder'){
+            writeFile file: 'test1.xml', text: 'empty'
+            writeFile file: 'testLog1.log', text: 'empty'
+            writeFile file: 'testTxt1.txt', text: 'empty'
+        }        
+        archiveArtifacts artifacts: '**', followSymlinks: false
+}
